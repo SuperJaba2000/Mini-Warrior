@@ -470,15 +470,31 @@
 				let pTile = getTile(p.x, p.y);
 				
 				if(rightPressed) {//RIGHT
+				
+				    let rTile = getTile(p.x + 1, p.y);
 			        
+					if(rTile == undefined){
+					    p.x = 0;
+						map.tiles = generate(map.tiles.length, map.tiles[0].length);
+		
+						return;
+					}else{
+					    let info = getTileInfo(rTile);
+						
+					    if(info.canWalk){
+						   p.x += 1;
+						   
+						   return;
+						}
+					}
                 }
-                if(leftPressed) {//LEFT
+                else if(leftPressed) {//LEFT
                     
                 }
-				if(bottomPressed) {//BOTTOM
+				else if(bottomPressed) {//BOTTOM
 				    
                 }
-				if(topPressed) {//TOP
+				else if(topPressed) {//TOP
 
                 }
 				
