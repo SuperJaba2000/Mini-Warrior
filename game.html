@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta charset="utf-8" />
+        <title>Mini Warriors</title>
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+    
+    <body bgcolor="black">
+
+        <canvas id="world"></canvas>
+        <canvas id="inventory"></canvas>
+		
+		<button id="pauseButton" onclick="changePause()"> 
+		    <img src="assets/sprites/ui/pause.png" alt="pause" style="vertical-align: middle">
+		</button>
+
+		<big id="healthTitle" style="top: 20px;">health:</big>
+        <progress id="healthBar" max="100"><span id="value">100</span>%</progress>
+		
+		<input type="file" onchange="loadSaveFile(this)">
+		<a download="save.mwsave" href='#' id="save">Загрузить сохранение текушей карты</a>
+		
+		<script>
+		
+		    function setStyles(){
+			
+			inventory.width = world.width / 3;
+			inventory.height = world.height / 9.40;
+			
+            inventory.style.left = (window.innerWidth - world.width) / 2 + "px";
+			inventory.style.top = world.height - tileSize + "px";
+			inventory.height = tileSize - 4;
+			inventory.width = tileSize * 5 - 4;
+			
+			pauseButton.style.left = (window.innerWidth - world.width) / 2 + "px";
+			//pauseButton.height = pauseButton.width = tileSize;
+
+			healthBar.style.top = "45px";
+			healthBar.style.left = (window.innerWidth - (window.innerWidth - world.width) / 2 * 4) + "px";
+			healthTitle.style.left = (window.innerWidth - (window.innerWidth - world.width) / 2 * 4) + 50 + "px";
+			}
+			
+			const scene = world.getContext("2d");
+			const inventoryDraw = inventory.getContext("2d");
+
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			const gameModes = {//TODO delete
+			
+			    menu(){
+				    if(intervalUpdate !== undefined || intervalUpdate !== null) clearInterval(intervalUpdate);
+				}, 
+				
+				gaming(){
+				    if(intervalUpdate !== undefined || intervalUpdate !== null){
+					    clearInterval(intervalUpdate);
+						intervalUpdate = setInterval(() => update(), 10);
+					}else{
+					    intervalUpdate = setInterval(() => update(), 10);
+					}
+				}, 
+				
+				attack(target){
+				
+				},
+			}
+			
+			var onlineMode = false, gameMode = gameModes.menu, useTextures = false, pause = false, n = null;
+			
+			const inventoryStorage = [
+			
+			    [],
+				
+				[],
+			    [],
+				[],
+			];
+			
+						
+			let quantHeight = 0, quantWidth = 0;//Size of map
+				
+	        let tileSize = 64;//Size of one tile & one texture
+			
+			world.height = quantHeight * tileSize;
+			world.width = quantWidth * tileSize;
+			
+			setStyles();
+				
+            /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			const random = {
+			
+			    basic(min, max){
+                    let rand = min + Math.random() * (max + 1 - min);
+                    return Math.floor(rand);
+                },
+				
+				percent(percent){
+                    const accident = (this.basic(0, 100) <= percent) ? true : false;
+					return accident;
+				},
+			}
+		
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		
+            let lastId = 0;
+			let lastEntityId = 0;
+
+            class BasicContent{//BLOCKS, FLOORS AND MORE
+	
+	            constructor() {
+                    this.id = lastId + 1;
+					lastId++;
+                }
+            }
+			
+			class BasicEntity{//MOBS 
+	
+	            constructor() {
+                    this.id = lastEntityId + 1;
+					lastEntityId++;
+                }
+            }
+			
+			class Map{////////////////////////////////////////////
+			
+			    constructor(id, name) {
+				
+				    this.id = id;
+					this.name = name;
+				}
+				
+				player = {
+			    
+				    id: !onlineMode ? 0 : null,//TODO online mode
+					color: "#8B0000",
+			
+			        isDead: false,
+				    lvl: 1,
+				
+			        x: 2, 
+				    y: 2,
+			
+			        maxHealth: 100,
+					health: 100,
+			        speed: 1.0,
+			        attack: 15,
+			
+			        damage(amout){
+				
+			            if(this.health <= 0){
+					        this.isDead = true;
+					    }else{
+					        this.health -= amout;
+							
+						    if(this.health <= 0)this.isDead = true;
+					    }
+			        },
+			    }
+				
+				tiles = [  
+					["aboba",],
+					["abogus",],
+					["ambobus",],
+				]
+			}/////////////////////////////////////////////////////
+
+            class MappableContent extends BasicContent{
+	
+                constructor(name) {
+		            super();
+		
+	                this.name = name;
+	                this.description = "";
+                }
+            }
+
+            class Block extends MappableContent {
+	   
+	            constructor(name, variants) {
+		            super(name);
+		
+                    this.variants = variants;
+                }
+	
+	            variants = 0;
+				color = "#000000";
+				stillDrawFloor = false;
+	
+	            textureRegion(){
+		
+		            if(this.variants = 0){
+			            return this.name + ".png"
+		            }else{
+			            return (this.name + random(1, this.variants) + ".png")
+		            }
+                }
+            }
+			
+			class Floor extends Block{
+	   
+	            constructor(name, variants) {
+		            super(name, variants);
+                }
+	
+	            variants = 0;
+				speedMultiplier = 1.0;
+				damageTaken = 0.0;
+				color = "#000000";
+				canWalk = true;
+	
+	            textureRegion(){
+		
+		            if(this.variants = 0){
+			            return this.name + ".png"
+		            }else{
+			            return (this.name + random(1, this.variants) + ".png")
+		            }
+                }
+            }
+		
+		
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+			/// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			//floors
+			
+			const barrierFloor = new Floor("barrier-floor", 0);
+			barrierFloor.color = "#ffffff00";
+			
+			const grassFloor = new Floor("grass-floor", 0);
+			grassFloor.color = "#00FF00";
+			
+			const sandFloor = new Floor("sand-floor", 0);
+			sandFloor.color = "#F0E68C";
+			
+			//liquids
+				
+			const water = new Floor("water", 0);
+			water.color = "#199DFF";
+			speedMultiplier = 0.3;
+				
+			const deepWater = new Floor("deep-water", 0);
+			deepWater.color = "#006ADA";
+			deepWater.canWalk = false;
+			
+			//blocks
+			
+			const barrierBlock = new Block("air-block", 0);
+			barrierBlock.color = "#ffffff00";
+			
+			const grassBlock = new Block("grass-block", 0);
+			grassBlock.color = "#32CD32";
+			
+			const sandBlock = new Block("sand-block", 0);
+			sandBlock.color = "#BDB76B";
+			
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+			/// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			function t(floor, block, decor){
+			    return {
+				    floor: floor, 
+					block: block, 
+					decor: decor,
+				}
+			}
+			
+			var map = new Map(0, "test-map");
+			map.tiles = [
+			
+			    [t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+
+                [t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+
+                [t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+
+                [t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+
+                [t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+				
+				[t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+				
+				[t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+				
+				[t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n), t(water, n, n)],
+            ]
+			
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+			/// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			save.onclick = function(){
+			
+			    let mapJson = JSON.stringify(map, null, 2);
+                let mapFile = new Blob([mapJson], {type: 'text/plain'});
+
+                save.href = URL.createObjectURL(mapFile);
+			}
+			
+			function loadSaveFile(files) {
+			
+                let saveFile = files.files[0];
+
+                let reader = new FileReader();
+
+                reader.readAsText(saveFile);
+
+                reader.onload = function() {
+                    map = JSON.parse(reader.result);
+					
+					console.log("Successful reading of the world data: \n " + reader.result)
+                };
+
+                reader.onerror = function() {
+                    console.log("Error reading world data: \n " + reader.error);
+                };
+            }
+			
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+			/// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			function getTile(x, y) {
+                return map.tiles[y - 1][x - 1];
+            }
+			
+			function getTileInfo(tile){
+			
+			    const info = {
+				
+				    hasBlock: tile.block !== null ? true : false,
+					stillDrawFloor: this.hasBlock ? tile.block.stillDrawFloor : false,
+					
+					canWalk: !this.hasBlock && tile.floor.canWalk ? true : false,
+					
+					speedMultiplier: this.canWalk ? tile.floor.speedMultiplier : 0,
+				};
+				
+				return info;
+			}
+			
+			function changePause(){
+			    if(pause){
+				    pause = false;
+				}else{
+				    pause = true;
+				}
+			}
+			
+			///////////////////////////////////////////////////////////////////////////////
+			
+			var rightPressed = false;
+            var leftPressed = false;
+			var bottomPressed = false;
+			var topPressed = false;
+			
+			document.addEventListener("keydown", keyDown, false);
+            document.addEventListener("keyup", keyUp, false);
+			
+			function keyDown(e) {
+                if(e.keyCode == 39) {
+                    rightPressed = true;
+                }
+                else if(e.keyCode == 37) {
+                    leftPressed = true;
+                }
+				else if(e.keyCode == 40) {
+                    bottomPressed = true;
+                }
+				else if(e.keyCode == 38) {
+                    topPressed = true;
+                }
+            }
+
+            function keyUp(e) {
+                if(e.keyCode == 39) {
+                    rightPressed = false;
+                }
+                else if(e.keyCode == 37) {
+                    leftPressed = false;
+                }
+				else if(e.keyCode == 40) {
+                    bottomPressed = false;
+                }
+				else if(e.keyCode == 38) {
+                    topPressed = false;
+                }
+            }
+			
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+			/// /// /// /// /// /// /// /// /// /// /// /// ///
+
+            function drawInventoryLine(){
+			    inventoryDraw.strokeStyle = "#69696985";
+			    inventoryDraw.strokeRect(0, 0, inventory.width, inventory.height)
+			    inventoryDraw.strokeRect(2, 2, inventory.width-2, inventory.height-2)
+			}
+			
+			function drawInventoryFull(){}
+			
+			function drawTiles(){/////////////////////////////////////////////////////
+
+				let element = 1, koordX = 0, koordY = 0, line = 1;
+				
+				while(line < (quantHeight + 1)){
+				
+				    while(element < (quantWidth + 1)){
+					    
+						let tile = getTile(element, line);
+						let tileInfo = getTileInfo(tile);
+						
+						if(useTextures){
+						    //TODO
+						    //draw textures
+						}else{
+						    
+							//draw colors
+							if(tileInfo.hasBlock){//draw block
+							
+							    if(tileInfo.stillDrawFloor){//if still draw floor
+								    
+									scene.strokeStyle = tile.floor.color;
+							        scene.strokeRect(koordX, koordY, tileSize, tileSize);
+								}
+							
+							    scene.fillStyle = tile.block.color;
+							    scene.fillRect(koordX, koordY, tileSize, tileSize);
+								
+							}else{//draw floor
+							
+							    scene.strokeStyle = tile.floor.color;
+							    scene.strokeRect(koordX, koordY, tileSize, tileSize);
+								
+								//scene.fillStyle = tile.floor.color;
+							    //scene.fillRect(koordX, koordY, tileSize, tileSize);
+							}
+						}
+						
+						element++;
+						koordX += tileSize;
+						
+					}
+				    			
+                    line++;
+				
+			        koordY = (tileSize * (line - 1));
+				    koordX = 0;
+					element = 1;
+				
+				}
+			}/////////////////////////////////////////////////////////////////////////
+			
+			function drawPlayer(){
+			
+				let p = map.player;
+				
+				let pTile = getTile(p.x, p.y);
+				
+				if(rightPressed) {//RIGHT
+			        
+                }
+                if(leftPressed) {//LEFT
+                    
+                }
+				if(bottomPressed) {//BOTTOM
+				    
+                }
+				if(topPressed) {//TOP
+
+                }
+				
+                scene.fillStyle = p.color;
+				scene.fillRect((tileSize * (p.x - 1)), (tileSize * (p.y - 1)), tileSize, tileSize);
+				
+			}
+			
+			function update() {
+			
+			    if(!pause){
+				
+				setStyles();
+				
+				quantHeight = map.tiles.length, quantWidth = map.tiles[0].length;
+				
+			    world.height = quantHeight * tileSize;
+			    world.width = quantWidth * tileSize;
+			
+			    //clear canvas
+                scene.clearRect(0, 0, world.width, world.height)
+				inventoryDraw.clearRect(0, 0, inventory.width, inventory.height)
+
+                //draw new
+				drawInventoryLine()
+                drawTiles()
+				
+                drawPlayer()
+				
+				}
+            }
+
+            let intervalUpdate = setInterval(() => update(), 1);
+
+		</script>
+    </body>
+</html>
