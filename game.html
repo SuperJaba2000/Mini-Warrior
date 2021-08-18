@@ -24,7 +24,7 @@
 		<a download="save.mwsave" href='#' id="save">Загрузить сохранение текушей карты</a>
 		
 		<script>
-		
+		 
 		    function setStyles(){
 			
 			inventory.width = world.width / 3;
@@ -328,6 +328,10 @@
                 };
             }
 			
+			function generate(height, width){
+			    const genMap = [];
+			
+			}
 		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
 			/// /// /// /// /// /// /// /// /// /// /// /// ///
@@ -366,22 +370,46 @@
 			var bottomPressed = false;
 			var topPressed = false;
 			
+			var canMove = true;
+			
 			document.addEventListener("keydown", keyDown, false);
             document.addEventListener("keyup", keyUp, false);
 			
+			function moveTrue(){canMove = true};
+			
 			function keyDown(e) {
-                if(e.keyCode == 39) {
-                    rightPressed = true;
-                }
-                else if(e.keyCode == 37) {
-                    leftPressed = true;
-                }
-				else if(e.keyCode == 40) {
-                    bottomPressed = true;
-                }
-				else if(e.keyCode == 38) {
-                    topPressed = true;
-                }
+			    
+				if(canMove){
+                    if(e.keyCode == 39) {
+                        rightPressed = true;
+						
+						canMove = false;
+						setTimeout(function a(){rightPressed = false}, 11);
+						setTimeout(moveTrue, 50);
+                    }
+                    else if(e.keyCode == 37) {
+                        leftPressed = true;
+						
+						canMove = false;
+						leftPressed = false;
+						setTimeout(moveTrue, 50);
+						
+                    }
+				    else if(e.keyCode == 40) {
+                        bottomPressed = true;
+						
+						canMove = false;
+						bottomPressed = false;
+						setTimeout(moveTrue, 50);
+                    }
+				    else if(e.keyCode == 38) {
+                        topPressed = true;
+						
+						canMove = false;
+						topPressed = false;
+						setTimeout(moveTrue, 50);
+                    }
+				}
             }
 
             function keyUp(e) {
