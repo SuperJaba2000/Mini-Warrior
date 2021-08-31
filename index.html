@@ -11,13 +11,17 @@
 		    <nav id="bigMenu">
 			    <div class="title">Menu</div>
 				<ul class="list-items">
-				    <li><a href="#"><i class="fas fa-play"></i>Play</a></li>
+				    <li><a onclick="play()"><i class="fas fa-play"></i>Play</a></li>
 					<li><a href="#"><i class="fas fa-cogs"></i>Settings</a></li>
 					<li><a href="#"><i class="fas fa-info"></i>Info</a></li>
 				</ul>
 			</nav>
 		</div>
 		<script>
+		    function play(){
+			    const game = window.open('./mini-warriors/game.html','Game');
+                window.open('', '_self', ''); window.close();
+			}
 		</script>
     </body>
 </html>
