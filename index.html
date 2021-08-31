@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
         <meta charset="utf-8" />
-        <title>Menu</title>
+        <title>Mini|Warriors</title>
         <link rel="stylesheet" href="style.css">
-
+	<script src="https://kit.fontawesome.com/1d64fea1fc.js"></script>
     </head>
-    
-    <body bgcolor="green">
-		
-		<h1 align="centre">Привет! Я-Евгений, ты-бот(ибо люди сюда не заходят)</h1>
-		<p align="centre"><big> Ну, можешь в игру поиграть получаетсца(</big><button onclick="play()">Клик-с</button><big>)</big></p>
-		
+    <body>
+        <div class="bigMenu-wrapper">
+		    <nav id="bigMenu">
+			    <div class="title">Menu</div>
+				<ul class="list-items">
+				    <li><a href="#"><i class="fas fa-play"></i>Play</a></li>
+					<li><a href="#"><i class="fas fa-cogs"></i>Settings</a></li>
+					<li><a href="#"><i class="fas fa-info"></i>Info</a></li>
+				</ul>
+			</nav>
+		</div>
 		<script>
-		
-            function play(){
-			    const game = window.open('game.html','popup');
-                            window.open('', '_self', ''); window.close();
-			}
 		</script>
     </body>
 </html>
