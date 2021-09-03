@@ -25,7 +25,7 @@
 		
 		<script>
 		 
-		    function setStyles(){
+		    /*function setStyles(){
 			
 			inventory.width = world.width / 3;
 			inventory.height = world.height / 9.40;
@@ -41,7 +41,7 @@
 			healthBar.style.top = "45px";
 			healthBar.style.left = (window.innerWidth - (window.innerWidth - world.width) / 2 * 4) + "px";
 			healthTitle.style.left = (window.innerWidth - (window.innerWidth - world.width) / 2 * 4) + 50 + "px";
-			}
+			}*/
 			
 			const scene = world.getContext("2d");
 			const inventoryDraw = inventory.getContext("2d");
@@ -174,11 +174,8 @@
 				]
 			}/////////////////////////////////////////////////////
 
-            class MappableContent extends BasicContent{
-	
-                constructor(name) {
-		            super();
-		
+            class MappableContent{
+                constructor(name) {		
 	                this.name = name;
 	                this.description = "";
                 }

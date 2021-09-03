@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+    <meta charset="utf-8" />
+    <title>generator</title>
+   </head>
+    <body>
+	
+		<big align="center"><form action="/my-handling-form-page">
+                Map-Height:
+                <input type="text" id="height" name="map_height"><br>
+                Map-Width:
+                <input type="text" id="width" name="map_width"><br>
+					
+				<br>Generator type:<br>
+				<a align="right">
+                    <input type="radio" name="genType" checked="true" value="noise">Random(messy blocks)<br>
+                    <input type="radio" name="genType" value="smart">Noise(use noise function)
+				</a><br>
+        </form></big>
+
+		<script>
+		    const noise = "noise";
+			const smart = "smart";
+			
+		    var gen = noise;
+			
+            function saveHeight(){
+			    alert("yess");
+			}
+			
+		    function gend(){
+			    alert(gen);
+			}
+		    
+		</script>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Mini|Warriors</title>
+        <link rel="stylesheet" href="assets/gameStyle.css">
+    </head>
+    <body>
+		<canvas id="world"></canvas>
+		<canvas id="inventory"></canvas>
+		<a id="debug" align="left"></a>
+		
+		<script src='util/random.js'></script>
+		<script src='util/perlin.js'></script>
+		
+		<script src='content/blocks.js'></script>
+		
+		<script>
+		
+		    const version = "PC-0.01"
+		    debug.innerHTML = "Version: " + version;
+		
+		    const worldDraw = world.getContext("2d");
+		    const inventoryDraw = inventory.getContext("2d");
+
+            const Settings = {
+		        graphics: {
+			        useTextures: false,
+			    },
+
+                debug: {
+			        tileSize: 64,
+				    pause: false,
+			    },
+		    }, n = null;
+		
+            /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			class Map{
+			    constructor(id, name){
+				    this.id = id;
+					this.name = name;
+				}
+				
+				player = {
+			        x: 2, 
+				    y: 2,
+			    }
+				
+				tiles = [];
+			}
+
+            
+		</script>
+    </body>
+</html>
