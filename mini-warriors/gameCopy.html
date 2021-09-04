@@ -21,7 +21,7 @@
 		<script>
 		
 		    const gameVersion = "PC-0.01"
-		    debug.innerHTML = "Version: " + version;
+		    debug.innerHTML = "Version: " + gameVersion;
 		
 		    const worldDraw = world.getContext("2d");
 		    const inventoryDraw = inventory.getContext("2d");
@@ -49,7 +49,35 @@
 				return file;
 			}
 			
+			function getTile(x, y) {
+                return pMap.tiles[y - 1][x - 1];
+            }
 			
+			function getTileInfo(tile){
+			
+			    const info = {
+				
+				    hasBlock: tile.block !== null ? true : false,
+					stillDrawFloor: this.hasBlock ? tile.block.stillDrawFloor : false,
+					
+					canWalk: !this.hasBlock && tile.floor.canWalk ? true : false,
+					
+					speedMultiplier: this.canWalk ? tile.floor.speedMultiplier : 0,
+				};
+				
+				return info;
+			}
+			
+			function changePause(){
+				Settings.debug.pause = Settings.debug.pause ? false : true;
+			}
+			
+			function changeMap(map){
+			    pMap = map;
+				
+				world.width = pMap.width * Settings.debug.tileSize;
+				world.height = pMap.height * Settings.debug.tileSize;
+			}
             
 		</script>
     </body>
