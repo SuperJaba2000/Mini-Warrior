@@ -1,25 +1,34 @@
-class Biome{
-	constructor(name, temperature){
-		this.name = name;
-		this.temp = temperature;
+class Tile{
+	
+	biome = null;
+	
+	constructor(floor, block, decor){
+		this.floor = floor;
+		this.decor = decor;		
+	    this.block = block;
 	}
-	
-	
 }
 
 class Map{
-	constructor(id, name){
-		this.id = id;
+	
+	name = "";
+	displayName = "Unknown";
+	version = "";
+	
+	width = 1;
+	height = 1;
+	
+	constructor(name, width, height, version){
 		this.name = name;
+		this.width = width;
+		this.height = height;
+		this.version = version;
+		
+		this.tiles = generateEmpty(this.width, this.height, grassFloor);
 	}
 				
-	player = {}
-				
+	player = new Player;		
 	tiles = [];
-}
-
-class Sector{
-	
 }
 
 class Region{

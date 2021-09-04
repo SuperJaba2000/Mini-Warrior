@@ -1,11 +1,22 @@
-const random = {
+class Biome{
+	constructor(name, temperature){
+		this.name = name;
+		this.temp = temperature;
+	}
 	
-	basic(min, max){
-        let rand = min + Math.random() * (max + 1 - min);
-        return Math.floor(rand);
-    },
-				
-	percent(percent){
-		return this.basic(0, 100) <= percent ? true : false;
-	},
+	
+}
+
+function generateEmpty(width, height, floor){
+	const e = [];
+	
+	e.length = height;
+	for(var line = 0; line < height; line++){
+		var l = []; l.length = width;
+		for(var block = 0; block < width; block++){
+			l[block] = new Tile(floor, null, null);
+		}
+		e[line] = l;
+	}
+	return e;
 }

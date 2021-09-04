@@ -12,12 +12,15 @@
 		
 		<script src='util/random.js'></script>
 		<script src='util/perlin.js'></script>
+		<script src='util/generator.js'></script>
 		
 		<script src='content/blocks.js'></script>
-		
+		<script src='content/map.js'></script>
+		<script src='content/player.js'></script>
+
 		<script>
 		
-		    const version = "PC-0.01"
+		    const gameVersion = "PC-0.01"
 		    debug.innerHTML = "Version: " + version;
 		
 		    const worldDraw = world.getContext("2d");
@@ -33,25 +36,20 @@
 				    pause: false,
 			    },
 		    }, n = null;
+			
+			let pMap = new Map("test", 20, 20, gameVersion);
 		
             /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// ///
 			
-			class Map{
-			    constructor(id, name){
-				    this.id = id;
-					this.name = name;
-				}
-				
-				player = {
-			        x: 2, 
-				    y: 2,
-			    }
-				
-				tiles = [];
+            function save(){
+                let file = new Blob([JSON.stringify(pMap, null, 2)], {type: 'text/plain'});
+                /*save.href = URL.createObjectURL(file);*/
+				return file;
 			}
-
+			
+			
             
 		</script>
     </body>

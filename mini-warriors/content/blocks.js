@@ -20,14 +20,6 @@ class Floor extends Block{
 	canWalk = true;
 }
 			
-class Tile{
-	constructor(floor, block, decor){
-		this.floor = floor;
-		this.decor = decor;		
-	    this.block = block;
-	}
-}
-			
 /// /// /// /// /// /// /// /// /// /// /// /// /// 
 /// /// /// /// /// /// /// /// /// /// /// /// /// 
 /// /// /// /// /// /// /// /// /// /// /// /// ///
