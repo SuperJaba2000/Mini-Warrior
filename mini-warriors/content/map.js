@@ -1,6 +1,8 @@
 class Tile{
 	
 	biome = null;
+	x = 0;
+	y = 0;
 	
 	constructor(floor, block, decor){
 		this.floor = floor;
@@ -11,7 +13,7 @@ class Tile{
 
 class Map{
 	
-	name = "";
+	name = "unknown";
 	displayName = "Unknown";
 	version = "";
 	
@@ -24,20 +26,12 @@ class Map{
 		this.height = height;
 		this.version = version;
 		
-		this.tiles = generateEmpty(this.width, this.height, grassFloor);
+		if(this.width % 2 === 0) this.width++
+		if(this.height % 2 === 0) this.height++
+		
+		this.tiles = generate.emptyCoordinates(this.width, this.height, grassFloor);
 	}
 				
 	player = new Player;		
 	tiles = [];
-}
-
-class Region{
-	constructor(name, autor){
-		this.name = name;
-		this.autor = autor;
-	}
-	
-	sectors = [
-		
-	]
 }

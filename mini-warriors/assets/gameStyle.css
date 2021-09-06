@@ -16,9 +16,7 @@ body, html {
     display: block; 
 	border: dashed #B22222;
 	
-	position: absolute;
-	top: 0;
-	left: 0;
+	margin: 0 auto;
 }
 
 #inventory{
@@ -34,3 +32,13 @@ body, html {
 	left: 0;
 }
 
+#varsion{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#coordinates{
+	position: absolute;
+	left: 0;
+}

@@ -6,9 +6,10 @@
         <link rel="stylesheet" href="assets/gameStyle.css">
     </head>
     <body>
+		<a id="version" align="left"></a><br>
+		<a id="coordinates" align="left"></a>
 		<canvas id="world"></canvas>
 		<canvas id="inventory"></canvas>
-		<a id="debug" align="left"></a>
 		
 		<script src='util/random.js'></script>
 		<script src='util/perlin.js'></script>
@@ -21,7 +22,6 @@
 		<script>
 		
 		    const gameVersion = "PC-0.01"
-		    debug.innerHTML = "Version: " + gameVersion;
 		
 		    const worldDraw = world.getContext("2d");
 		    const inventoryDraw = inventory.getContext("2d");
@@ -49,7 +49,7 @@
 				return file;
 			}
 			
-			function getTile(x, y) {
+			function getTile(x, y){
                 return pMap.tiles[y - 1][x - 1];
             }
 			
@@ -78,6 +78,47 @@
 				world.width = pMap.width * Settings.debug.tileSize;
 				world.height = pMap.height * Settings.debug.tileSize;
 			}
+			
+			function menu(){
+			    const menu = window.open('../index.html','Menu');
+                window.close()
+			}
+			
+            /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		    /// /// /// /// /// /// /// /// /// /// /// /// ///
+			
+			/*function update() {
+			
+			    if(!pause){
+				
+				setStyles();
+				
+				quantHeight = map.tiles.length, quantWidth = map.tiles[0].length;
+				
+			    world.height = quantHeight * tileSize;
+			    world.width = quantWidth * tileSize;
+			
+			    //clear canvas
+                scene.clearRect(0, 0, world.width, world.height)
+				inventoryDraw.clearRect(0, 0, inventory.width, inventory.height)
+
+                //draw new
+				drawInventoryLine()
+                drawTiles()
+				
+                drawPlayer()
+				
+				}
+            }*/
+			
+			function update() {
+			    version.innerHTML = "Version: " + gameVersion;
+				coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
+			    if(!Settings.debug.pause){}
+            }
+
+            let intervalUpdate = setInterval(() => update(), 1);
             
 		</script>
     </body>

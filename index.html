@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Mini|Warriors</title>
-        <link rel="stylesheet" href="/util/mainStyle.css">
+        <link rel="stylesheet" href="assets/mainStyle.css">
 	<script src="https://kit.fontawesome.com/1d64fea1fc.js"></script>
     </head>
     <body>
@@ -11,7 +11,7 @@
 		    <nav id="bigMenu">
 			    <div class="title">Menu</div>
 				<ul class="list-items">
-				    <li><a onclick="play()"><i class="fas fa-play"></i>Play</a></li>
+				    <li><a href="mini-warriors/gameCopy.html"><i class="fas fa-play"></i>Play</a></li>
 					<li><a href="#"><i class="fas fa-cogs"></i>Settings</a></li>
 					<li><a href="#"><i class="fas fa-info"></i>Info</a></li>
 				</ul>
@@ -20,7 +20,7 @@
 		<script>
 		    function play(){
 			    const game = window.open('mini-warriors/gameCopy.html','Game');
-                window.close();
+                window.open();window.close();
 			}
 		</script>
     </body>
