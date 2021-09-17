@@ -7,7 +7,7 @@ const generate = {
 	        for(var line = 0; line < height; line++){
 	    	        var l = []; l.length = width;
 		        for(var block = 0; block < width; block++){
-			        l[block] = new Tile(floor, random.chance(8) ? grassBlock : null, null);
+			        l[block] = new Tile(null, null, null);
 					
 				//generation barriers aroundmap
 				if(line == 0 || block == 0) l[block].block = barrierBlock;
@@ -25,7 +25,7 @@ const generate = {
 	        const centerY = Math.round(height / 2);
 	
 	        var cx = -(tiles[0].length - centerX);
-	        var cy = 0, x = 0, y = 0;
+	        var cy = tiles.length - centerY, x = 0, y = 0;
 	
 	        while(y < tiles.length){
 	    	        while(x < tiles[0].length){
@@ -54,39 +54,30 @@ const generate = {
 		const tiles = this.emptyCoordinates(width, height, grassFloor);
 
                 //generate biomes
-               /* for(var y = 0; y < width; y++){
-                        for(var x = 0; x < height; x++){
-                                const tile = tiles[y][x];
+                for(var y = 0; y < tiles.length; y++){
+                        for(var x = 0; x < tiles[0].length; x++){
+                                var tile = tiles[y][x];
+				noise.setSeed(seed);
+				const h =  Math.abs(noise.perlin2(x / 140, y / 140));
 	
-	            if(height <= 0.3){                               //rivers
-	                tile.biome = "river"; tile.block = null;
-					tile.floor = height <= 0.1 ? deepWater : water;
-	            }else if(height <= 0.37){                         //beachs
-	                tile.biome = "beach";
-					tile.floor = sandFloor;
-	            }else if(height <= 0.51){                         //biomes
-	                if(biome <= 0.5){
-						tile.biome = "meadow";
-						tile.floor = grassFloor;
-					}else{
-						tile.biome = "forest";
-						tile.floor = grassFloor;
-					}
-	            }else if(height <= 0.62){					      //mountains
-				    if(biome <= 0.5){
-						tile.biome = "classic-mountains";
-						tile.floor = stoneFloor;
-					}else{
-						tile.biome = "hills";
-						if(!(height <= 0.5)){
-							tile.floor = snowFloor;
-						}
-					}
-                }
-				//postgen
+	                        if(h <= 0.2){                               //rivers
+	                               tile.biome = "river";
+			               tile.floor = h <= 0.1 ? deepWater : water;
+	                        }else if(h <= 0.45){                         //beachs
+	                                tile.biome = "beach";
+			                tile.floor = sandFloor;
+	                        }else if(h <= 0.58){                         //biomes
+                                        tile.floor = grassFloor;
+	                        }else if(h <= 0.82){					      //mountains
+			                tile.floor = stoneFloor;
+			                tile.biome = "classic-mountains";
+		                }else{
+					tile.floor = snowFloor;		
+				}
 				tiles[y][x] = tile;
-            }
-		}*/
+                        }
+			//postgen
+                }
 		return tiles;
-    },
+        },
 }

@@ -6,10 +6,13 @@
         <link rel="stylesheet" href="assets/gameStyle.css">
     </head>
     <body>
-		<canvas id="world"></canvas>
-		<a id="version" align="left"></a><br>
-		<a id="coordinates" align="left"></a>
-		<canvas id="inventory"></canvas>
+	    <div id="scene">
+		    <canvas id="world"></canvas>
+		    <a id="version" align="left"></a><br>
+		    <a id="coordinates" align="left"></a>
+			<a id="biome" align="left"></a>
+		    <canvas id="inventory"></canvas>
+		</div>
 		
 		<script src="arc/Vars.js"></script>
 		<script src="arc/Graphic.js"></script>
@@ -25,21 +28,37 @@
 
 		<script>
 		
-		    const worldDraw = world.getContext("2d");
-            const inventoryDraw = inventory.getContext("2d");
+		        const worldDraw = world.getContext("2d");
+                        const inventoryDraw = inventory.getContext("2d");
 			
-			let pMap = new Map("test", 101, 221, 12345, gameVersion);
-			world.height = Math.min(screenSize.height * Settings.debug.tileSize, pMap.tiles.length * Settings.debug.tileSize);
-			world.width = Math.min(screenSize.width * Settings.debug.tileSize, pMap.tiles[0].length * Settings.debug.tileSize); 
-			pMap.tiles[5][5].block = grassBlock
+			let pMap = new Map("test", 887, 443, 12345, gameVersion);
+			
+			function resizing(){
+			        var tileSize = Settings.debug.tileSize;
+			        
+					let h = Math.round(window.innerHeight  / tileSize)-1;
+			        screenSize.height = h > window.innerHeight ? h-1 : h;
+					let w = Math.round(window.innerWidth / tileSize)+10;
+				screenSize.width = w > window.innerWidth ? w-1 : w;
+					
+				world.height = screenSize.height * tileSize;
+				world.width = screenSize.width * tileSize;
+				
+				scene.height = world.height;
+				scene.width = world.width;
+				
+				//inventory.style.bottom = "0px";
+			}
+			
+			resizing();
 		
-                    /// /// /// /// /// /// /// /// /// /// /// /// /// 
-		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
-		    /// /// /// /// /// /// /// /// /// /// /// /// ///
+                        /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		        /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		        /// /// /// /// /// /// /// /// /// /// /// /// ///
 			
-            function save(){
-                let file = new Blob([JSON.stringify(pMap, null, 2)], {type: 'text/plain'});
-                /*save.href = URL.createObjectURL(file);*/
+                        function save(){
+                                let file = new Blob([JSON.stringify(pMap, null, 2)], {type: 'text/plain'});
+                                /*save.href = URL.createObjectURL(file);*/
 				return file;
 			}
 			
@@ -48,13 +67,13 @@
 			}
 			
 			function menu(){
-			    const menu = window.open('../index.html','Menu');
-                window.close()
+			        const menu = window.open('../index.html','Menu');
+                                window.close()
 			}
 			
-                    /// /// /// /// /// /// /// /// /// /// /// /// /// 
-		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
-		    /// /// /// /// /// /// /// /// /// /// /// /// ///
+                        /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		        /// /// /// /// /// /// /// /// /// /// /// /// /// 
+		        /// /// /// /// /// /// /// /// /// /// /// /// ///
 			
 			/*function update() {
 			
@@ -91,6 +110,7 @@
 				pMap.player.y = pTile().y;
 			}
 			coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
+			biome.innerHTML = "biome: " + pTile().biome;
                 }
 
                 let intervalUpdate = setInterval(() => update(), 1);

@@ -1,5 +1,5 @@
-const gameVersion = "PC-0.01"
-const screenSize = { height: 15, width: 31 };
+const gameVersion = "PC-0.03-DEBUG"
+const screenSize = { height: 0, width:  0};
 
 const Settings = {
 	graphics: {
@@ -7,8 +7,7 @@ const Settings = {
 	},
 
     debug: {
-		tileSize: (32),
+		tileSize: (8),
 		pause: false,
-	        scl: 0.07,
 	},
 }, n = null;

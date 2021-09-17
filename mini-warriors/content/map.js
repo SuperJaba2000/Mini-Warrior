@@ -51,17 +51,15 @@ class Map{
 		//this.tiles = generate.emptyCoordinates(this.width, this.height, grassFloor);
 		this.tiles = generate.noise(this.width, this.height, seed);
 		
-		this.player = new Player(this, "c");
+		this.player = new Player(this, "cente");
 	}
 						
 	tiles = [];
 }
 
 function changeMap(map){
-	pMap = map;
-				
-	world.width = screenSize * Settings.debug.tileSize;
-	world.height = screenSize * Settings.debug.tileSize;
+	pMap = map;			
+	resizing();
 }
 
 function pTile(){

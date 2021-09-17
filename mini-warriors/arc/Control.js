@@ -44,9 +44,44 @@ document.onkeydown = function(e) {
 	 }
 }
 
+ if(world.addEventListener) {
+      if ('onwheel' in document) {
+        // IE9+, FF17+
+        world.addEventListener("wheel", onWheel);
+      } else if ('onmousewheel' in document) {
+        // устаревший вариант события
+        world.addEventListener("mousewheel", onWheel);
+      } else {
+        // Firefox < 17
+        world.addEventListener("MozMousePixelScroll", onWheel);
+      }
+    } else { // IE8-
+      world.attachEvent("onmousewheel", onWheel);
+    }
+
+
+    // Это решение предусматривает поддержку IE8-
+    function onWheel(e) {
+      e = e || window.event;
+
+      // deltaY, detail содержат пиксели
+      // wheelDelta не дает возможность узнать количество пикселей
+      // onwheel || MozMousePixelScroll || onmousewheel
+      var delta = e.deltaY / 1000;
+
+      Settings.debug.tileSize += delta;
+	  resizing();
+	 draw();
+
+      e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+    }
+	
+    const _ = "~";
+
 function teleport(x, y){
-	pMap.player.realX = x;
-	pMap.player.realY = y;
+	if(x !== _) pMap.player.realX = x;
+	if(y !== _) pMap.player.realY = y;
+	
 	console.log("[Teleported player("+pMap.player+") to: "+x+","+y+"]");
 	draw();
 }

@@ -2,12 +2,14 @@ function drawFloor(x, y, floor){
 	if(Settings.graphics.useTextures){
 		//draw texture
 	}else{
+		/*
         worldDraw.strokeStyle = floor.color;
-	worldDraw.strokeRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
-         
+	    worldDraw.strokeRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+         */
 	    //for fill area							
-	    //worldDraw.fillStyle = tile.floor.color;
-	    //worldDraw.fillRect(x, y, tileSize, tileSize);
+	    worldDraw.fillStyle = floor.color;
+	    worldDraw.fillRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+		
 	}
 }
 
@@ -25,9 +27,9 @@ function drawBlock(x, y, block){
 function drawTiles(){
 	let player = pMap.player;
 
-        var y1 = player.realY - Math.round(screenSize.height / 2);
+        var y1 = player.realY - (Math.round(screenSize.height / 2)-1);
 	var y2 = y1 + screenSize.height;
-        var x1 = player.realX - Math.round(screenSize.width / 2);
+        var x1 = player.realX - (Math.round(screenSize.width / 2)-1);
 	var x2 = x1 + screenSize.width;
 
         //console.log(startx, endx, starty, endy)
@@ -39,7 +41,7 @@ function drawTiles(){
                         var drawX = (element - x1) * tileSize;
                         var drawY = (line - y1) * tileSize;
 
-                        if(element >= 0 && line >= 0 && getTile(element, line) !== undefined){
+                        if(element >= 0 && line >= 0 && pMap.tiles[line] !== undefined && getTile(element, line) !== undefined){
 			        let tile = getTile(element, line);
 			        let tileInfo = getTileInfo(tile);
 					
@@ -59,11 +61,11 @@ function drawTiles(){
 }
 
 function drawPlayer(){
-	let player = pMap.player;
+	/*let player = pMap.player;*/
 	const tileSize = Settings.debug.tileSize;
 	
-	var drawY = Math.round(screenSize.height/2) * tileSize//Math.round(screenSize.width) * tileSize
-	var drawX =  Math.round(screenSize.width/2) * tileSize//Math.round(screenSize.height) * tileSize
+	var drawX = Math.round(screenSize.width / 2 - 0.5) * tileSize;   //(Math.round(screenSize.width/2)-1) * tileSize
+	var drawY = (Math.round(screenSize.height / 2)-1) * tileSize;
 	
 	worldDraw.fillStyle = "#8B0000";
 	worldDraw.fillRect(drawX, drawY, tileSize, tileSize);

@@ -42,7 +42,7 @@ class Floor{
 const barrierFloor = new Floor("barrier-floor", "#ffffff00", 0);	
 const grassFloor = new Floor("grass-floor", "#00FF00", 0);	
 const sandFloor = new Floor("sand-floor", "#F0E68C", 0);
-const stoneFloor = new Floor("stone-floor", "#696969", 0);
+const stoneFloor = new Floor("stone-floor", "#808080", 0);
 const snowFloor = new Floor("snow-floor", "#ffffff", 0);
 
 //liquids

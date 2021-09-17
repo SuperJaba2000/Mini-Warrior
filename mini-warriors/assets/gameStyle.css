@@ -16,7 +16,7 @@ body, html {
     display: block; 
 	border: dashed #B22222;
 	
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 }
 
 #inventory{
@@ -24,21 +24,29 @@ body, html {
 	border-color: ##0000CD;
 	border: 2px solid;
 	
-	width: 30%;
-	height: 14%;
+	width: 280px;
+	height: 100px;
 	
-	position: absolute;
-	bottom: 0;
-	left: 0;
+	/*position: absolute;*/
+	vertical-align: bottom;
+	/*top: 0;
+	left: 0;*/
 }
 
-.scene #version{
+#version{
 	position: absolute;
 	top: 0;
 	left: 0;
 }
 
-.scene #coordinates{
+#coordinates{
 	position: absolute;
-	left: 0;
+	top: 25px;
+	left: 0px;
+}
+
+#biome{
+	position: absolute;
+	top: 50px;
+	left: 0px;
 }
