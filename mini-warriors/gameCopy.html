@@ -6,13 +6,17 @@
         <link rel="stylesheet" href="assets/gameStyle.css">
     </head>
     <body>
+		<canvas id="world"></canvas>
 		<a id="version" align="left"></a><br>
 		<a id="coordinates" align="left"></a>
-		<canvas id="world"></canvas>
 		<canvas id="inventory"></canvas>
 		
+		<script src="arc/Vars.js"></script>
+		<script src="arc/Graphic.js"></script>
+		<script src="arc/Control.js"></script>
+		
 		<script src='util/random.js'></script>
-		<script src='util/perlin.js'></script>
+		<script src='util/noise.js'></script>
 		<script src='util/generator.js'></script>
 		
 		<script src='content/blocks.js'></script>
@@ -21,25 +25,15 @@
 
 		<script>
 		
-		    const gameVersion = "PC-0.01"
-		
 		    const worldDraw = world.getContext("2d");
-		    const inventoryDraw = inventory.getContext("2d");
-
-            const Settings = {
-		        graphics: {
-			        useTextures: false,
-			    },
-
-                debug: {
-			        tileSize: 64,
-				    pause: false,
-			    },
-		    }, n = null;
+            const inventoryDraw = inventory.getContext("2d");
 			
-			let pMap = new Map("test", 20, 20, gameVersion);
+			let pMap = new Map("test", 101, 221, 12345, gameVersion);
+			world.height = Math.min(screenSize.height * Settings.debug.tileSize, pMap.tiles.length * Settings.debug.tileSize);
+			world.width = Math.min(screenSize.width * Settings.debug.tileSize, pMap.tiles[0].length * Settings.debug.tileSize); 
+			pMap.tiles[5][5].block = grassBlock
 		
-            /// /// /// /// /// /// /// /// /// /// /// /// /// 
+                    /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// ///
 			
@@ -49,34 +43,8 @@
 				return file;
 			}
 			
-			function getTile(x, y){
-                return pMap.tiles[y - 1][x - 1];
-            }
-			
-			function getTileInfo(tile){
-			
-			    const info = {
-				
-				    hasBlock: tile.block !== null ? true : false,
-					stillDrawFloor: this.hasBlock ? tile.block.stillDrawFloor : false,
-					
-					canWalk: !this.hasBlock && tile.floor.canWalk ? true : false,
-					
-					speedMultiplier: this.canWalk ? tile.floor.speedMultiplier : 0,
-				};
-				
-				return info;
-			}
-			
 			function changePause(){
 				Settings.debug.pause = Settings.debug.pause ? false : true;
-			}
-			
-			function changeMap(map){
-			    pMap = map;
-				
-				world.width = pMap.width * Settings.debug.tileSize;
-				world.height = pMap.height * Settings.debug.tileSize;
 			}
 			
 			function menu(){
@@ -84,7 +52,7 @@
                 window.close()
 			}
 			
-            /// /// /// /// /// /// /// /// /// /// /// /// /// 
+                    /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// ///
 			
@@ -100,7 +68,7 @@
 			    world.width = quantWidth * tileSize;
 			
 			    //clear canvas
-                scene.clearRect(0, 0, world.width, world.height)
+                worldDraw.clearRect(0, 0, world.width, world.height)
 				inventoryDraw.clearRect(0, 0, inventory.width, inventory.height)
 
                 //draw new
@@ -112,14 +80,22 @@
 				}
             }*/
 			
-			function update() {
-			    version.innerHTML = "Version: " + gameVersion;
-				coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
-			    if(!Settings.debug.pause){}
-            }
+		    
+			
+		function update() {
+			version.innerHTML = "Version: " + gameVersion;
+			
+			if(!Settings.debug.pause){
+				
+				pMap.player.x = pTile().x;
+				pMap.player.y = pTile().y;
+			}
+			coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
+                }
 
-            let intervalUpdate = setInterval(() => update(), 1);
-            
+                let intervalUpdate = setInterval(() => update(), 1);
+		draw();
+			
 		</script>
     </body>
 </html>

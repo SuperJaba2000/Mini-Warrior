@@ -5,7 +5,7 @@ const random = {
         return Math.floor(rand);
     },
 				
-	percent(percent){
+	chance(percent){
 		return this.basic(0, 100) <= percent ? true : false;
 	},
 }

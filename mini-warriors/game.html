@@ -4,7 +4,7 @@
         
         <meta charset="utf-8" />
         <title>Mini Warriors</title>
-        <link rel="stylesheet" href="style.css">
+        <!--link rel="stylesheet" href="style.css">-->
 
     </head>
     
@@ -89,7 +89,7 @@
 			world.height = quantHeight * tileSize;
 			world.width = quantWidth * tileSize;
 			
-			setStyles();
+			//setStyles();
 				
             /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		    /// /// /// /// /// /// /// /// /// /// /// /// /// 
@@ -301,7 +301,7 @@
 			save.onclick = function(){
 			
 			    let mapJson = JSON.stringify(map, null, 2);
-                let mapFile = new Blob([mapJson], {type: 'text/plain'});
+                let mapFile = new Blob([mapJson], {type: "text/plain;charset=UTF-8"});
 
                 save.href = URL.createObjectURL(mapFile);
 			}
@@ -532,7 +532,7 @@
 			
 			    if(!pause){
 				
-				setStyles();
+				//setStyles();
 				
 				quantHeight = map.tiles.length, quantWidth = map.tiles[0].length;
 				
