@@ -48,6 +48,7 @@ function teleport(x, y){
 	pMap.player.realX = x;
 	pMap.player.realY = y;
 	console.log("[Teleported player("+pMap.player+") to: "+x+","+y+"]");
+	draw();
 }
 
 function tp(x, y){

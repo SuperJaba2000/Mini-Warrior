@@ -7,7 +7,11 @@ const generate = {
 	        for(var line = 0; line < height; line++){
 	    	        var l = []; l.length = width;
 		        for(var block = 0; block < width; block++){
-			        l[block] = new Tile(floor, random.chance(40) ? grassBlock : null, null);
+			        l[block] = new Tile(floor, random.chance(8) ? grassBlock : null, null);
+					
+				//generation barriers aroundmap
+				if(line == 0 || block == 0) l[block].block = barrierBlock;
+				if(line == (height-1) || block == (width-1)) l[block].block = barrierBlock;
 		        }
 		        tiles[line] = l;
 	        }

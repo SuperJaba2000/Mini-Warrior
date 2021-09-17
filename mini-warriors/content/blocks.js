@@ -54,7 +54,7 @@ deepWater.canWalk = false;
 			
 //blocks
 			
-const barrierBlock = new Block("air-block", "#ffffff00", 0);
+const barrierBlock = new Block("barrier-block", "#C71585", 0);
 barrierBlock.stillDrawFloor = true;	
 const grassBlock = new Block("grass-block", "#32CD32", 0);
 const sandBlock = new Block("sand-block", "#BDB76B", 0);

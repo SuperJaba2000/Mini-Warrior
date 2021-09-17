@@ -39,13 +39,13 @@ function drawTiles(){
                         var drawX = (element - x1) * tileSize;
                         var drawY = (line - y1) * tileSize;
 
-                        if(getTile(element, line) !== undefined){
+                        if(element >= 0 && line >= 0 && getTile(element, line) !== undefined){
 			        let tile = getTile(element, line);
 			        let tileInfo = getTileInfo(tile);
 					
 			        if(tileInfo.hasBlock){
 				        if(tileInfo.stillDrawFloor){
-						drawFloor(drawX, drawY, tile.floor);	
+						//drawFloor(drawX, drawY, tile.floor);	
 				                drawBlock(drawX, drawY, tile.block);			
 			                }else{
                                                 drawBlock(drawX, drawY, tile.block);
