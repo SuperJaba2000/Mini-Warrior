@@ -36,9 +36,9 @@
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;
 			        
-					let h = Math.round(window.innerHeight  / tileSize)-1;
+					let h = Math.round(window.innerHeight  / tileSize);//-1
 			        screenSize.height = h > window.innerHeight ? h-1 : h;
-					let w = Math.round(window.innerWidth / tileSize)+10;
+					let w = Math.round(window.innerWidth / tileSize);//-1
 				screenSize.width = w > window.innerWidth ? w-1 : w;
 					
 				world.height = screenSize.height * tileSize;
