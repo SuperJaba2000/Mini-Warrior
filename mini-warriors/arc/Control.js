@@ -35,8 +35,40 @@ document.onkeydown = function(e) {
 			}
 			draw();
 		}
+		
+		if(e.key === "1"){
+			let bTile = getTile(p.realX, p.realY-1);
+			if(bTile !== undefined && bTile !== null && bTile.block == null && bTile.floor.canWalk){
+                                pMap.tiles[p.realY-1][p.realX].block = brickBlock;
+			}
+			draw();
+		}
+		
+		if(e.key === "2"){
+			let bTile = getTile(p.realX, p.realY+1);
+			if(bTile !== undefined && bTile !== null && bTile.block == null && bTile.floor.canWalk){
+                                pMap.tiles[p.realY+1][p.realX].block = brickBlock;
+			}
+			draw();
+		}
+		
+		if(e.key === "3"){
+			let bTile = getTile(p.realX, p.realY-1);
+			if(bTile !== undefined && bTile !== null){
+                                pMap.tiles[p.realY-1][p.realX].floor = brickFloor;
+			}
+			draw();
+		}
+		
+		if(e.key === "4"){
+			let bTile = getTile(p.realX, p.realY+1);
+			if(bTile !== undefined && bTile !== null){
+                                pMap.tiles[p.realY+1][p.realX].floor = brickFloor;
+			}
+			draw();
+		}
 	
-                console.log(e.key+"\n x: "+p.x+",y: "+p.y);
+                //console.log(e.key+"\n x: "+p.x+",y: "+p.y);
                 //draw();
                  e.preventDefault();
 
@@ -59,18 +91,17 @@ document.onkeydown = function(e) {
       world.attachEvent("onmousewheel", onWheel);
     }
 
-
-    // Это решение предусматривает поддержку IE8-
     function onWheel(e) {
       e = e || window.event;
 
-      // deltaY, detail содержат пиксели
-      // wheelDelta не дает возможность узнать количество пикселей
-      // onwheel || MozMousePixelScroll || onmousewheel
-      var delta = e.deltaY / 1000;
+      var delta = e.deltaY / 500;
 
-      Settings.debug.tileSize += delta;
-	  resizing();
+         Settings.debug.tileSize -= delta;
+         if(Settings.debug.tileSize <= 0){
+	        Settings.debug.tileSize = 3;
+		e.deltaY = 1500;	
+        }
+	 resizing();
 	 draw();
 
       e.preventDefault ? e.preventDefault() : (e.returnValue = false);

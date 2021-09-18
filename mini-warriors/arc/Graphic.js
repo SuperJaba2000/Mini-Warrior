@@ -64,7 +64,7 @@ function drawPlayer(){
 	/*let player = pMap.player;*/
 	const tileSize = Settings.debug.tileSize;
 	
-	var drawX = Math.round(screenSize.width / 2 - 0.5) * tileSize;   //(Math.round(screenSize.width/2)-1) * tileSize
+	var drawX = (Math.round(screenSize.width / 2)-1) * tileSize;   //(Math.round(screenSize.width/2)-1) * tileSize
 	var drawY = (Math.round(screenSize.height / 2)-1) * tileSize;
 	
 	worldDraw.fillStyle = "#8B0000";

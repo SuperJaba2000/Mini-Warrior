@@ -58,7 +58,10 @@ const generate = {
                         for(var x = 0; x < tiles[0].length; x++){
                                 var tile = tiles[y][x];
 				noise.setSeed(seed);
-				const h =  Math.abs(noise.perlin2(x / 140, y / 140));
+				//const h =  Math.abs(noise.simplex2(x / 140, y / 140));
+				e  =   1 * Math.abs(noise.simplex2(x / 140, y / 140));
+                                        + 0.25 * Math.abs(noise.simplex2(x / 35, y / 35));
+                                const h = e / (1 + 0.25);
 	
 	                        if(h <= 0.2){                               //rivers
 	                               tile.biome = "river";
