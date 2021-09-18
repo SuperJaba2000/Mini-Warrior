@@ -50,3 +50,9 @@ body, html {
 	top: 50px;
 	left: 0px;
 }
+
+#pause{
+	position: absolute;
+	top: 1%;
+	left: 100%;
+}

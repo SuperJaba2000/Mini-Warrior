@@ -7,7 +7,7 @@ const Settings = {
 	},
 
     debug: {
-		tileSize: (16),
+		tileSize: (32),
 		pause: false,
 	},
 }, n = null;
