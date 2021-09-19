@@ -11,7 +11,7 @@ class Block{
         }
 	
         textureRegion(){
-		return this.variants = 0 ? this.name : this.name+random.basic(1, this.variants);
+		return this.variants == 0 ? this.name : this.name+random.basic(1, this.variants);
         }
 }
 			
@@ -29,7 +29,7 @@ class Floor{
         }
 	
 	textureRegion(){
-		return this.variants = 0 ? this.name : this.name+random.basic(1, this.variants);
+		return this.variants == 0 ? this.name : this.name+random.basic(1, this.variants);
         }
 }
 			

@@ -12,10 +12,17 @@
 		    <a id="coordinates" align="left"></a>
 			<a id="biome" align="left"></a>
 		    <canvas id="inventory"></canvas>
+			<canvas id="mini_map"></canvas>
 			
-			<button id="pause" onclick="changePause()"> 
+			<button id="pause" height="64px" width="64px" onclick="changePause()"> 
 		        <img src="assets/sprites/ui/pause.png" alt="pause" style="vertical-align: middle">
 		    </button>
+			
+			<a id="text_textures">textures</a>
+			<label id="switch_textures">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
 		</div>
 		
 		<script src="arc/Vars.js"></script>
@@ -35,7 +42,7 @@
 		        const worldDraw = world.getContext("2d");
                         const inventoryDraw = inventory.getContext("2d");
 			
-			let pMap = new Map("test", 887, 443, 12345, gameVersion);
+			let pMap = new Map("test", 887, 443, Math.random(), gameVersion);// debug seed is 12345
 			
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;

@@ -3,7 +3,7 @@ const screenSize = { height: 0, width:  0};
 
 const Settings = {
 	graphics: {
-		useTextures: false,
+		useTextures: true,
 	},
 
     debug: {

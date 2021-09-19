@@ -1,6 +1,8 @@
 /*Goole Fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/*Default Styles*/
+
 *{
 	margin: 0; padding: 0;
 	font-family: "Poppins", sans-serif;
@@ -10,6 +12,12 @@
 body, html {
   overflow: hidden
 }
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+/*Canvases*/
 
 #world { 
     background-color: #aac;
@@ -24,14 +32,27 @@ body, html {
 	border-color: ##0000CD;
 	border: 2px solid;
 	
-	width: 280px;
-	height: 100px;
+	width: 300px;
+	height: 85px;
 	
-	/*position: absolute;*/
-	vertical-align: bottom;
-	/*top: 0;
-	left: 0;*/
+	position: absolute;
+	left: 4px;
+	bottom: 4px;
 }
+
+#mini_map{
+	background: #0000FF40;
+	border-color: ##0000CD;
+	border: 2px solid;
+	
+	width: 180px;
+	height: 180px;
+	
+	position: absolute;
+	right: 4px;
+	bottom: 4px;
+}
+/*Debug Tools*/
 
 #version{
 	position: absolute;
@@ -51,8 +72,83 @@ body, html {
 	left: 0px;
 }
 
+/*UI*/
+
 #pause{
+	position: absolute; 
+	
+    top: 4px;
+	right: 4px;
+
+    color: #80808020;
+    text-decoration: none;
+    user-select: none;
+    outline: none;
+    border: 2px solid;
+	border-radius: 8px;
+    transition: 0.2s;
+} 
+#pause:hover { color: #69696980;}
+
+#text_textures{
 	position: absolute;
-	top: 1%;
-	left: 100%;
+	top: 74px;
+	right: 6px;
+}
+
+#switch_textures{
+  	position: absolute; 
+	
+    top: 99px;
+	right: 4px;
+
+    width: 64px;
+    height: 16px;
+	color: #69696980;
+	text-decoration: none;
+    user-select: none;
+    outline: none;
+    border: 2px solid;
+	border-radius: 5px;
+    transition: 0.2s;
+}
+#switch_textures input {display:none;}
+#switch_textures:hover { color: #69696980;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  left: 5px;
+  bottom: 3px;
+  background-color: black;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(44px);
+  -ms-transform: translateX(44px);
+  transform: translateX(44px);
 }

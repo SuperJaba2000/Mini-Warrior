@@ -1,15 +1,17 @@
+function getTexture(dir){
+	const img = new Image();
+	img.src = "assets/sprites/"+dir+".png";
+        /*img.onload = function(){ */return img //}
+}
+
 function drawFloor(x, y, floor){
 	if(Settings.graphics.useTextures){
-		//draw texture
-	}else{
-		/*
-        worldDraw.strokeStyle = floor.color;
-	    worldDraw.strokeRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
-         */
-	    //for fill area							
+	    //draw texture
+	    worldDraw.drawImage(getTexture("blocks/floors/" + floor.textureRegion()), x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+	}else{		
+            //draw color	
 	    worldDraw.fillStyle = floor.color;
 	    worldDraw.fillRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
-		
 	}
 }
 
@@ -17,8 +19,9 @@ function drawBlock(x, y, block){
 	if(Settings.graphics.useTextures){
 		//draw texture
 	}else{
-        worldDraw.fillStyle = block.color;
-	worldDraw.fillRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+	    //draw color	
+            worldDraw.fillStyle = block.color;
+	    worldDraw.fillRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
 	}
 }
 
