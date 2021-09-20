@@ -174,7 +174,7 @@
 
 //Phones Controls
 
-left.onclick = function(){
+document.getElementById("left").onclick = function(){
     let wTile = getTile(p.realX-1, p.realY);
     if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
         p.realX--;
@@ -183,7 +183,7 @@ left.onclick = function(){
     draw();
 }
 
-up.onclick = function(){
+document.getElementById("up").onclick = function(){
     let wTile = getTile(p.realX, p.realY-1);
     if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
         p.realY--;
@@ -192,7 +192,7 @@ up.onclick = function(){
     draw();
 }
 
-down.onclick = function(){
+document.getElementById("down").onclick = function(){
     let wTile = getTile(p.realX, p.realY+1);
     if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
         p.realY++;
@@ -201,7 +201,7 @@ down.onclick = function(){
     draw();
 }
 
-right.onclick = function(){
+document.getElementById("right").onclick = function(){
     let wTile = getTile(p.realX+1, p.realY);
     if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
         p.realX++;
