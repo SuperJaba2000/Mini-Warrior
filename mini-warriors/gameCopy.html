@@ -124,7 +124,8 @@
 			biome.innerHTML = "biome: " + pTile().biome;
                 }
 
-                let intervalUpdate = setInterval(() => update(), 1);
+                let intervalUpdate = setInterval(() => update(), 10);
+                setTimeout(draw(), 5000);
 		draw();
 			
 		</script>
