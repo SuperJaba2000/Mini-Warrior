@@ -40,6 +40,60 @@ body, html {
 	bottom: 4px;
 }
 
+/*Phones buttons*/
+
+#left{
+	background: #0000FF40;
+	border-color: ##0000CD;
+	border: 2px solid;
+	
+	width: 116px;
+	height: 86px;
+	
+	position: absolute;
+	left: 4px;
+	bottom: 90px;
+}
+
+#up{
+	background: #0000FF40;
+	border-color: ##0000CD;
+	border: 2px solid;
+	
+	width: 116px;
+	height: 86px;
+	
+	position: absolute;
+	left: 124px;
+	bottom: 90px;
+}
+
+#down{
+	background: #0000FF40;
+	border-color: ##0000CD;
+	border: 2px solid;
+	
+	width: 116px;
+	height: 86px;
+	
+	position: absolute;
+	left: 244px;
+	bottom: 90px;
+}
+
+#right{
+	background: #0000FF40;
+	border-color: ##0000CD;
+	border: 2px solid;
+	
+	width: 116px;
+	height: 86px;
+	
+	position: absolute;
+	left: 364px;
+	bottom: 90px;
+}
+
 #mini_map{
 	background: #0000FF40;
 	border-color: ##0000CD;
