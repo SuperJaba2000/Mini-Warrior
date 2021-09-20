@@ -20,7 +20,7 @@
 			
 			<a id="text_textures">textures</a>
 			<label id="switch_textures">
-                <input type="checkbox">
+                <input id="textures" type="checkbox" onclick="changeTex()">
                 <span class="slider"></span>
             </label>
 		</div>
@@ -39,10 +39,38 @@
 
 		<script>
 		
+		        //load textures
+				
+		        function getTexture(dir){
+                                return "assets/sprites/"+dir+".png";
+                       }
+				
+			//barrierFloor = ;	//what??
+                        grassFloor.textures[0] = new Image(); grassFloor.textures[0].src=getTexture("floors/grass-floor");
+                        sandFloor.textures[0] = new Image(); sandFloor.textures[0].src=getTexture("floors/sand-floor");
+                        stoneFloor.textures[0] = new Image(); stoneFloor.textures[0].src=getTexture("floors/stone-floor");
+                        snowFloor.textures[0] = new Image(); snowFloor.textures[0].src=getTexture("floors/snow-floor");
+                        //brickFloor.textures[0] = new Image(); brickFloor.textures[0].src=getTexture("floors/brick-floor");
+
+                        //liquids
+				
+                        water.textures[0] = new Image(); water.textures[0].src=getTexture("floors/water");
+                        deepWater.textures[0] = new Image(); deepWater.textures[0].src=getTexture("floors/deep-water");
+			
+                        //blocks
+			
+                        barrierBlock.textures[0] = new Image(); barrierBlock.textures[0].src=getTexture("floors/deep-water");
+                        /*const grassBlock = new Block("grass-block", "#32CD32", 0);
+                        const sandBlock = new Block("sand-block", "#BDB76B", 0);
+                        const brickBlock = new Block("brick-block", "#B22222", 0);
+            */						
+				
+			//consts
+		  
 		        const worldDraw = world.getContext("2d");
                         const inventoryDraw = inventory.getContext("2d");
 			
-			let pMap = new Map("test", 887, 443, Math.random(), gameVersion);// debug seed is 12345
+			let pMap = new Map("test", 500, 250, Math.random(), gameVersion);// debug seed is 12345
 			
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;
@@ -77,9 +105,22 @@
 				Settings.debug.pause = Settings.debug.pause ? false : true;
 			}
 			
+			function changeTex(){
+			        if (textures.checked){
+                                        Settings.graphics.useTextures = true;
+                                }else{
+                                        Settings.graphics.useTextures = false;
+                                }
+				draw();
+		        }
+			
 			function menu(){
 			        const menu = window.open('../index.html','Menu');
                                 window.close()
+			}
+			
+			function gen(){
+			        alert(map_height);
 			}
 			
                         /// /// /// /// /// /// /// /// /// /// /// /// /// 
@@ -124,8 +165,8 @@
 			biome.innerHTML = "biome: " + pTile().biome;
                 }
 
-                let intervalUpdate = setInterval(() => update(), 1);
-		draw();
+                let intervalUpdate = setInterval(() => update(), 10);
+		setTimeout(draw(), 1000);
 			
 		</script>
     </body>

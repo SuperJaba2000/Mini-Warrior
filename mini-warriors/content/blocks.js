@@ -1,36 +1,36 @@
 class Block{
 	
-	variants = 0;
 	color = "#000000";
 	stillDrawFloor = false;
 			
 	constructor(name, color, variants) {
 		this.name = name;
-                this.variants = variants;
 	        this.color = color;
+		this.textures.length = variants == 0 ? 1 : variants;
         }
 	
         textureRegion(){
-		return this.variants == 0 ? this.name : this.name+random.basic(1, this.variants);
+		return this.variants == 0 ? this.textures[0] : this.textures[random.basic(0, this.textures.length)];
         }
+	textures = [];
 }
 			
 class Floor{
 	
-	variants = 0;
 	color = "#000000";
 	speedMultiplier = 1.0;
 	canWalk = true;
 	
 	constructor(name, color, variants) {
 		this.name = name;
-                this.variants = variants;
 	        this.color = color;
+		this.textures.length = variants == 0 ? 1 : variants;
         }
 	
 	textureRegion(){
-		return this.variants == 0 ? this.name : this.name+random.basic(1, this.variants);
+		return this.textures.length == 1 ? this.textures[0] : this.textures[random.basic(0, this.textures.length)];
         }
+	textures = [];
 }
 			
 /// /// /// /// /// /// /// /// /// /// /// /// /// 

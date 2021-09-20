@@ -1,4 +1,4 @@
-const gameVersion = "PC-0.03-DEBUG"
+const gameVersion = "PC-0.04-DEBUG"
 const screenSize = { height: 0, width:  0};
 
 const Settings = {

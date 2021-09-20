@@ -1,13 +1,7 @@
-function getTexture(dir){
-	const img = new Image();
-	img.src = "assets/sprites/"+dir+".png";
-        /*img.onload = function(){ */return img //}
-}
-
 function drawFloor(x, y, floor){
 	if(Settings.graphics.useTextures){
 	    //draw texture
-	    worldDraw.drawImage(getTexture("blocks/floors/" + floor.textureRegion()), x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+	    worldDraw.drawImage(floor.textureRegion(), x, y, Settings.debug.tileSize, Settings.debug.tileSize);
 	}else{		
             //draw color	
 	    worldDraw.fillStyle = floor.color;

@@ -10,6 +10,7 @@ document.onkeydown = function(e) {
 			        p.x = wTile.x;
 			}
 			draw();
+			e.preventDefault();
 		}
                 if(e.key === "ArrowLeft"){
 			let wTile = getTile(p.realX-1, p.realY);
@@ -18,6 +19,7 @@ document.onkeydown = function(e) {
 			        p.x = wTile.x;
 			}
 			draw();
+			e.preventDefault();
 		}
                 if(e.key === "ArrowDown"){
 			let wTile = getTile(p.realX, p.realY+1);
@@ -26,6 +28,7 @@ document.onkeydown = function(e) {
 			        p.y = wTile.y;
 			}
 			draw();
+			e.preventDefault();
 		 }
                 if(e.key === "ArrowUp"){
 			let wTile = getTile(p.realX, p.realY-1);
@@ -34,6 +37,7 @@ document.onkeydown = function(e) {
 			        p.y = wTile.y;
 			}
 			draw();
+			e.preventDefault();
 		}
 		
 		if(e.key === "1"){
@@ -70,7 +74,6 @@ document.onkeydown = function(e) {
 	
                 //console.log(e.key+"\n x: "+p.x+",y: "+p.y);
                 //draw();
-                 e.preventDefault();
 
                  return false;
 	 }
