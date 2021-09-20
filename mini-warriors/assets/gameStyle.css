@@ -47,8 +47,8 @@ body, html {
 	border-color: ##0000CD;
 	border: 2px solid;
 	
-	width: 116px;
-	height: 86px;
+	width: 86px;
+	height: 80px;
 	
 	position: absolute;
 	left: 4px;
@@ -61,11 +61,11 @@ body, html {
 	border: 2px solid;
 	
 	width: 116px;
-	height: 86px;
+	height: 80px;
 	
 	position: absolute;
-	left: 124px;
-	bottom: 90px;
+	left: 98px;
+	bottom: 96px;
 }
 
 #down{
@@ -74,11 +74,11 @@ body, html {
 	border: 2px solid;
 	
 	width: 116px;
-	height: 86px;
+	height: 80px;
 	
 	position: absolute;
-	left: 244px;
-	bottom: 90px;
+	left: 184px;
+	bottom: 96px;
 }
 
 #right{
@@ -87,11 +87,11 @@ body, html {
 	border: 2px solid;
 	
 	width: 116px;
-	height: 86px;
+	height: 80px;
 	
 	position: absolute;
-	left: 364px;
-	bottom: 90px;
+	left: 244px;
+	bottom: 96px;
 }
 
 #mini_map{
