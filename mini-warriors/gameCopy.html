@@ -171,45 +171,6 @@
 
                 let intervalUpdate = setInterval(() => update(), 10);
 		setTimeout(draw(), 1000);
-
-//Phones Controls
-
-document.getElementById("left").onclick = function(){
-    let wTile = getTile(p.realX-1, p.realY);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realX--;
-	p.x = wTile.x;
-    }
-    draw();
-}
-
-document.getElementById("up").onclick = function(){
-    let wTile = getTile(p.realX, p.realY-1);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realY--;
-	p.y = wTile.y;
-    }
-    draw();
-}
-
-document.getElementById("down").onclick = function(){
-    let wTile = getTile(p.realX, p.realY+1);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realY++;
-	p.y = wTile.y;
-    }
-    draw();
-}
-
-document.getElementById("right").onclick = function(){
-    let wTile = getTile(p.realX+1, p.realY);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realX++;
-	p.x = wTile.x;
-    }
-    draw();
-}
-
 			
 		</script>
     </body>
