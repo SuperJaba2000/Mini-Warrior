@@ -44,6 +44,7 @@
 		<script>
 		
 		        //load textures
+			var seed = 10;
 				
 		        function getTexture(dir){
                                 return "assets/sprites/"+dir+".png";
@@ -74,7 +75,7 @@
 		        const worldDraw = world.getContext("2d");
                         const inventoryDraw = inventory.getContext("2d");
 			
-			let pMap = new Map("test", 500, 250, Math.random(), gameVersion);// debug seed is 12345
+			let pMap = new Map("test", 500, 250, seed, gameVersion);// debug seed is 12345
 			
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;
@@ -153,10 +154,9 @@
 			coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
 			biome.innerHTML = "biome: " + pTile().biome;
                 }
-
                 let intervalUpdate = setInterval(() => update(), 10);
-		setTimeout(draw(), 1000);
-			
+                
+		draw();	
 		</script>
     </body>
 </html>

@@ -5,16 +5,16 @@
     <title>generator</title>
    </head>
     <body>
-		<big align="center"><form action="../gameCopy.html">
+		<big align="center"><form action="../gameCopy.html" method="GET">
                 Map-Height:
-                <input type="text" id="height" name="pMap.tiles[].length"><br>
+                <input type="text" id="height" name="seed"><br>
                 Map-Width:
-                <input type="text" id="width" name="map_width"><br>
+                <input type="text" id="width"><br>
 					
 				<br>Generator type:<br>
 				<a align="right">
-                    <input type="radio" name="genType" checked="true" value="random">Random(messy blocks)<br>
-                    <input type="radio" name="genType" value="">Noise(use noise function)
+                    <input type="radio" checked="true" value="random">Random(messy blocks)<br>
+                    <input type="radio" value="">Noise(use noise function)
 				</a><br><br>
 				
 				<input type="submit" value="Generate!"><br>
