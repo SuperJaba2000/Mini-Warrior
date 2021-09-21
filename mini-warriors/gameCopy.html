@@ -89,8 +89,6 @@
 				
 				scene.height = world.height;
 				scene.width = world.width;
-				
-				//inventory.style.bottom = "0px";
 			}
 			
 			resizing();
@@ -104,19 +102,6 @@
                                 /*save.href = URL.createObjectURL(file);*/
 				return file;
 			}
-			
-			function changePause(){
-				Settings.debug.pause = Settings.debug.pause ? false : true;
-			}
-			
-			function changeTex(){
-			        if (textures.checked){
-                                        Settings.graphics.useTextures = true;
-                                }else{
-                                        Settings.graphics.useTextures = false;
-                                }
-				draw();
-		        }
 			
 			function menu(){
 			        const menu = window.open('../index.html','Menu');

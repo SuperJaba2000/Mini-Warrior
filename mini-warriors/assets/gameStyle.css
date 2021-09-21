@@ -31,8 +31,9 @@ body, html {
 	background: #0000FF40;
 	border-color: ##0000CD;
 	border: 2px solid;
+	border-radius: 4px;
 	
-	width: 360px;
+	width: 361px;
 	height: 86px;
 	
 	position: absolute;
@@ -40,64 +41,11 @@ body, html {
 	bottom: 4px;
 }
 
-/*Phones buttons*/
-
-#left{
-	background: #0000FF40;
-	border-color: ##0000CD;
-	border: 2px solid;
-	
-	width: 86px;
-	height: 80px;
-	
-	position: absolute;
-	left: 4px;
-	bottom: 96px;
-}
-
-#up{
-	background: #0000FF40;
-	border-color: ##0000CD;
-	border: 2px solid;
-	
-	width: 86px;
-	height: 80px;
-	
-	position: absolute;
-	left: 94px;
-	bottom: 96px;
-}
-
-#down{
-	background: #0000FF40;
-	border-color: ##0000CD;
-	border: 2px solid;
-	
-	width: 86px;
-	height: 80px;
-	
-	position: absolute;
-	left: 184px;
-	bottom: 96px;
-}
-
-#right{
-	background: #0000FF40;
-	border-color: ##0000CD;
-	border: 2px solid;
-	
-	width: 86px;
-	height: 80px;
-	
-	position: absolute;
-	left: 244px;
-	bottom: 96px;
-}
-
 #mini_map{
 	background: #0000FF40;
 	border-color: ##0000CD;
 	border: 2px solid;
+	border-radius: 4px;
 	
 	width: 180px;
 	height: 180px;
@@ -106,25 +54,39 @@ body, html {
 	right: 4px;
 	bottom: 4px;
 }
+
+/*Phones buttons*/
+
+#up, #left, #right, #down{
+	background: #0000FF40;
+	border: 2px solid;
+	border-radius: 4px;
+	border-color: ##0000CD;
+
+    text-decoration: none;
+    outline: none;
+    transition: 0.2s;
+	
+	width: 89px;
+	height: 80px;
+	
+	position: absolute;
+	bottom: 96px;
+} 
+#up:hover, #left:hover, #right:hover, #down:hover{background: #0000FF55;}
+#up:active, #left:active, #right:active, #down:active{background: #0000FF70; transform: translateY(1px);}
+
+#left{left: 4px;}  #up{left: 96px;}  #down{left: 188px;}  #right{left: 280px;}
+
 /*Debug Tools*/
 
-#version{
+#version, #coordinates, #biome{
 	position: absolute;
-	top: 0;
-	left: 0;
+	left: 0; top: 0;
+	border: 2px solid;
+	border-radius: 4px;
 }
-
-#coordinates{
-	position: absolute;
-	top: 25px;
-	left: 0px;
-}
-
-#biome{
-	position: absolute;
-	top: 50px;
-	left: 0px;
-}
+#coordinates{top: 27px;} #biome{top: 54px;}
 
 /*UI*/
 
@@ -143,6 +105,7 @@ body, html {
     transition: 0.2s;
 } 
 #pause:hover { color: #69696980;}
+#pause:active{transform: translateY(1px);}
 
 #text_textures{
 	position: absolute;

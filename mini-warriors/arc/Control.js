@@ -165,3 +165,7 @@ right.onclick = function(){
     }
     draw();
 }
+
+function changePause(){
+				Settings.debug.pause = Settings.debug.pause ? false : true;
+}

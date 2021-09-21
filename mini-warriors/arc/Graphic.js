@@ -69,6 +69,21 @@ function drawPlayer(){
 }
 
 function draw(){
+	if( == 2) Settings.graphics.useTextures = Settings.debug.tileSize <= 3.45 ? false : true;
+	switch(Settings.graphics.level) {
+                case 'value1':
+
+                [break]
+
+                case 'value2':
+
+                [break]
+
+                default:
+
+               [break]
+        }
+	
 	worldDraw.clearRect(0, 0, world.width, world.height)
 	
 	drawTiles();

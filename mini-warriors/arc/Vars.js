@@ -1,4 +1,4 @@
-const gameVersion = "PC-0.04-DEBUG"
+const gameVersion = "PN-0.02"
 const screenSize = { height: 0, width:  0};
 
 const Settings = {
@@ -11,3 +11,12 @@ const Settings = {
 		pause: false,
 	},
 }, n = null;
+
+function changeTex(){
+	if(textures.checked){
+                Settings.graphics.useTextures = true;
+        }else{
+                Settings.graphics.useTextures = false;
+        }
+        draw();
+}
