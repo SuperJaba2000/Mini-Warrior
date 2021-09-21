@@ -124,3 +124,44 @@ function tp(x, y){
 	teleport(x-1, y-1);
 }
 
+//Phones Controls
+
+left.onclick = function(){
+    let p = pMap.player;
+    let wTile = getTile(p.realX-1, p.realY);
+    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
+        p.realX--;
+	p.x = wTile.x;
+    }
+    draw();
+}
+
+up.onclick = function(){
+    let p = pMap.player;
+    let wTile = getTile(p.realX, p.realY-1);
+    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
+        p.realY--;
+	p.y = wTile.y;
+    }
+    draw();
+}
+
+down.onclick = function(){
+    let p = pMap.player;
+    let wTile = getTile(p.realX, p.realY+1);
+    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
+        p.realY++;
+	p.y = wTile.y;
+    }
+    draw();
+}
+
+right.onclick = function(){
+    let p = pMap.player;
+    let wTile = getTile(p.realX+1, p.realY);
+    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
+        p.realX++;
+	p.x = wTile.x;
+    }
+    draw();
+}
