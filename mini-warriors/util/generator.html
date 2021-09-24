@@ -5,19 +5,30 @@
     <title>generator</title>
    </head>
     <body>
-		<big align="center"><form action="../gameCopy.html" method="GET">
+		<big align="center"><form id="genForm" action="../gameCopy.html">
+		        <p>WORLD GENERATOR</p>
                 Map-Height:
                 <input type="text" id="height" name="seed"><br>
                 Map-Width:
-                <input type="text" id="width"><br>
-					
-				<br>Generator type:<br>
-				<a align="right">
-                    <input type="radio" checked="true" value="random">Random(messy blocks)<br>
-                    <input type="radio" value="">Noise(use noise function)
-				</a><br><br>
-				
-				<input type="submit" value="Generate!"><br>
+                <input type="text" id="width">
+				<br><p>Generator type:</p>
+				<a>
+				    <input type="radio" name="genType" value="noise" checked="true" >Noise(use noise function)<br>
+                    <input type="radio" name="genType" value="random">Random(messy blocks)<br>
+				</a><br>
+				<a>
+				    <input type="submit" value="Generate!">
+					<input type="reset" value="Reset values">
+				</a>
         </form></big>
+		
+		<script>
+		        genForm.onsubmit = function(){
+				localStorage["generator"] = {
+				        seed: genForm.elements['seed'].value,
+						
+				}
+			}
+		</script>
     </body>
 </html>

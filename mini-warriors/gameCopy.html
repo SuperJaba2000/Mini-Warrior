@@ -16,7 +16,7 @@
                          <input type="button" id="up" value="U">
                          <input type="button" id="down" value="D">
                          <input type="button" id="right" value="R">
-		    <canvas id="mini_map"></canvas>
+		    <canvas id="minimap"></canvas>
 			
 			<button id="pause" height="64px" width="64px" onclick="changePause()"> 
 		        <img src="assets/sprites/ui/pause.png" alt="pause" style="vertical-align: middle">
@@ -45,6 +45,7 @@
 		
 		        //load textures
 			var seed = 10;
+			let pMap = new Map("test", 500, 250, seed, gameVersion);// debug seed is 12345
 				
 		        function getTexture(dir){
                                 return "assets/sprites/"+dir+".png";
@@ -69,13 +70,6 @@
                         const sandBlock = new Block("sand-block", "#BDB76B", 0);
                         const brickBlock = new Block("brick-block", "#B22222", 0);
             */						
-				
-			//consts
-		  
-		        const worldDraw = world.getContext("2d");
-                        const inventoryDraw = inventory.getContext("2d");
-			
-			let pMap = new Map("test", 500, 250, seed, gameVersion);// debug seed is 12345
 			
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;

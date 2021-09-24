@@ -21,3 +21,7 @@ function changeTex(){
         }
         draw();
 }
+
+const worldDraw = world.getContext("2d");
+const inventoryDraw = inventory.getContext("2d");
+const minimapDraw = minimap.getContext("2d");

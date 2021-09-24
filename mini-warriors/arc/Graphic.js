@@ -1,22 +1,32 @@
 function drawFloor(x, y, floor){
+	let tileSize = Settings.debug.tileSize;
+	
 	if(Settings.graphics.useTextures){
 	    //draw texture
-	    worldDraw.drawImage(floor.textureRegion(), x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+	    worldDraw.drawImage(floor.textureRegion(), x, y, tileSize, tileSize);
 	}else{		
             //draw color	
 	    worldDraw.fillStyle = floor.color;
-	    worldDraw.fillRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+	    worldDraw.fillRect(x, y, tileSize, tileSize);
 	}
+	//draw block on minimap
+        minimapDraw.fillStyle = floor.color; 
+	minimapDraw.fillRect(x / tileSize, y / tileSize, tileSize, tileSize);
 }
 
 function drawBlock(x, y, block){
+	let tileSize = Settings.debug.tileSize;
+	
 	if(Settings.graphics.useTextures){
 		//draw texture
 	}else{
 	    //draw color	
             worldDraw.fillStyle = block.color;
-	    worldDraw.fillRect(x, y, Settings.debug.tileSize, Settings.debug.tileSize);
+	    worldDraw.fillRect(x, y, tileSize, tileSize);
 	}
+	//draw block on minimap
+        minimapDraw.fillStyle = block.color; 
+	minimapDraw.fillRect(x / tileSize, y / tileSize, tileSize, tileSize);	
 }
 
 //Draw all tiles
@@ -45,7 +55,7 @@ function drawTiles(){
 			        if(tileInfo.hasBlock){
 				        if(tileInfo.stillDrawFloor){
 						//drawFloor(drawX, drawY, tile.floor);	
-				                drawBlock(drawX, drawY, tile.block);			
+				                drawBlock(drawX, drawY, tile.block);								
 			                }else{
                                                 drawBlock(drawX, drawY, tile.block);
 			                }
@@ -57,11 +67,14 @@ function drawTiles(){
         }
 }
 
+function drawMiniMap(){
+}
+
 function drawPlayer(){
 	/*let player = pMap.player;*/
 	const tileSize = Settings.debug.tileSize;
 	
-	var drawX = (Math.round(screenSize.width / 2)-1) * tileSize;   //(Math.round(screenSize.width/2)-1) * tileSize
+	var drawX = (Math.round(screenSize.width / 2)-1) * tileSize;
 	var drawY = (Math.round(screenSize.height / 2)-1) * tileSize;
 	
 	worldDraw.fillStyle = "#8B0000";
