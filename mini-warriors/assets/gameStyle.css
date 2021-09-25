@@ -41,13 +41,13 @@ body, html {
 	bottom: 4px;
 }
 
-#mini_map{
+#minimap{
 	background: #0000FF40;
 	border-color: ##0000CD;
 	border: 2px solid;
 	border-radius: 4px;
 	
-	width: 180px;
+	width: 360px;
 	height: 180px;
 	
 	position: absolute;

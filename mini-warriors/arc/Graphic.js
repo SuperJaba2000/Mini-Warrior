@@ -9,9 +9,6 @@ function drawFloor(x, y, floor){
 	    worldDraw.fillStyle = floor.color;
 	    worldDraw.fillRect(x, y, tileSize, tileSize);
 	}
-	//draw block on minimap
-        minimapDraw.fillStyle = floor.color; 
-	minimapDraw.fillRect(x / tileSize, y / tileSize, tileSize, tileSize);
 }
 
 function drawBlock(x, y, block){
@@ -24,9 +21,6 @@ function drawBlock(x, y, block){
             worldDraw.fillStyle = block.color;
 	    worldDraw.fillRect(x, y, tileSize, tileSize);
 	}
-	//draw block on minimap
-        minimapDraw.fillStyle = block.color; 
-	minimapDraw.fillRect(x / tileSize, y / tileSize, tileSize, tileSize);	
 }
 
 //Draw all tiles
@@ -68,6 +62,30 @@ function drawTiles(){
 }
 
 function drawMiniMap(){
+	const tileSize = Settings.debug.tileSize;
+	const miniSize = Math.min(minimap.width / pMap.width, minimap.width / pMap.height);
+	minimapDraw.clearRect(0, 0, minimap.width, minimap.height)
+	
+	for(var y = 0; y < pMap.height; y++){
+                for (var x = 0; x < pMap.width; x++){
+                        if(x >= 0 && y >= 0 && pMap.tiles[y] !== undefined && getTile(x, y) !== undefined){			
+			        let tile = getTile(x, y);
+			        let tileInfo = getTileInfo(tile);
+					
+			        if(tileInfo.hasBlock){
+                                        //draw block on minimap
+                                        minimapDraw.fillStyle = tile.block.color; 
+	                                minimapDraw.fillRect(x * miniSize, y * miniSize, miniSize, miniSize);	
+				}else{
+					//draw block on minimap
+                                        minimapDraw.fillStyle = tile.floor.color; 
+	                                minimapDraw.fillRect(x * miniSize, y * miniSize, miniSize, miniSize);
+				}
+			}
+                }
+        }
+	minimapDraw.fillStyle = "#8B0000";
+	minimapDraw.fillRect((pMap.player.realX-1) * miniSize, (pMap.player.realY-1) * miniSize, miniSize*3, miniSize*3);
 }
 
 function drawPlayer(){
@@ -92,7 +110,6 @@ function draw(){
 		case 3:
                         Settings.graphics.useTextures = true;
         }
-	
 	worldDraw.clearRect(0, 0, world.width, world.height)
 	
 	drawTiles();

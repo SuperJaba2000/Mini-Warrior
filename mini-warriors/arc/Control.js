@@ -167,5 +167,5 @@ right.onclick = function(){
 }
 
 function changePause(){
-				Settings.debug.pause = Settings.debug.pause ? false : true;
+	Settings.debug.pause = Settings.debug.pause ? false : true;
 }
