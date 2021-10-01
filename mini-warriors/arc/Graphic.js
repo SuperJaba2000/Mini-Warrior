@@ -1,3 +1,5 @@
+var minimapData = 0;
+
 function drawFloor(x, y, floor){
 	let tileSize = Settings.debug.tileSize;
 	
@@ -16,6 +18,7 @@ function drawBlock(x, y, block){
 	
 	if(Settings.graphics.useTextures){
 		//draw texture
+		worldDraw.drawImage(block.textureRegion(), x, y, tileSize, tileSize);
 	}else{
 	    //draw color	
             worldDraw.fillStyle = block.color;
@@ -61,8 +64,15 @@ function drawTiles(){
         }
 }
 
-function drawMiniMap(){
-	const tileSize = Settings.debug.tileSize;
+function updateMinimap(){
+	minimapDraw.clearRect(0, 0, minimap.width, minimap.height)
+	minimapDraw.putImageData(minimapData, 0, 0);
+	
+	minimapDraw.fillStyle = "#8B0000";
+	minimapDraw.fillRect((pMap.player.realX-1) * miniSize, (pMap.player.realY-1) * miniSize, miniSize*3, miniSize*3);
+}
+
+function drawMinimap(){
 	const miniSize = Math.min(minimap.width / pMap.width, minimap.width / pMap.height);
 	minimapDraw.clearRect(0, 0, minimap.width, minimap.height)
 	
@@ -84,6 +94,9 @@ function drawMiniMap(){
 			}
                 }
         }
+		
+	minimapData = minimapDraw.getImageData(0, 0, minimap.width, minimap.height);
+	
 	minimapDraw.fillStyle = "#8B0000";
 	minimapDraw.fillRect((pMap.player.realX-1) * miniSize, (pMap.player.realY-1) * miniSize, miniSize*3, miniSize*3);
 }

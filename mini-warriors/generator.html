@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+    <meta charset="utf-8" />
+    <title>generator</title>
+	<link rel="stylesheet" href="assets/genStyle.css">
+   </head>
+    <body>
+		<div class="gen" bgcolor="#69696960">
+		    <form id="genForm" action="../gameCopy.html" align="center">
+		            <h3>GENERATOR SETTINGS</h3><br>
+					
+					<big>Map size:</big><br>
+                    Map-Height:
+                    <input type="text" id="height" name="seed"><br>
+                    Map-Width:
+                    <input type="text" id="width">
+					
+				    <br><br><big>Generator type:</big><br>
+				    <a>
+				        <input type="radio" name="genType" value="noise" checked="true" >Noise(use noise function)<br>
+                        <input type="radio" name="genType" value="random">Random(messy blocks)<br>
+				    </a><br>
+					
+				    <a>
+				        <input type="submit" value="Generate!">
+					    <input type="reset" value="Reset values">
+				    </a>
+            </form>
+		    <div class="preview">
+			    <h3 align="center">MAP PREVIEW</h3><br>
+			</div>
+		</div>
+		
+		<script>
+		        genForm.onsubmit = function(){
+				localStorage["generator"] = {
+				        seed: genForm.elements['seed'].value,
+						
+				}
+			}
+		</script>
+    </body>
+</html>

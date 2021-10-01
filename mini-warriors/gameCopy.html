@@ -38,38 +38,15 @@
 		<script src='util/generator.js'></script>
 		
 		<script src='content/blocks.js'></script>
+		<script src='content/entities.js'></script>
 		<script src='content/map.js'></script>
-		<script src='content/player.js'></script>
+		
+		<script src="arc/TextureLoader.js"></script>
 
 		<script>
 		
-		        //load textures
 			var seed = 10;
-			let pMap = new Map("test", 500, 250, seed, gameVersion);// debug seed is 12345
-				
-		        function getTexture(dir){
-                                return "assets/sprites/"+dir+".png";
-                       }
-				
-			//barrierFloor = ;	//what??
-                        grassFloor.textures[0] = new Image(); grassFloor.textures[0].src=getTexture("floors/grass-floor");
-                        sandFloor.textures[0] = new Image(); sandFloor.textures[0].src=getTexture("floors/sand-floor");
-                        stoneFloor.textures[0] = new Image(); stoneFloor.textures[0].src=getTexture("floors/stone-floor");
-                        snowFloor.textures[0] = new Image(); snowFloor.textures[0].src=getTexture("floors/snow-floor");
-                        //brickFloor.textures[0] = new Image(); brickFloor.textures[0].src=getTexture("floors/brick-floor");
-
-                        //liquids
-				
-                        water.textures[0] = new Image(); water.textures[0].src=getTexture("floors/water");
-                        deepWater.textures[0] = new Image(); deepWater.textures[0].src=getTexture("floors/deep-water");
-			
-                        //blocks
-			
-                        barrierBlock.textures[0] = new Image(); barrierBlock.textures[0].src=getTexture("floors/deep-water");
-                        /*const grassBlock = new Block("grass-block", "#32CD32", 0);
-                        const sandBlock = new Block("sand-block", "#BDB76B", 0);
-                        const brickBlock = new Block("brick-block", "#B22222", 0);
-            */						
+			let pMap = new Map("test", 700, 350, seed, gameVersion);// debug seed is 12345
 			
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;
@@ -138,18 +115,20 @@
 		    
 			
 		function update() {
-			version.innerHTML = "Version: " + gameVersion;
-			
 			if(!Settings.debug.pause){
-				
 				pMap.player.x = pTile().x;
 				pMap.player.y = pTile().y;
+				
+				version.innerHTML = "Version: " + gameVersion;
+				coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
+			        biome.innerHTML = "biome: " + pTile().biome;
 			}
-			coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
-			biome.innerHTML = "biome: " + pTile().biome;
                 }
+				
                 let intervalUpdate = setInterval(() => update(), 10);
+		let intervalMinimap = setInterval(() => updateMinimap(),1000);
                 
+		drawMinimap();
 		draw();	
 		</script>
     </body>

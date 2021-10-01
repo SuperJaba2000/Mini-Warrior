@@ -1,34 +1,14 @@
 class Tile{
 	
-	biome = null;
-	x = 0;
-	y = 0;
+	biome = n;
+	x = 0; y = 0;
 	
 	constructor(floor, block, decor){
 		this.floor = floor;
 		this.decor = decor;		
-	    this.block = block;
+	        this.block = block;
 	}
 }
-
-function getTile(x, y){
-    return pMap.tiles[y][x];
-}
-			
-function getTileInfo(tile){	
-        let info = {
-	        hasBlock: tile.block !== null ? true : false,
-		hasFloor: tile.floor !== null,
-	        stillDrawFloor: this.hasBlock ? tile.block.stillDrawFloor : false,
-					
-	        canWalk: !this.hasBlock && this.hasFloor && tile.floor.canWalk ? true : false,
-					
-	        speedMultiplier: this.canWalk ? tile.floor.speedMultiplier : 0,
-	};
-	return info;
-}
-
-//////////
 
 class Map{
 	
@@ -49,19 +29,30 @@ class Map{
 		if(this.height % 2 === 0) this.height++
 		
 		//this.tiles = generate.emptyCoordinates(this.width, this.height, grassFloor);
-		this.tiles = generate.noise(this.width, this.height, seed);
+		let gen = new worldGen(); 
+		gen.width = this.width; gen.height = this.height;
+		gen.setSeed(seed);
 		
-		this.player = new Player(this, "cente");
+		this.tiles = gen.generate();
 	}
-						
+			
+        player = new Player();			
 	tiles = [];
 }
+
+//////////
 
 function changeMap(map){
 	pMap = map;			
 	resizing();
 }
 
-function pTile(){
-	return pMap.tiles[pMap.player.realY][pMap.player.realX];
-}
+const getTile = (x, y) => pMap.tiles[y][x];
+const pTile = () =>  pMap.tiles[pMap.player.realY][pMap.player.realX];
+
+const getTileInfo = tile => ({
+	hasBlock: tile.block == null ? false : true,
+	stillDrawFloor: this.hasBlock ? tile.block.stillDrawFloor : false,	
+	canWalk: !this.hasBlock && tile.floor.canWalk ? true : false,		
+	speedMultiplier: tile.floor.speedMultiplier,
+});

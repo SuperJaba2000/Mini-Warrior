@@ -1,86 +1,63 @@
-const generate = {
+class tileGen{
+	width = 0; height = 0;
 	
-        empty(width, height, floor){
-	        const tiles = [];
-	        tiles.length = height;
+	CX(){ return -(this.width - Math.round(this.width / 2)) }
+        CY(){ return (this.height - Math.round(this.height / 2)) }
+		
+	genTile(y, x){
+		let tile = new Tile(n, n, n);
+		tile.x = this.CX()+x; tile.y = this.CY()-y;
+                return tile;
+	}
+	
+        generate(){
+		const tiles = [];
+	        tiles.length = this.height;
 			
-	        for(var line = 0; line < height; line++){
-	    	        var l = []; l.length = width;
-		        for(var block = 0; block < width; block++){
-			        l[block] = new Tile(null, null, null);
+	        for(var y = 0; y < this.height; y++){
+	    	        var l = []; l.length = this.width;
+		        for(var x = 0; x < this.width; x++){
+			        l[x] = this.genTile(y, x)
 					
 				//generation barriers aroundmap
-				if(line == 0 || block == 0) l[block].block = barrierBlock;
-				if(line == (height-1) || block == (width-1)) l[block].block = barrierBlock;
+				if(y == 0 || x == 0) l[x].block = barrierBlock;
+				if(y == (this.height-1) || x == (this.width-1)) l[x].block = barrierBlock;
 		        }
-		        tiles[line] = l;
+		        tiles[y] = l;
 	        }
-	return tiles;
-        },
-	
-	emptyCoordinates(width, height, floor){
-	        const tiles = this.empty(width, height, floor);
-	
-	        const centerX = Math.round(width / 2);
-	        const centerY = Math.round(height / 2);
-	
-	        var cx = -(tiles[0].length - centerX);
-	        var cy = tiles.length - centerY, x = 0, y = 0;
-	
-	        while(y < tiles.length){
-	    	        while(x < tiles[0].length){
-		    	        tiles[y][x].x = cx;
-			        tiles[y][x].y = cy;
-				
-		    	        cx++;
-			        x++;
-		        }
-			x = 0;
-			cx = -(tiles[0].length - centerX);
-		        cy--;
-		        y++;
-	        }
-	return tiles;
-        },
-
-        random(width, height, seed){
-	        const tiles = this.emptyCoordinates(width, height, null);
 	        return tiles;
-        },
-	
-	//SIMPLEX NOISE GENERATOR
+	}
+}
 
-        noise(width, height, seed){
-		const tiles = this.emptyCoordinates(width, height, grassFloor);
-
-                //generate biomes
-                for(var y = 0; y < tiles.length; y++){
-                        for(var x = 0; x < tiles[0].length; x++){
-                                var tile = tiles[y][x];
-				noise.setSeed(seed);
-				//const h =  Math.abs(noise.simplex2(x / 140, y / 140));
-				e  =   1 * Math.abs(noise.simplex2(x / 140, y / 140));
-                                        + 0.25 * Math.abs(noise.simplex2(x / 35, y / 35));
-                                const h = e / (1 + 0.25);
+class worldGen extends tileGen{
 	
-	                        if(h <= 0.2){                               //rivers
-	                               tile.biome = "river";
-			               tile.floor = h <= 0.1 ? deepWater : water;
-	                        }else if(h <= 0.45){                         //beachs
-	                                tile.biome = "beach";
-			                tile.floor = sandFloor;
-	                        }else if(h <= 0.58){                         //biomes
-                                        tile.floor = grassFloor;
-	                        }else if(h <= 0.82){					      //mountains
-			                tile.floor = stoneFloor;
-			                tile.biome = "classic-mountains";
-		                }else{
-					tile.floor = snowFloor;		
-				}
-				tiles[y][x] = tile;
-                        }
-			//postgen
-                }
-		return tiles;
-        },
+	SEED = Math.random();
+	OCTAVES = [1, 0.15, 0.07];
+	
+	setSeed(value){
+		typeof value == "number" ? this.SEED = value : console.error("Seed must be a number!");
+		noise.setSeed(this.SEED);
+	}
+	
+	genTile(x, y){
+		let tile = super.genTile(x, y);
+		let e = noise.octaveSimplex(x, y, 150, this.OCTAVES);
+		
+		if(e < 0.17){
+	                tile.biome = "river";
+			tile.floor = e < 0.12 ? deepWater : water;
+	        }else if(e < 0.35){
+	                tile.biome = "beach";
+			tile.floor = sandFloor;
+	        }else if(e < 0.58){
+                        tile.floor = grassFloor;
+	        }else if(e < 0.82){
+			tile.floor = stoneFloor;
+			tile.biome = "classic-mountains";
+		}else{
+			tile.floor = snowFloor;		
+		}
+		
+		return tile;
+	}
 }
