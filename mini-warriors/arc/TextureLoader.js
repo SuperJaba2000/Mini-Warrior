@@ -12,6 +12,7 @@ function setTextures(obj, path){
 }
 	
 setTextures(grassFloor, "floors/grass-floor");
+setTextures(grassFloorSwamp, "floors/grass-floor-swamp");
 setTextures(sandFloor, "floors/sand-floor");
 setTextures(stoneFloor, "floors/stone-floor");
 setTextures(snowFloor, "floors/snow-floor");
@@ -20,7 +21,11 @@ setTextures(snowFloor, "floors/snow-floor");
 //liquids
 				
 setTextures(water, "floors/water");
+setTextures(waterSwamp, "floors/water-swamp");
 setTextures(deepWater, "floors/deep-water");
+setTextures(deepWaterSwamp, "floors/deep-water-swamp");
+
+const testImg = new Image; testImg.src= "assets/sprites/classicTexture.jpg"
 			
 //blocks
 

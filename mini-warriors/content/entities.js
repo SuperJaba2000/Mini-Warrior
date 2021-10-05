@@ -2,7 +2,7 @@ class Entity{
 	
 	maxHealth = -1; health = -1; isDead = false;
 	realX = 0; realY = 0;
-	orientation = 1;//
+	orientation = 1;
 	speed = 0;
 	
 	consturctor(name, maxHealth){
@@ -21,7 +21,7 @@ class Player extends Entity{
 	
 	attack = 15;
 	
-	x = 0; y = 0;
+	x = 0; y = 0; targetBlock = null;
 	realX = 110; realY = 100;
 	
 	constructor(){

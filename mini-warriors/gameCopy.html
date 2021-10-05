@@ -129,7 +129,10 @@
 		let intervalMinimap = setInterval(() => updateMinimap(),1000);
                 
 		drawMinimap();
-		draw();	
+		
+		testImg.onload = function(){
+		        draw();	
+		};
 		</script>
     </body>
 </html>

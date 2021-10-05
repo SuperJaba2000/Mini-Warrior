@@ -1,18 +1,25 @@
 document.onkeydown = function(e) {
-	let m = pMap;
-	let p = m.player;
+	let player = pMap.player;
 	
-        if(!Settings.debug.pause && m !== null && !m.player.isDead){
-                if(e.key === "ArrowRight"){
-		        let wTile = getTile(p.realX+1, p.realY);
-			if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-		                p.realX++;
-			        p.x = wTile.x;
-			}
-			draw();
-			e.preventDefault();
+        if(!Settings.debug.pause && pMap !== null && !player.isDead){
+                switch(e.key){
+			case "ArrowRight":
+				if(player.orientation == 2){
+					let tile = player.targetBlock;
+			                if(tile !== undefined && tile !== null && tile.block == null && tile.floor.canWalk){
+		                                player.realX++;  player.x = tile.x;
+						draw;
+			                }
+				}else{
+                                        player.orientation = 2;
+					player.targetBlock = getTile(player.realX+1, p.realY);	
+                                        //reDraw player					
+				}      e.preventDefault()
+                        break;
+			
+                        //case "ArrowLeft":			
 		}
-                if(e.key === "ArrowLeft"){
+                if(false){
 			let wTile = getTile(p.realX-1, p.realY);
 			if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
 		                p.realX--;

@@ -65,6 +65,7 @@ function drawTiles(){
 }
 
 function updateMinimap(){
+	const miniSize = Math.min(minimap.width / pMap.width, minimap.width / pMap.height);
 	minimapDraw.clearRect(0, 0, minimap.width, minimap.height)
 	minimapDraw.putImageData(minimapData, 0, 0);
 	

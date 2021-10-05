@@ -36,6 +36,10 @@ class Floor{
         }
 	textures = [];
 }
+
+class Platform extends Floor{
+	
+}
 			
 /// /// /// /// /// /// /// /// /// /// /// /// /// 
 /// /// /// /// /// /// /// /// /// /// /// /// /// 
@@ -44,18 +48,24 @@ class Floor{
 //floors			
 
 const barrierFloor = new Floor("barrier-floor", "#ffffff00", 0);	
-const grassFloor = new Floor("grass-floor", "#00FF00", 0);	
-const sandFloor = new Floor("sand-floor", "#F0E68C", 3);
-const stoneFloor = new Floor("stone-floor", "#808080", 0);
+const grassFloor = new Floor("grass-floor", "#6aa95e", 0);	
+const grassFloorSwamp = new Floor("grass-floor-swamp", "#6a985e", 0);
+const sandFloor = new Floor("sand-floor", "#d3ae8d", 3);
+const stoneFloor = new Floor("stone-floor", "#676a78", 0);
 const snowFloor = new Floor("snow-floor", "#ffffff", 0);
 const brickFloor = new Floor("brick-floor", "#FF6347", 0);
 
 //liquids
 				
-const water = new Floor("water", "#199DFF", 0);
-water.speedMultiplier = 0.3;			
-const deepWater = new Floor("deep-water", "#006ADA", 0);
+const water = new Floor("water", "#596ab8", 0);
+water.speedMultiplier = 0.3;	
+const waterSwamp = new Floor("water-swamp", "#56839d", 0);
+waterSwamp.speedMultiplier = 0.3;	
+	
+const deepWater = new Floor("deep-water", "#4d5ca4", 0);
 deepWater.canWalk = false;
+const deepWaterSwamp = new Floor("deepwater-swamp", "#527680", 0);
+deepWaterSwamp.canWalk = false;
 			
 //blocks
 			
@@ -64,3 +74,8 @@ barrierBlock.stillDrawFloor = true;
 const grassBlock = new Block("grass-block", "#32CD32", 0);
 const sandBlock = new Block("sand-block", "#BDB76B", 0);
 const brickBlock = new Block("brick-block", "#B22222", 0);
+const shrubBlock = new Block("shrub-block",  "#4a9c4c", 0);
+
+//platforms
+
+const nenuphar = new Platform("nenuphar",  "#4a9c4c", 0);

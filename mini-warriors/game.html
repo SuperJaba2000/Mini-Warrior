@@ -97,13 +97,13 @@
 			
 			const random = {
 			
-			    basic(min, max){
-                    let rand = min + Math.random() * (max + 1 - min);
-                    return Math.floor(rand);
-                },
+			        basic(min, max){
+                                        let rand = min + Math.random() * (max + 1 - min);
+                                        return Math.floor(rand);
+                                },
 				
 				percent(percent){
-                    const accident = (this.basic(0, 100) <= percent) ? true : false;
+                                        const accident = (this.basic(0, 100) <= percent) ? true : false;
 					return accident;
 				},
 			}

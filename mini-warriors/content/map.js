@@ -3,9 +3,9 @@ class Tile{
 	biome = n;
 	x = 0; y = 0;
 	
-	constructor(floor, block, decor){
+	constructor(floor, platform, block){
 		this.floor = floor;
-		this.decor = decor;		
+		this.platform = platform;		
 	        this.block = block;
 	}
 }
@@ -24,9 +24,6 @@ class Map{
 		this.width = width;
 		this.height = height;
 		this.version = version;
-		
-		if(this.width % 2 === 0) this.width++
-		if(this.height % 2 === 0) this.height++
 		
 		//this.tiles = generate.emptyCoordinates(this.width, this.height, grassFloor);
 		let gen = new worldGen(); 
