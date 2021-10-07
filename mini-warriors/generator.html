@@ -9,8 +9,8 @@
 		<div class="settings" align="center">
 		            <p><h3>GENERATOR SETTINGS</h3><br>
 					
-					<h4>name: <input type="text" id="name" size="20" maxLength="18" value="map name"></h4>
-					<h4>autor: <input type="text" size="20" maxLength="18" value="your name or nick"></h4><br>
+					<h4>name: <input type="text" id="name" size="20" maxLength="18" value="Unknown"></h4>
+					<h4>autor: <input type="text" id="autor" size="20" maxLength="18" value="Unknown"></h4><br>
 					
 					<p><h6>
                         height: <input type="text" id="height" value="250">
@@ -51,6 +51,7 @@
 		
 		<script src='content/blocks.js'></script>
 		<script src='content/entities.js'></script>
+		<script src='content/player-classes.js'></script>
 		<script src='content/map.js'></script>
 		
 		<script>
@@ -58,7 +59,6 @@
 		
                         generate.onclick = function(){
 				pMap = new Map(document.getElementById("name").value, width.value, height.value, seed.value, "auto generate");	
-                                console.info(pMap);
 				
                                 let map = document.getElementById("map");
 				
@@ -88,7 +88,7 @@
 			
 			save.onclick = function(){
                                 let mapJson = JSON.stringify(pMap, null, 2);
-				save.download = document.getElementById("name").value + ".mwsave";
+				save.download = '"'+document.getElementById("name").value+'"'+" by "+ autor.value + ".mwsave";
                                 save.href = URL.createObjectURL( new Blob([mapJson], {type: "text/plain;charset=UTF-8"}) );
 			}
 		</script>

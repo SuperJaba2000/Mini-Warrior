@@ -22,9 +22,6 @@ body, html {
 #world { 
     background-color: #aac;
     display: block; 
-	border: dashed #B22222;
-	
-	/*margin: 0 auto;*/
 }
 
 #inventory{

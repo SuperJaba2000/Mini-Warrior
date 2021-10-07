@@ -103,14 +103,13 @@ function drawMinimap(){
 }
 
 function drawPlayer(){
-	/*let player = pMap.player;*/
+	var player = pMap.player;
 	const tileSize = Settings.debug.tileSize;
 	
 	var drawX = (Math.round(screenSize.width / 2)-1) * tileSize;
 	var drawY = (Math.round(screenSize.height / 2)-1) * tileSize;
 	
-	worldDraw.fillStyle = "#8B0000";
-	worldDraw.fillRect(drawX, drawY, tileSize, tileSize);
+	worldDraw.drawImage(player.textureRegion(), drawX, drawY, tileSize, tileSize);
 }
 
 function draw(){
@@ -119,7 +118,7 @@ function draw(){
                         Settings.graphics.useTextures = false;
             break;
                 case 2:
-                        Settings.graphics.useTextures = Settings.debug.tileSize <= 3.45 ? false : true;
+                        Settings.graphics.useTextures = Settings.debug.tileSize <= 6 ? false : true;
             break;	
 		case 3:
                         Settings.graphics.useTextures = true;
@@ -129,3 +128,8 @@ function draw(){
 	drawTiles();
 	drawPlayer();
 }
+
+worldDraw.mozImageSmoothingEnabled = false;
+worldDraw.webkitImageSmoothingEnabled = false;
+worldDraw.msImageSmoothingEnabled = false;
+worldDraw.imageSmoothingEnabled = false;

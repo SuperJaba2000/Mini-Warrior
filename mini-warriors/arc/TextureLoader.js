@@ -25,6 +25,10 @@ setTextures(waterSwamp, "floors/water-swamp");
 setTextures(deepWater, "floors/deep-water");
 setTextures(deepWaterSwamp, "floors/deep-water-swamp");
 
+//player classes
+
+setTextures(warrior, "entities/player-classes/warrior");
+
 const testImg = new Image; testImg.src= "assets/sprites/classicTexture.jpg"
 			
 //blocks

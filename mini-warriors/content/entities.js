@@ -10,6 +10,9 @@ class Entity{
 		this.maxHealth = maxHealth;
 	}
 	
+	textureRegion = () => this.textures[this.orientation - 1];
+	textures = [0, 0, 0, 0];
+	
 	at(x, y){
 		pMap.entities.push(this);
 	}
@@ -21,7 +24,7 @@ class Player extends Entity{
 	
 	attack = 15;
 	
-	x = 0; y = 0; targetBlock = null;
+	x = 0; y = 0; targetTile = null;
 	realX = 110; realY = 100;
 	
 	constructor(){

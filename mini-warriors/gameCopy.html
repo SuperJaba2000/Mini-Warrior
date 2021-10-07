@@ -31,7 +31,6 @@
 		
 		<script src="arc/Vars.js"></script>
 		<script src="arc/Graphic.js"></script>
-		<script src="arc/Control.js"></script>
 		
 		<script src='util/random.js'></script>
 		<script src='util/noise.js'></script>
@@ -39,22 +38,21 @@
 		
 		<script src='content/blocks.js'></script>
 		<script src='content/entities.js'></script>
+		<script src='content/player-classes.js'></script>
 		<script src='content/map.js'></script>
 		
 		<script src="arc/TextureLoader.js"></script>
+		
+		<script src="arc/Control.js"></script>
 
 		<script>
-		
-			var seed = 10;
-			let pMap = new Map("test", 700, 350, seed, gameVersion);// debug seed is 12345
-			
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;
 			        
-					let h = Math.round(window.innerHeight  / tileSize);//-1
-			        screenSize.height = h > window.innerHeight ? h-1 : h;
-					let w = Math.round(window.innerWidth / tileSize);//-1
-				screenSize.width = w > window.innerWidth ? w-1 : w;
+					let h = Math.round(window.innerHeight  / tileSize) + 1;
+			        screenSize.height = h > window.innerHeight ? h : h;
+					let w = Math.round(window.innerWidth / tileSize + 1);
+				screenSize.width = w > window.innerWidth ? w : w;
 					
 				world.height = screenSize.height * tileSize;
 				world.width = screenSize.width * tileSize;

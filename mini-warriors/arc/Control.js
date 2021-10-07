@@ -1,51 +1,89 @@
+function moveRight(){
+	let player = pMap.player;
+	
+	if(player.orientation == 2){
+		let tile = getTile(player.realX+1, player.realY);
+		if(tile !== undefined && tile !== null && tile.block == null && tile.floor.canWalk){
+		        player.realX++;  player.x = tile.x;
+			draw();
+		}
+	}else{
+                player.orientation = 2;	
+                draw();					
+	}      
+}
+
+function moveLeft(){
+	let player = pMap.player;
+	
+	if(player.orientation == 4){
+		let tile = getTile(player.realX-1, player.realY);
+		if(tile !== undefined && tile !== null && tile.block == null && tile.floor.canWalk){
+		        player.realX--;  player.x = tile.x;
+			draw();
+		}
+	}else{
+                player.orientation = 4;	
+                draw();					
+	}      
+}
+
+function moveUp(){
+	let player = pMap.player;
+	
+	if(player.orientation == 1){
+		let tile = getTile(player.realX, player.realY-1)
+		if(tile !== undefined && tile !== null && tile.block == null && tile.floor.canWalk){
+		        player.realY--;  player.y = tile.y;
+			draw();
+		}
+	}else{
+                player.orientation = 1;	
+                draw();					
+	}
+}
+
+function moveDown(){
+	let player = pMap.player;
+	
+	if(player.orientation == 3){
+		let tile = getTile(player.realX, player.realY+1)
+		if(tile !== undefined && tile !== null && tile.block == null && tile.floor.canWalk){
+		        player.realY++;  player.y = tile.y;
+			draw();
+		}
+	}else{
+                player.orientation = 3;	
+                draw();					
+	}
+}
+
+/////////////////////////////////
+
+//computers keys
 document.onkeydown = function(e) {
 	let player = pMap.player;
 	
         if(!Settings.debug.pause && pMap !== null && !player.isDead){
                 switch(e.key){
+					
 			case "ArrowRight":
-				if(player.orientation == 2){
-					let tile = player.targetBlock;
-			                if(tile !== undefined && tile !== null && tile.block == null && tile.floor.canWalk){
-		                                player.realX++;  player.x = tile.x;
-						draw;
-			                }
-				}else{
-                                        player.orientation = 2;
-					player.targetBlock = getTile(player.realX+1, p.realY);	
-                                        //reDraw player					
-				}      e.preventDefault()
-                        break;
+			        moveRight();   e.preventDefault();
+                                break;
 			
-                        //case "ArrowLeft":			
+                        case "ArrowLeft":	
+                                moveLeft();   e.preventDefault();
+                                break;	
+
+                        case "ArrowUp":	
+                                moveUp();   e.preventDefault()
+                                break;	
+
+                        case "ArrowDown":	
+                               moveDown();   e.preventDefault()
+                               break;							
 		}
-                if(false){
-			let wTile = getTile(p.realX-1, p.realY);
-			if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-		                p.realX--;
-			        p.x = wTile.x;
-			}
-			draw();
-			e.preventDefault();
-		}
-                if(e.key === "ArrowDown"){
-			let wTile = getTile(p.realX, p.realY+1);
-			if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-		                p.realY++;
-			        p.y = wTile.y;
-			}
-			draw();
-			e.preventDefault();
-		 }
-                if(e.key === "ArrowUp"){
-			let wTile = getTile(p.realX, p.realY-1);
-			if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-		                p.realY--;
-			        p.y = wTile.y;
-			}
-			draw();
-			e.preventDefault();
-		}
+		
 		
 		if(e.key === "1"){
 			let bTile = getTile(p.realX, p.realY-1);
@@ -78,46 +116,62 @@ document.onkeydown = function(e) {
 			}
 			draw();
 		}
-	
-                //console.log(e.key+"\n x: "+p.x+",y: "+p.y);
-                //draw();
-
                  return false;
 	 }
 }
 
- if(world.addEventListener) {
-      if ('onwheel' in document) {
-        // IE9+, FF17+
-        world.addEventListener("wheel", onWheel);
-      } else if ('onmousewheel' in document) {
-        // устаревший вариант события
-        world.addEventListener("mousewheel", onWheel);
-      } else {
-        // Firefox < 17
-        world.addEventListener("MozMousePixelScroll", onWheel);
-      }
-    } else { // IE8-
-      world.attachEvent("onmousewheel", onWheel);
-    }
+//phones controls
+right.onclick = moveRight();
+left.onclick = moveLeft();
+up.onclick = moveUp();
+down.onclick = moveDown();
 
-    function onWheel(e) {
-      e = e || window.event;
+//mouse events
+world.addEventListener("wheel", 
+	function(e){
+	        var tileSize = Settings.debug.tileSize;
+		var maxDistance = 32 - Settings.graphics.maxDistance + 2;
+                let delta = e.deltaY / 100;
 
-      var delta = e.deltaY / 500;
+                if(tileSize <= maxDistance && delta > 0){
+			Settings.debug.tileSize = maxDistance;
+			e.deltaY = 0;
+		}else{
+			Settings.debug.tileSize -=delta;
+			resizing();   draw();
+		}
 
-         Settings.debug.tileSize -= delta;
-         if(Settings.debug.tileSize <= 0){
-	        Settings.debug.tileSize = 3;
-		e.deltaY = 1500;	
-        }
-	 resizing();
-	 draw();
+                e.preventDefault();
+        },
+false);
 
-      e.preventDefault ? e.preventDefault() : (e.returnValue = false);
-    }
-	
-    const _ = "~";
+world.addEventListener("mousemove", 
+        function(e){
+		var x = pMap.player.realX + Math.round(e.offsetX/Settings.debug.tileSize+0.5) - Math.round((screenSize.width-1)/2);
+		var y = pMap.player.realY + Math.round(e.offsetY/Settings.debug.tileSize-0.5) - Math.round((screenSize.height-1)/2);
+		
+	        if(x > 0 && y > 0){
+			pMap.player.targetTile = getTile(x, y);
+		        console.log(getTile(x, y));
+		}
+	},	
+false);
+
+world.addEventListener("click", 
+        function(e){
+		let tile = pMap.player.targetTile;
+		let player = pMap.player;
+		
+	        if(Math.abs(player.x - tile.x) <= player.buildRange && Math.abs(player.y - tile.y) <= player.buildRange){
+			tile.floor = grassFloorSwamp;
+                        			
+			draw();   drawMinimap();
+		}
+	},	
+false);
+
+//ingame commands	
+const _ = null;
 
 function teleport(x, y){
 	if(x !== _) pMap.player.realX = x;
@@ -131,48 +185,9 @@ function tp(x, y){
 	teleport(x-1, y-1);
 }
 
-//Phones Controls
 
-left.onclick = function(){
-    let p = pMap.player;
-    let wTile = getTile(p.realX-1, p.realY);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realX--;
-	p.x = wTile.x;
-    }
-    draw();
-}
-
-up.onclick = function(){
-    let p = pMap.player;
-    let wTile = getTile(p.realX, p.realY-1);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realY--;
-	p.y = wTile.y;
-    }
-    draw();
-}
-
-down.onclick = function(){
-    let p = pMap.player;
-    let wTile = getTile(p.realX, p.realY+1);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realY++;
-	p.y = wTile.y;
-    }
-    draw();
-}
-
-right.onclick = function(){
-    let p = pMap.player;
-    let wTile = getTile(p.realX+1, p.realY);
-    if(wTile !== undefined && wTile !== null && wTile.block == null && wTile.floor.canWalk){
-        p.realX++;
-	p.x = wTile.x;
-    }
-    draw();
-}
 
 function changePause(){
 	Settings.debug.pause = Settings.debug.pause ? false : true;
 }
+

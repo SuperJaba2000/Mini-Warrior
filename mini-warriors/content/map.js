@@ -33,7 +33,7 @@ class Map{
 		this.tiles = gen.generate();
 	}
 			
-        player = new Player();			
+        player = warrior;			
 	tiles = [];
 }
 
@@ -53,3 +53,5 @@ const getTileInfo = tile => ({
 	canWalk: !this.hasBlock && tile.floor.canWalk ? true : false,		
 	speedMultiplier: tile.floor.speedMultiplier,
 });
+
+var pMap = new Map("Main", 300, 300, 12345, gameVersion);

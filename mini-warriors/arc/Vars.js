@@ -1,10 +1,11 @@
-const gameVersion = "PN-0.02"
+const gameVersion = "PC-0.03"
 const screenSize = { height: 0, width:  0};
 
 const Settings = {
 	graphics: {
-		useTextures: false,
 		level: 2,
+		useTextures: true,
+		maxDistance: 32, //render distanse 2-32;
 	},
 
     debug: {

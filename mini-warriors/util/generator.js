@@ -42,16 +42,16 @@ class tileGen{
 
 class worldGen extends tileGen{
 	
-	OCTAVES = [1, 0.15, 0.07];
+	OCTAVES = [1, 0.14, 0.09];
 	STRUCTURES = [];
 	
 	genTile(x, y){
 		let tile = super.genTile(x, y);
 		let e = noise.octaveSimplex(x, y, 150, this.OCTAVES);
-		let b = noise.octaveSimplex(x, y, 220, [0.4, 0.1, 0.08]);
+		let b = noise.octaveSimplex(x, y, 295, [1, 0.2, 0.08]);
 		
 		if(e < 0.21){                                                	    //0.17
-	                if(b > 0.48){
+	                if(b > 0.55){
 			        tile.floor = random.chance(8) ? grassFloorSwamp : e < 0.14 ? deepWaterSwamp : waterSwamp;
                                 tile.biome = "swamp";					
 			}else{
@@ -59,7 +59,7 @@ class worldGen extends tileGen{
 				tile.biome = "river"
 			}
 	        }else if(e < 0.45){                                                 //0.35
-	                if(b > 0.48){
+	                if(b > 0.55){
 			        tile.floor = random.chance(26) ? waterSwamp : (random.chance(8) ? grassFloor : grassFloorSwamp);
                                 tile.biome = "swamp";					
 			}else{
@@ -67,7 +67,7 @@ class worldGen extends tileGen{
 				tile.biome = "beach"
 			}
 	        }else if(e < 0.66){                                                 //0.58
-                        if(b > 0.48){
+                        if(b > 0.55){
 			        tile.floor = grassFloorSwamp;
                                  tile.biome = "swamp";					
 			}else{
