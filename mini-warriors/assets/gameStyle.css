@@ -10,7 +10,8 @@
 }
 
 body, html {
-  overflow: hidden
+  overflow: hidden;
+  touch-action: manipulation;
 }
 
 ::-webkit-scrollbar {
@@ -104,30 +105,19 @@ body, html {
 #pause:hover { color: #69696980;}
 #pause:active{transform: translateY(1px);}
 
-#text_textures{
-	position: absolute;
+	
+input[type="file"]{
+    display: none;
+}
+
+#mods_loader {
+    position: absolute;
 	top: 74px;
 	right: 6px;
-}
-
-#switch_textures{
-  	position: absolute; 
 	
-    top: 99px;
-	right: 4px;
-
-    width: 64px;
-    height: 16px;
-	color: #69696980;
-	text-decoration: none;
-    user-select: none;
-    outline: none;
-    border: 2px solid;
-	border-radius: 5px;
-    transition: 0.2s;
+    cursor: pointer;
 }
-#switch_textures input {display:none;}
-#switch_textures:hover { color: #69696980;}
+
 
 .slider {
   position: absolute;

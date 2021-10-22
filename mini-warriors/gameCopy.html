@@ -22,10 +22,9 @@
 		        <img src="assets/sprites/ui/pause.png" alt="pause" style="vertical-align: middle">
 		    </button>
 			
-			<a id="text_textures">textures</a>
-			<label id="switch_textures">
-                <input id="textures" type="checkbox" onclick="changeTex()">
-                <span class="slider"></span>
+			<label id="mods_loader">
+                <input type="file" onchange="loadMod(this)">
+                    Load a Mod 
             </label>
 		</div>
 		
@@ -41,6 +40,8 @@
 		<script src='content/player-classes.js'></script>
 		<script src='content/map.js'></script>
 		
+		<script src='content/mods.js'></script>
+		
 		<script src="arc/TextureLoader.js"></script>
 		
 		<script src="arc/Control.js"></script>
@@ -50,9 +51,9 @@
 			        var tileSize = Settings.debug.tileSize;
 			        
 					let h = Math.round(window.innerHeight  / tileSize) + 1;
-			        screenSize.height = h > window.innerHeight ? h : h;
-					let w = Math.round(window.innerWidth / tileSize + 1);
-				screenSize.width = w > window.innerWidth ? w : w;
+			        screenSize.height = h;
+					let w = Math.round(window.innerWidth / tileSize) + 1;
+				screenSize.width = w;
 					
 				world.height = screenSize.height * tileSize;
 				world.width = screenSize.width * tileSize;
@@ -67,70 +68,36 @@
 		        /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		        /// /// /// /// /// /// /// /// /// /// /// /// ///
 			
-                        function save(){
-                                let file = new Blob([JSON.stringify(pMap, null, 2)], {type: 'text/plain'});
-                                /*save.href = URL.createObjectURL(file);*/
-				return file;
-			}
-			
 			function menu(){
 			        const menu = window.open('../index.html','Menu');
                                 window.close()
 			}
 			
-			function gen(){
-			        alert(map_height);
-			}
-			
                         /// /// /// /// /// /// /// /// /// /// /// /// /// 
 		        /// /// /// /// /// /// /// /// /// /// /// /// /// 
-		        /// /// /// /// /// /// /// /// /// /// /// /// ///
+		        /// /// /// /// /// /// /// /// /// /// /// /// /// 
 			
-			/*function update() {
-			
-			    if(!pause){
+		        function update() {
+			        if(!Settings.debug.pause){
+				        pMap.player.x = pTile().x;
+				        pMap.player.y = pTile().y;
 				
-				setStyles();
+				        version.innerHTML = "Version: " + gameVersion;
+				        coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
+			                biome.innerHTML = "biome: " + pTile().biome;
+							
+					drawInventoryLine();
+			        }
+                        }
 				
-				quantHeight = map.tiles.length, quantWidth = map.tiles[0].length;
-				
-			    world.height = quantHeight * tileSize;
-			    world.width = quantWidth * tileSize;
-			
-			    //clear canvas
-                worldDraw.clearRect(0, 0, world.width, world.height)
-				inventoryDraw.clearRect(0, 0, inventory.width, inventory.height)
-
-                //draw new
-				drawInventoryLine()
-                drawTiles()
-				
-                drawPlayer()
-				
-				}
-            }*/
-			
-		    
-			
-		function update() {
-			if(!Settings.debug.pause){
-				pMap.player.x = pTile().x;
-				pMap.player.y = pTile().y;
-				
-				version.innerHTML = "Version: " + gameVersion;
-				coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
-			        biome.innerHTML = "biome: " + pTile().biome;
-			}
-                }
-				
-                let intervalUpdate = setInterval(() => update(), 10);
-		let intervalMinimap = setInterval(() => updateMinimap(),1000);
+                        let intervalUpdate = setInterval(() => update(), 10);
+		        let intervalMinimap = setInterval(() => updateMinimap(),1000);
                 
-		drawMinimap();
+		        drawMinimap()
 		
-		testImg.onload = function(){
-		        draw();	
-		};
+		        testImg.onload = function(){
+		                draw();	
+		        }
 		</script>
     </body>
 </html>

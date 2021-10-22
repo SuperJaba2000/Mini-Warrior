@@ -13,6 +13,11 @@ class Player_Class extends Entity{
 	constructor(name){
 		super(name, 100);
 	}
+	
+	inventory = {
+		active: 1,
+		storage: [n, n, n, n]
+	}
 			
         damage(amout){
                 if(this.health <= 0){

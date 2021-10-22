@@ -54,4 +54,4 @@ const getTileInfo = tile => ({
 	speedMultiplier: tile.floor.speedMultiplier,
 });
 
-var pMap = new Map("Main", 300, 300, 12345, gameVersion);
+let pMap = new Map("Main", 300, 300, 12345, gameVersion);

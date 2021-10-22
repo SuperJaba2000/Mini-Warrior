@@ -113,20 +113,31 @@ function drawPlayer(){
 }
 
 function draw(){
+	worldDraw.clearRect(0, 0, world.width, world.height)
 	switch(Settings.graphics.level) {
                 case 1:
                         Settings.graphics.useTextures = false;
-            break;
+                        break;
                 case 2:
                         Settings.graphics.useTextures = Settings.debug.tileSize <= 6 ? false : true;
-            break;	
+                        break;	
 		case 3:
                         Settings.graphics.useTextures = true;
+			break;
         }
-	worldDraw.clearRect(0, 0, world.width, world.height)
-	
 	drawTiles();
 	drawPlayer();
+}
+
+function drawInventoryLine(){
+	const inv = pMap.player.inventory;
+	var widthDraw = (inventory.width / inv.storage.length) - 5;
+	var heightDraw = inventory.height - 8
+	
+	for(var i = 1; i < (inv.storage.length+1); i++){
+		inventoryDraw.fillStyle = "#696969";
+		inventoryDraw.fillRect(i*4 + (i-1)*widthDraw, 4, widthDraw, heightDraw);
+	}
 }
 
 worldDraw.mozImageSmoothingEnabled = false;

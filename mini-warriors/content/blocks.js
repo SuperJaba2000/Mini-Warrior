@@ -14,7 +14,7 @@ class Block{
         textureRegion(){
 		return this.textures[0];
         }
-	textures = [];
+	textures = [123, 234, 321];
 }
 	
 class Floor{

@@ -147,11 +147,11 @@ false);
 
 world.addEventListener("mousemove", 
         function(e){
-		var x = pMap.player.realX + Math.round(e.offsetX/Settings.debug.tileSize+0.5) - Math.round((screenSize.width-1)/2);
+		var x = pMap.player.realX + Math.floor(e.offsetX/Settings.debug.tileSize) - Math.floor(screenSize.width/2);
 		var y = pMap.player.realY + Math.round(e.offsetY/Settings.debug.tileSize-0.5) - Math.round((screenSize.height-1)/2);
 		
-	        if(x > 0 && y > 0){
-			pMap.player.targetTile = getTile(x, y);
+	        if(x >= 0 && y >= 0){
+			pMap.player.targetTile = getTile(x+1, y+1);
 		        console.log(getTile(x, y));
 		}
 	},	
@@ -163,7 +163,7 @@ world.addEventListener("click",
 		let player = pMap.player;
 		
 	        if(Math.abs(player.x - tile.x) <= player.buildRange && Math.abs(player.y - tile.y) <= player.buildRange){
-			tile.floor = grassFloorSwamp;
+			tile.floor = player.inventory.active;
                         			
 			draw();   drawMinimap();
 		}
