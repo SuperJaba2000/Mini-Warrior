@@ -152,7 +152,6 @@ world.addEventListener("mousemove",
 		
 	        if(x >= 0 && y >= 0){
 			pMap.player.targetTile = getTile(x+1, y+1);
-		        console.log(getTile(x, y));
 		}
 	},	
 false);

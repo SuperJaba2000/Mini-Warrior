@@ -1,42 +1,87 @@
-//only vanilla textures
-function setTextures(obj, path){
-	if(obj.textures.length == 1){
-		let img = new Image(); img.src="assets/sprites/"+path+".png";
-		obj.textures[0] = img;
-	}else{
-		for(v = 0; v < obj.textures.length; v++){
-			let img = new Image(); img.src="assets/sprites/"+(path+(v+1))+".png";
-			obj.textures[v] = img;
+class TextureLoader{
+	
+	uploaded = 0;
+	all = 0;
+	
+	objectives = [];
+	
+	constructor(root){
+	        this.root = root;
+	}
+	
+	addObjectives(obj){
+		if(Array.isArray(obj) && obj.length > 1){
+			for(var i = 0; i < obj.length; i++){
+				this.objectives.push(obj[i]);
+			}
+		}else{
+			this.objectives.push(obj);
 		}
 	}
-}
 	
-setTextures(grassFloor, "floors/grass-floor");
-setTextures(grassFloorSwamp, "floors/grass-floor-swamp");
-setTextures(sandFloor, "floors/sand-floor");
-setTextures(stoneFloor, "floors/stone-floor");
-setTextures(snowFloor, "floors/snow-floor");
-//setTextures(brickFloor, "floors/brick-floor");
-
-//liquids
-				
-setTextures(water, "floors/water");
-setTextures(waterSwamp, "floors/water-swamp");
-setTextures(deepWater, "floors/deep-water");
-setTextures(deepWaterSwamp, "floors/deep-water-swamp");
-
-//player classes
-
-setTextures(warrior, "entities/player-classes/warrior");
-
-const testImg = new Image; testImg.src= "assets/sprites/classicTexture.jpg"
+	load(obj){
+	        if(obj.textures.length == 1){
+	        	var img = new Image(); 
 			
-//blocks
+			img.onload = function(){
+                                loader.loaded();
+			};
+			
+			img.src = `${this.root}/${obj.type}/${obj.name}.png`;
+			
+			obj.textures[0] = img;
+	        }else{
+		        for(var v = 0; v < obj.textures.length; v++){
+			        var img = new Image(); 					
+					
+				img.onload = function(){
+				        loader.loaded();
+			        };
+					
+				img.src = `${this.root}/${obj.type}/${obj.name}${v}.png`;
+					
+				obj.textures[v] = img;
+		        }
+	        }
+        }
+		
+        loadAll(){
+		this.all = this.objectives.length;
+		
+		for(var i = 0; i < this.objectives.length; i++){
+                        this.load(this.objectives[i]);
+		}
+	}
 
-/*			
+        loaded(){
+		this.uploaded++;
+		console.log(`loaded ${this.uploaded} of ${this.all} textures`);
+		
+                if(this.uploaded == this.all){
+		        drawTiles();
+			console.log("Load is Succesfull!");	
+		}
+        }			
+}
 
-    barrierBlock.textures[0] = new Image(); barrierBlock.textures[0].src=getTexture("floors/deep-water");
-    const grassBlock = new Block("grass-block", "#32CD32", 0);
-    const sandBlock = new Block("sand-block", "#BDB76B", 0);
-    const brickBlock = new Block("brick-block", "#B22222", 0);
-*/						
+const loader = new TextureLoader("assets/sprites");
+
+loader.addObjectives([
+
+        grassFloor,
+	grassFloorSwamp,
+	sandFloor,
+	stoneFloor,
+	snowFloor,
+	planksFloor,
+	
+	water,
+	waterSwamp,
+	deepWater,
+	deepWaterSwamp,
+	
+	leavesBlock,
+	woodBlock
+]);
+
+loader.loadAll();					

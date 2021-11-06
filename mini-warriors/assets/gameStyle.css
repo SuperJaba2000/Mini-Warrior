@@ -6,7 +6,7 @@
 *{
 	margin: 0; padding: 0;
 	font-family: "Poppins", sans-serif;
-	background-color: #faf6ff;
+	background-color: #aaf;
 }
 
 body, html {
@@ -21,8 +21,12 @@ body, html {
 /*Canvases*/
 
 #world { 
-    background-color: #aac;
+    background-color: #000000;
     display: block; 
+	
+	position: relative;
+	right: 16px;
+	bottom: 16px;
 }
 
 #inventory{

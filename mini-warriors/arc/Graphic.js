@@ -3,6 +3,8 @@ var minimapData = 0;
 function drawFloor(x, y, floor){
 	let tileSize = Settings.debug.tileSize;
 	
+	if(floor == undefined || floor == null) return;
+	
 	if(Settings.graphics.useTextures){
 	    //draw texture
 	    worldDraw.drawImage(floor.textureRegion(), x, y, tileSize, tileSize);
@@ -51,7 +53,7 @@ function drawTiles(){
 					
 			        if(tileInfo.hasBlock){
 				        if(tileInfo.stillDrawFloor){
-						//drawFloor(drawX, drawY, tile.floor);	
+						drawFloor(drawX, drawY, tile.floor);	
 				                drawBlock(drawX, drawY, tile.block);								
 			                }else{
                                                 drawBlock(drawX, drawY, tile.block);
@@ -126,7 +128,7 @@ function draw(){
 			break;
         }
 	drawTiles();
-	drawPlayer();
+	//drawPlayer();
 }
 
 function drawInventoryLine(){
@@ -140,7 +142,9 @@ function drawInventoryLine(){
 	}
 }
 
+/*
 worldDraw.mozImageSmoothingEnabled = false;
 worldDraw.webkitImageSmoothingEnabled = false;
 worldDraw.msImageSmoothingEnabled = false;
 worldDraw.imageSmoothingEnabled = false;
+*/

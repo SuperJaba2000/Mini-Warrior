@@ -10,6 +10,7 @@ const Settings = {
 
     debug: {
 		tileSize: (32),
+		tileBuffer: (2),
 		miniSize: (1),
 		pause: false,
 	},

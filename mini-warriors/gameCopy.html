@@ -23,7 +23,7 @@
 		    </button>
 			
 			<label id="mods_loader">
-                <input type="file" onchange="loadMod(this)">
+                <input type="file" onchange="loadMod(this.files[0])">
                     Load a Mod 
             </label>
 		</div>
@@ -38,6 +38,7 @@
 		<script src='content/blocks.js'></script>
 		<script src='content/entities.js'></script>
 		<script src='content/player-classes.js'></script>
+		<script src='content/structures.js'></script>
 		<script src='content/map.js'></script>
 		
 		<script src='content/mods.js'></script>
@@ -50,9 +51,9 @@
 			function resizing(){
 			        var tileSize = Settings.debug.tileSize;
 			        
-					let h = Math.round(window.innerHeight  / tileSize) + 1;
+					let h = Math.round(window.innerHeight  / tileSize) + Settings.debug.tileBuffer;
 			        screenSize.height = h;
-					let w = Math.round(window.innerWidth / tileSize) + 1;
+					let w = Math.round(window.innerWidth / tileSize) + Settings.debug.tileBuffer;
 				screenSize.width = w;
 					
 				world.height = screenSize.height * tileSize;
@@ -84,7 +85,7 @@
 				
 				        version.innerHTML = "Version: " + gameVersion;
 				        coordinates.innerHTML = "x: " + pMap.player.x + " y: " + pMap.player.y;
-			                biome.innerHTML = "biome: " + pTile().biome;
+			                biome.innerHTML = "biome: " + pTile().biome.name;
 							
 					drawInventoryLine();
 			        }
@@ -94,10 +95,6 @@
 		        let intervalMinimap = setInterval(() => updateMinimap(),1000);
                 
 		        drawMinimap()
-		
-		        testImg.onload = function(){
-		                draw();	
-		        }
 		</script>
     </body>
 </html>

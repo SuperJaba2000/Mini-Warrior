@@ -31,11 +31,42 @@ class Map{
 		gen.setSeed(seed);
 		
 		this.tiles = gen.generate();
+		
+		/*this.player.realX = gen.SPAWN.x;
+		this.player.realY = gen.SPAWN.y;*/
 	}
 			
         player = warrior;			
 	tiles = [];
 }
+
+class Biome{
+	
+	treeChance = 0;
+	
+	constructor(name, temperature){
+		this.name = name;
+		this.temperature = temperature;
+	}
+}
+
+const ocean = new Biome("ocean", 0.4);
+const ocean_beach = new Biome("ocean-beach", 0.5);
+
+const river = new Biome("river", 0.4);
+const river_beach = new Biome("river-beach", 0.5);
+const river_mouth = new Biome("river-mouth", 0.4);
+
+const meadow = new Biome("meadow", 0.5);
+meadow.treeChance = 3;
+
+const forest = new Biome("forest", 0.5);
+forest.treeChance = 95;
+
+const swamp = new Biome("swamp", 0.6);
+swamp.treeChance = 10;
+
+const classic_mountains = new Biome("classic-mountains", 0.2);
 
 //////////
 
@@ -54,4 +85,4 @@ const getTileInfo = tile => ({
 	speedMultiplier: tile.floor.speedMultiplier,
 });
 
-let pMap = new Map("Main", 300, 300, 12345, gameVersion);
+let pMap = new Map("Main", 1000, 1000, Math.random() * Math.random(), gameVersion);

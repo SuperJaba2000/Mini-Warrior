@@ -1,4 +1,4 @@
-function loadMod(files){
+function loadJsonMod(files){
 	
         let reader = new FileReader();
         reader.readAsText(files.files[0]);
@@ -16,4 +16,22 @@ function loadMod(files){
 		
 		return mod;
         }
+}
+
+class Mod{
+	
+}
+
+function loadMod(file){
+	var reader = new FileReader();
+	
+	reader.readAsText(file);
+	
+	reader.onload = function(){
+		var tag = document.createElement('script');
+                tag.id = mod.name;
+
+                tag.innerHTML = (reader.result);
+		document.body.append(tag);
+	}
 }

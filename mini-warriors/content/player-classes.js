@@ -8,7 +8,7 @@ class Player_Class extends Entity{
 	buildRange = 5;
 	
 	x = 0; y = 0; targetTile = null;
-	realX = 110; realY = 100;
+	realX = 150; realY = 150;
 	
 	constructor(name){
 		super(name, 100);

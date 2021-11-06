@@ -17,24 +17,21 @@ class tileGen{
 	}
 	
         generate(){
-		var tiles = [];
+		let tiles = Array(this.height).fill().map(()=>Array(this.width).fill());
 	        tiles.length = this.height;
 			
 	        for(var y = 0; y < this.height; y++){
-	    	        var l = []; l.length = this.width;
+	    	        tiles[y].length = this.width;
 		        for(var x = 0; x < this.width; x++){
-			        l[x] = this.genTile(y, x)
+			        tiles[y][x] = this.genTile(x, y)
 					
-				//generation barriers aroundmap
-				if(y == 0 || x == 0) l[x].block = barrierBlock;
-				if(y == (this.height-1) || x == (this.width-1)) l[x].block = barrierBlock;
+				//generation barriers around map
+				if(y == 0 || x == 0) tiles[y][x].block = barrierBlock;
+				if(y == (this.height-1) || x == (this.width-1)) tiles[y][x].block = barrierBlock;
 		        }
-		        tiles[y] = l;
-	        }
-		
-                tiles = this.postGenerate(tiles);		
+	        }	
 			
-	        return tiles;
+	        return this.postGenerate(tiles);;
 	}
 	
 	postGenerate(tiles){};
@@ -42,50 +39,73 @@ class tileGen{
 
 class worldGen extends tileGen{
 	
-	OCTAVES = [1, 0.14, 0.09];
-	STRUCTURES = [];
+	OCTAVES = [0.2, 0.4, 1.2, 3];
+	OCTAVES2 = [0.2, 0.84, 2.67];
+	STRUCTURES = [spawnShip, test_tree];
+	
+	SPAWN = {};
 	
 	genTile(x, y){
-		let tile = super.genTile(x, y);
-		let e = noise.octaveSimplex(x, y, 150, this.OCTAVES);
+		var tile = super.genTile(x, y);
+		let l = noise.octaveSimplex(x, y, 20, this.OCTAVES);
+		let e = Math.abs(noise.octaveSimplex(x, y, 45, this.OCTAVES2));
 		let b = noise.octaveSimplex(x, y, 295, [1, 0.2, 0.08]);
+		let f = noise.octaveSimplex(x, y, 400, [1, 0.6, 0.08]);
 		
-		if(e < 0.21){                                                	    //0.17
-	                if(b > 0.55){
-			        tile.floor = random.chance(8) ? grassFloorSwamp : e < 0.14 ? deepWaterSwamp : waterSwamp;
-                                tile.biome = "swamp";					
-			}else{
-				tile.floor = e < 0.14 ? deepWater : water;
-				tile.biome = "river"
-			}
-	        }else if(e < 0.45){                                                 //0.35
-	                if(b > 0.55){
-			        tile.floor = random.chance(26) ? waterSwamp : (random.chance(8) ? grassFloor : grassFloorSwamp);
-                                tile.biome = "swamp";					
-			}else{
-				tile.floor = sandFloor;
-				tile.biome = "beach"
-			}
-	        }else if(e < 0.66){                                                 //0.58
-                        if(b > 0.55){
-			        tile.floor = grassFloorSwamp;
-                                 tile.biome = "swamp";					
-			}else{
-				tile.floor = grassFloor;
-				tile.biome = "meadow";
-			}
-	        }else if(e < 0.84){                                                 //0.82
-			tile.floor = stoneFloor;
-			tile.biome = "classic-mountains";
+		if(l < -0.24){
+			tile.biome = ocean;
+			tile.floor = deepWater;
+		}else if(l < -0.1 && e > 0.15){
+                        tile.floor = water;
+			tile.biome = ocean;
+		}else if(l < 0 && e > 0.15){
+                        tile.floor = sandFloor;
+			tile.biome = ocean_beach;
+		/*}else if(l < 0 && e < 0.15){
+			tile.floor = deepWater;
+			tile.biome = river_mouth;*/
 		}else{
-			tile.floor = snowFloor;		
+		        if(e < 0.15){
+	                        if(b > 0.55){
+			                tile.floor = random.chance(8) ? grassFloorSwamp : e < 0.14 ? deepWaterSwamp : waterSwamp;
+                                        tile.biome = swamp;					
+			        }else{
+				        tile.floor = e < 0.1 ? deepWater : water;
+				        tile.biome = river;
+			        }
+	                }else if(e < 0.35){
+	                        if(b > 0.55){
+			                tile.floor = random.chance(26) ? waterSwamp : (random.chance(8) ? grassFloor : grassFloorSwamp);
+                                        tile.biome = swamp;					
+			        }else{
+				        tile.floor = sandFloor;
+					tile.floor.icon = random.basic(0, 2);
+				        tile.biome = river_beach;
+			        }
+	                }else if(e < 0.66){
+                                if(b > 0.55){
+			                tile.floor = grassFloorSwamp;
+                                        tile.biome = swamp;					
+			        }else{
+				        tile.floor = grassFloor;
+				        tile.biome = (f > 0.2 ? forest :  meadow);
+			        }
+	                }else if(e < 0.84){
+			        tile.floor = stoneFloor;
+			        tile.biome = classic_mountains;
+		        }else{
+			        tile.floor = snowFloor;	
+                                tile.biome = classic_mountains;				
+		        }
 		}
 		
 		return tile;
 	}
 	
-	postGenerate(tiles){
+	postGenerate(ts){
 		//generate structures
+		
+		var tiles = ts;
 		
 		for(var y = 0; y < this.height; y++){
 		        for(var x = 0; x < this.width; x++){
@@ -100,6 +120,38 @@ class worldGen extends tileGen{
 				tiles[y][x] = tile;
 		        }
 	        }
+		
+
+		/*while(this.SPAWN.x == undefined){
+			var x = random.basic(1, this.widht);
+			var y = random.basic(1, this.height);
+			
+			//console.log(tiles[y][x]);//
+			
+			if(tile.biome == "ocean-beach"){
+				this.SPAWN.x = x;
+				this.SPAWN.y = y;
+				
+				tile.floor = stoneFloor;
+				tiles[y][x] = tile;
+			}
+		}*/
+		
+		for(var y = 0; y < this.height; y++) {
+                        for (var x = 0; x < this.width; x++) {
+                                if(y % (random.basic(2, 7) -random.basic(0, 1)) == 0 && x % (random.basic(2, 7) -random.basic(0, 1)) == 0){
+					if(
+					        tiles[y][x].biome !== null &&
+					        tiles[y][x].biome.treeChance !== 0  &&
+						random.chance(tiles[y][x].biome.treeChance)
+					) tiles = this.STRUCTURES[1].set(tiles, x, y);			
+				}	
+                        }
+                }
+		
+		tiles = this.STRUCTURES[0].set(tiles, 150, 150);
+		
+		
 		return tiles;	
 	}
 }
