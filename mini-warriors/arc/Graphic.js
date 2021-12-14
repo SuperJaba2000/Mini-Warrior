@@ -4,19 +4,21 @@ function getDistance(x, y){
 	const px = pMap.player.realX;
 	const py = pMap.player.realY;
 	
-	const rx = px - (screenSize.width / 2 + 0.5) + x;
-	const ry = py - (screenSize.height / 2 + 0.5) + y;
+	const rx = px - Math.round(screenSize.width / 2) + x;
+	const ry = py - Math.round(screenSize.height / 2) + y;
 	
 	const d = Math.max(
 	      Math.abs(px - rx),
 	      Math.abs(py - ry)
 	);
 	
-	if(d >= 6){
+	let l = 6 - d;
+	
+	if(l <= 0){
 	    return "0";
 	}
 		
-	return d;
+	return l;
 }
 
 function drawFloor(x, y, floor){
