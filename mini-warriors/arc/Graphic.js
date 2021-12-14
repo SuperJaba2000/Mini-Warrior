@@ -12,7 +12,7 @@ function getDistance(x, y){
 	      Math.abs(py - ry)
 	);
 	
-	let l = 6 - d;
+	let l = 1 - d/10;
 	
 	if(l <= 0){
 	    return "0";
@@ -26,6 +26,8 @@ function drawFloor(x, y, floor){
 	
 	if(floor == undefined || floor == null) return;
 	
+	worldDraw.globalAlpha = getDistance(x/tileSize, y/tileSize);
+	
 	if(Settings.graphics.useTextures){
 	    //draw texture
 	    worldDraw.drawImage(floor.textureRegion(), x, y, tileSize, tileSize);
@@ -35,8 +37,8 @@ function drawFloor(x, y, floor){
 	    worldDraw.fillRect(x, y, tileSize, tileSize);
 	}
 	
-	worldDraw.font = `${tileSize}px serif`;
-        worldDraw.fillText(getDistance(x/tileSize, y/tileSize), x, y);
+	//worldDraw.font = `${tileSize}px serif`;
+        //worldDraw.fillText(getDistance(x/tileSize, y/tileSize), x, y);
 }
 
 function drawBlock(x, y, block){
