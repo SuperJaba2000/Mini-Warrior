@@ -34,7 +34,7 @@ function drawFloor(x, y, floor){
 	}
 	
 	worldDraw.font = `${tileSize}px serif`;
-        worldDraw.fillText(getDistance(x, y), x, y);
+        worldDraw.fillText(getDistance(x/tileSize, y/tileSize), x, y);
 }
 
 function drawBlock(x, y, block){
