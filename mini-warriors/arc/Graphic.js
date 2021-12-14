@@ -23,9 +23,6 @@ function drawFloor(x, y, floor){
 	
 	if(floor == undefined || floor == null) return;
 	
-	worldDraw.font = `${tileSize}px serif`;
-        worldDraw.fillText(getDistance(x, y), x, y);
-	
 	if(Settings.graphics.useTextures){
 	    //draw texture
 	    worldDraw.drawImage(floor.textureRegion(), x, y, tileSize, tileSize);
@@ -34,6 +31,9 @@ function drawFloor(x, y, floor){
 	    worldDraw.fillStyle = floor.color;
 	    worldDraw.fillRect(x, y, tileSize, tileSize);
 	}
+	
+	worldDraw.font = `${tileSize}px serif`;
+        worldDraw.fillText(getDistance(x, y), x, y);
 }
 
 function drawBlock(x, y, block){
