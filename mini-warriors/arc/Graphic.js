@@ -1,9 +1,30 @@
 var minimapData = 0;
 
+function getDistance(x, y){
+	const px = pMap.player.realX;
+	const py = pMap.player.realY;
+	
+	const rx = px - (screenSize.width / 2 + 0.5) + x;
+	const ry = py - (screenSize.height / 2 + 0.5) + y;
+	
+	const d = Math.max(
+	      Math.abs(px - rx),
+	      Math.abs(py - ry)
+	);
+	
+	if(d > 5);
+	    return " ";
+	
+	return d;
+}
+
 function drawFloor(x, y, floor){
 	let tileSize = Settings.debug.tileSize;
 	
 	if(floor == undefined || floor == null) return;
+	
+	worldDraw.font = `${tileSize}px serif`;
+        worldDraw.fillText(getDistance(x, y), x, y);
 	
 	if(Settings.graphics.useTextures){
 	    //draw texture
