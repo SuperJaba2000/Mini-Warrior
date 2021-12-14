@@ -12,9 +12,10 @@ function getDistance(x, y){
 	      Math.abs(py - ry)
 	);
 	
-	if(d > 5);
-	    return " ";
-	
+	if(d >= 6){
+	    return "0";
+	}
+		
 	return d;
 }
 
