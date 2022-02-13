@@ -1,0 +1,22 @@
+{
+  "name": "mini-warriors",
+  "version": "0.0.1",
+  "description": "gggg",
+  "main": "index.html",
+  "scripts": {
+    "test": "hui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "null"
+  },
+  "keywords": [
+    "null"
+  ],
+  "author": "aa",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "socket.io": "^4.4.1"
+  }
+}
