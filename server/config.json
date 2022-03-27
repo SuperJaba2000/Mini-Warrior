@@ -1,0 +1,11 @@
+{
+  "port": 5456,
+  
+  "directory": "../client/files",
+  "home_page": "Game.html",
+  "users_base": "users.db",
+  
+  "connection_limit": 10,
+  "reconnection_attempts": 10,
+  "reconnection_timeout": 20000
+}

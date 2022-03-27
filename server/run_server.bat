@@ -2,6 +2,7 @@
 
 echo run server.js
 echo.
-node server.js 
 
+node server.js 2> logs/log.txt
 
+pause
