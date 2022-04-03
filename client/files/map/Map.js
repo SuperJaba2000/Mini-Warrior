@@ -1,7 +1,7 @@
 class Map{
 	
 	SEED = 12345;
-	SIZE = 100;
+	SIZE = 250;
 	
 	constructor(name, version){
 		this.name = name;

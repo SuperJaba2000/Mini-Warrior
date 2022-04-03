@@ -14,8 +14,10 @@ const Core = {
 		Vars.graphics.update();
 	
 	        if(!Vars.changeable.pause){
+			Core.tick();
+			
 			Vars.controls.update();
-		        Core.tick();
+		        
 			Vars.changeable.activeMap.update();
 		}		  
 	

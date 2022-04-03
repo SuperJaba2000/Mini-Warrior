@@ -13,8 +13,8 @@ class Draw {
 	
 	getTilesScreen(){
 		return {
-			width: Math.round(window.screen.availWidth / Vars.tileSize),
-			height: Math.round(document.documentElement.clientHeight / Vars.tileSize),
+			width: Math.ceil(window.screen.availWidth / Vars.tileSize),
+			height: Math.ceil(window.screen.availHeight / Vars.tileSize),
 		}
 	}
 	
@@ -34,13 +34,13 @@ class Draw {
 		
 		let d = Math.round(Math.sqrt((dx * dx) + (dy * dy)));
 	
-	        let l = 0.5 - d/Vars.maxLight;
+	        let l = 0.9 - d/Vars.maxLight;
 	
                 if( Vars.maxLight - d < (Vars.maxLight - viewDistance) )
 	        	l = 0;	
 	
         	if(l <= 0)
-	                return 0.03;
+	                return 0.05;
 		
 	        return l;
         }
@@ -56,7 +56,11 @@ class Draw {
 		
 		const ctx = this.canvas.getContext('2d');
 		
-		//ctx.globalAlpha = this.getLight(x/this.drawSize, y/this.drawSize);//.get(x / this.drawSize, y / this.drawSize);
+		if(Vars.changeable.activeMap.getActiveWorld().activeDimension == 1){
+			ctx.globalAlpha = 1;
+		}else{
+		        ctx.globalAlpha = this.getLight(x/this.drawSize, y/this.drawSize);//.get(x / this.drawSize, y / this.drawSize);
+		}
 		
 		/*ctx.fillStyle = "#000000";
 		ctx.fillText(this.getLight(x / this.drawSize, y / this.drawSize), x, y)*/

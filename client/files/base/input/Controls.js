@@ -129,7 +129,7 @@ class Controls{
 		}
 	}
 	
-        update(){
+        update(){		
 		if(this.lastKey == null)
 			return;
 		
@@ -139,28 +139,80 @@ class Controls{
 		this.keys[this.lastKey].action(player, tiles);
 		
 		this.lastKey = null;
+		
+		/*switch(joy.GetDir()){
+		        case 'N':
+		                this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');
+			        break;
+		
+		        case 'S':
+		                this.lastKey = this.keys.findIndex(i => i.key == 'ArrowDown');
+			        break;
+			
+		        case 'W':
+		                this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+			        break;
+			
+		        case 'E':
+		                this.lastKey = this.findIndex(i => i.key == 'ArrowRight');
+			        break;
+	        }*/
 	}
 }
 
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 
+        alert("You use Phone")
 
-var joy = new JoyStick('joyDiv',{
-    // The ID of canvas element
-    title: 'joystick',
-    // width/height
-    width: 180,
-    height: 180,
-    // Internal color of Stick
-    internalFillColor: '#0000FF',
-    // Border width of Stick
-    internalLineWidth: 2,
-    // Border color of Stick
-    internalStrokeColor: '#000033',
-    // External reference circonference width
-    externalLineWidth: 2,
-    //External reference circonference color
-    externalStrokeColor: '#0000FF',
-    // Sets the behavior of the stick
-    autoReturnToCenter: true
-    
-});
+        var joy = new JoyStick('joyDiv',{
+                // The ID of canvas element
+                title: 'joystick',
+                // width/height
+                width: 180,
+                height: 180,
+                // Internal color of Stick
+                internalFillColor: '#0000FF',
+                externalFillColor: '#0000FF',
+                // Border width of Stick
+                internalLineWidth: 2,
+                // Border color of Stick
+                internalStrokeColor: '#000033',
+                // External reference circonference width
+                externalLineWidth: 2,
+                //External reference circonference color
+                externalStrokeColor: '#0000FF',
+                // Sets the behavior of the stick
+                autoReturnToCenter: true   
+        }, function(stickData) {
+	        switch(stickData.cardinalDirection){
+			case 'N':
+			        Vars.controls.lastKey = Vars.controls.keys.findIndex(i => i.key == 'ArrowUp');
+				break;
+		
+			case 'S':
+			        Vars.controls.lastKey = Vars.controls.keys.findIndex(i => i.key == 'ArrowDown');
+				break;
+			
+			case 'W':
+			        Vars.controls.lastKey = Vars.controls.keys.findIndex(i => i.key == 'ArrowLeft');
+				break;
+			
+			case 'E':
+		  	      Vars.controls.lastKey = Vars.controls.keys.findIndex(i => i.key == 'ArrowRight');
+				break;
+		}
+		
+		/*let that = this;
+		
+		document.onkeydown = function(e){
+			if(/*e.repeat || keys.findIndex(i => i.key == e.key) == -1)
+				return false;
+		        
+			that.lastKey = keys.findIndex(i => i.key == e.key);
+		}
+	}*/
+        });
+}else{
+	console.log('You use PC')
+	document.getElementById('joyDiv').style.visibility = 'hidden';
+}

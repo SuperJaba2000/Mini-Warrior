@@ -3,17 +3,21 @@ class Graphics {
         constructor(outputCanvas) {
 		this.canvas = outputCanvas;	
 		this.draw = new Draw(outputCanvas, null, 32);
+		
+		window.addEventListener('resize', this.init, false);
         }
 		
 	_draw() {
 		this.drawTiles();
 		this.drawEntities();
 		this.drawEffects();
+		
+		this.drawPlayer();
 	}
 	
 	init(){
-		this.canvas.width = `${this.getTilesScreen().width * Vars.tileSize}`;
-		this.canvas.height = `${this.getTilesScreen().height * Vars.tileSize}`;
+		Vars.mainCanvas.width = `${Vars.graphics.getTilesScreen().width * Vars.tileSize}`;
+		Vars.mainCanvas.height = `${Vars.graphics.getTilesScreen().height * Vars.tileSize}`;
 	}
 	
 	update() {
@@ -27,13 +31,15 @@ class Graphics {
 		
 		let ctx = this.canvas.getContext('2d');
 		
+		this.init();
+		
 		ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
 	
 	getTilesScreen(){
 		return {
-			width: Math.ceil(window.screen.width / Vars.tileSize),
-			height: Math.ceil(document.documentElement.clientHeight / Vars.tileSize),
+			width: Math.ceil(window.screen.availWidth / Vars.tileSize),
+			height: Math.ceil(window.screen.availHeight / Vars.tileSize),
 		}
 	}
 	
@@ -126,12 +132,16 @@ class Graphics {
 		let camera = Vars.changeable.camera;
 		let ctx = this.canvas.getContext('2d');
 		
-		let activeRegion = player.textureRegion.get();
+		//let activeRegion = player.textureRegion.get();
 		
-		let drawX = Math.floor(this.getTilesScreen().width / 2); + (player.x - camera.x);
-		let drawY = Math.floor(this.getTilesScreen().height / 2); + (player.y - camera.y);
+		let drawX = Math.floor(this.getTilesScreen().width / 2) * Vars.tileSize;// + (player.position.x - camera.position.x);
+		let drawY = Math.floor(this.getTilesScreen().height / 2) * Vars.tileSize;// + (player.position.y - camera.position.y);
 		
-		ctx.drawImage(activeRegion, drawX, drawY, Vars.tileSize, Vars.tileSize);
+		ctx.globalAlpha = 1;
+		
+		ctx.fillStyle = '#da70d6';
+		ctx.fillRect(drawX, drawY, Vars.tileSize, Vars.tileSize);
+		//ctx.drawImage(activeRegion, drawX, drawY, Vars.tileSize, Vars.tileSize);
 	}
 	
 }	
@@ -144,14 +154,14 @@ function recolor(img, r, g, b) {
 		
         for(let y = 0; y < height; y++){
                 for(let x = 0; x < width; x++){
-                        let red = ((y - 1) * (canvas.width * 4)) + ((x - 1) * 4);
+                        /*let red = ((y - 1) * (document.getElementById('scene').width * 4)) + ((x - 1) * 4);
                         let green = red + 1;
                         let blue = red + 2;
                         let alpha = red + 3;
 			
                         data[red] = r + (255 - r) * data[red] / 255;
                         data[green] = g + (255 - g) * data[green] / 255;
-                        data[blue] = b + (255 - b) * data[blue] / 255;
+                        data[blue] = b + (255 - b) * data[blue] / 255;*/
                 }
         }
         //img.data = data;

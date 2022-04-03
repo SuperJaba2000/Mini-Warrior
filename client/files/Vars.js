@@ -5,10 +5,10 @@ class vars{
 		update: 0,
 	});
 	
-	tileSize = 32;
+	tileSize = 32;//32
 	tileBuffer = 2;
 	
-	maxLight = 55;
+	maxLight = 25;
 	
 	mainCanvas = document.getElementById('scene');
 	minimapCanvas = document.getElementById('minimap');

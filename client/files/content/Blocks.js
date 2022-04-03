@@ -11,7 +11,7 @@ class blocks{
 	sand = new Floor('sand', '#FFFF00', 1);
 	
 	water = new Floor('water', '#0000FF', 1);
-	deepWater = new Floor('water', '#0000AA', 1);
+	deepWater = new Floor('deep-water', '#0000AA', 1);
 	
 	//endregion
 	//region special
@@ -26,3 +26,5 @@ Blocks.fire.animated = true;
 Blocks.fire.alwaysDrawFloor = true;
 
 Blocks.ladder.alwaysDrawFloor = true;
+
+Blocks.deepWater.canWalk = false;
