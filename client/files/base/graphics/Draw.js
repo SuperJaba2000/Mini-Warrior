@@ -13,8 +13,8 @@ class Draw {
 	
 	getTilesScreen(){
 		return {
-			width: Math.ceil(window.screen.availWidth / Vars.tileSize),
-			height: Math.ceil(window.screen.availHeight / Vars.tileSize),
+			width: Math.ceil(window.innerWidth / Vars.tileSize),
+			height: Math.ceil(window.innerHeight / Vars.tileSize),
 		}
 	}
 	
@@ -58,6 +58,7 @@ class Draw {
 		
 		if(Vars.changeable.activeMap.getActiveWorld().activeDimension == 1){
 			ctx.globalAlpha = 1;
+		        ctx.globalAlpha = this.getLight(x/this.drawSize, y/this.drawSize);
 		}else{
 		        ctx.globalAlpha = this.getLight(x/this.drawSize, y/this.drawSize);//.get(x / this.drawSize, y / this.drawSize);
 		}

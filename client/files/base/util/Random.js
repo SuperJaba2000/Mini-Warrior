@@ -3,7 +3,7 @@ class Random {
 	constructor(){};
 	
 	basic = function(min, max, round = true) {
-                let rand = min + Math.random() * (max + 1 - min);
+                let rand = min + Math.random() * (max - min);
                 return round ? Math.round(rand) : rand;
         }
 				

@@ -1,7 +1,7 @@
 class World{
 	
 	caveGenerator = new CaveGenerator();
-	mainGenerator = new OpenWorldGenerator();
+	mainGenerator = new TestWorldGenerator();//new OpenWorldGenerator();
 	//DUNGEON_GENERATOR = new CaveGenerator();
 	
 	constructor(name, size, height){
@@ -30,5 +30,5 @@ class World{
 	}
 	
 	dimensions = [];
-	activeDimension = 0;
+	activeDimension = 1;
 }

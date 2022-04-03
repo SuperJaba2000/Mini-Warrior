@@ -38,8 +38,8 @@ class Graphics {
 	
 	getTilesScreen(){
 		return {
-			width: Math.ceil(window.screen.availWidth / Vars.tileSize),
-			height: Math.ceil(window.screen.availHeight / Vars.tileSize),
+			width: Math.ceil(window.innerWidth / Vars.tileSize),
+			height: Math.ceil(window.innerHeight / Vars.tileSize),
 		}
 	}
 	
