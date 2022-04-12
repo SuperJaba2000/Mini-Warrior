@@ -11,7 +11,7 @@ class BasicGenerator extends BaseGenerator{
 	}
 	
 	postGenerate(){
-		this.tiles.upd(60, 60, {block: Blocks.ladder})
+		this.tiles.upd(60, 60, {block: Blocks.fire})
 	}
 }
 

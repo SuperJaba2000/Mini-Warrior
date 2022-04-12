@@ -6,6 +6,8 @@ class Block{
 	group = "blocks";
 	
 	hasShadow = true;
+	hasLight = false;
+	lightLevel = 20;
 	animated = false;
 	
 	alwaysDrawFloor = false;

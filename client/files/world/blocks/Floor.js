@@ -3,15 +3,25 @@ class Floor extends  Block{
 	speedMultiplier = 1.0;
 	canWalk = true;
 	
+	priority = 1;
+	
 	group = "floors";
 	
 	hasShadow = false;
 	
-	constructor(name, color, variants) {
+	constructor(name, color, variants, priority) {
 		//this.textures[0] = new Image(); this.textures[0].src = "assets/sprites/classicTexture.jpg";
-		
 		super(name, color, variants);
+		
+		if(priority)
+			this.priority = priority;
         }
+        
+        edgeRegion(side){
+		return this.edges[side];
+        }
+		
+	edges = [];
 }
 
 /*

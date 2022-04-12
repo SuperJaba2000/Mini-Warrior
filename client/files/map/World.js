@@ -30,5 +30,5 @@ class World{
 	}
 	
 	dimensions = [];
-	activeDimension = 1;
+	activeDimension = 0;
 }

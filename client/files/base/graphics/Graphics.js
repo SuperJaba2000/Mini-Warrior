@@ -12,6 +12,8 @@ class Graphics {
 		this.drawEntities();
 		this.drawEffects();
 		
+		this.postDraw();
+		
 		this.drawPlayer();
 	}
 	
@@ -71,7 +73,7 @@ class Graphics {
 				if((tile.block == null || tile.block.alwaysDrawFloor) && tile.floor != null){
 					let floorVariant = tile.floor.name == 'grass-b' ? randomSeed((_x << 16) | (_y & 0xFFFF), 1, 4) : tile.floor.variants;
 					
-					this.draw.draw(tile.floor, floorVariant, drawX, drawY)
+					this.draw.draw(tile.floor, floorVariant, drawX, drawY, 0.5)
 				
 				        //if(_x == camera.position.x && _y == camera.position.y)
 						//this.draw.draw({color: '#FF0000'}, 0, drawX, drawY)
@@ -90,7 +92,52 @@ class Graphics {
 						return v+1;
 					}
 					
-					this.draw.draw(tile.block, getVariant(), drawX, drawY);
+					this.draw.draw(tile.block, getVariant(), drawX, drawY, tile.light);
+				}
+			}
+                }
+	}
+	
+	postDraw() {
+		let map = Vars.changeable.activeMap;
+		let camera = Vars.changeable.camera;
+		let tiles = map.getActiveWorld().getActiveDimension().tiles;
+		
+		let y1 = camera.position.y - Math.floor(this.getTilesScreen().height / 2);
+	        let y2 = y1 + this.getTilesScreen().height;
+                let x1 = camera.position.x - Math.floor(this.getTilesScreen().width / 2);
+	        let x2 = x1 + this.getTilesScreen().width;
+  
+                
+		for (let _y = y1; _y < y2; _y++){		
+                        for(let _x = x1; _x < x2; _x++){
+	
+                                let drawX = (_x - x1) * Vars.tileSize;
+                                let drawY = (_y - y1) * Vars.tileSize;
+
+                                if(!tiles.valid(_x, _y))
+					continue;
+									
+			        let tile = tiles.get(_x, _y);
+					
+				if((tile.block == null || tile.block.alwaysDrawFloor) && tile.floor != null){
+					//draw edges
+				
+				        //top
+					if(tiles.valid(_x, _y-1) && tiles.get(_x, _y-1).floor?.priority < tile.floor.priority)
+					        this.draw.drawEdge(tile.floor, 0, drawX, drawY-Vars.tileSize, 0.5)
+					
+					//right
+					if(tiles.valid(_x+1, _y) && tiles.get(_x+1, _y).floor?.priority < tile.floor.priority)
+					        this.draw.drawEdge(tile.floor, 1, drawX+Vars.tileSize, drawY, 0.5)
+						
+					//bottom
+					if(tiles.valid(_x, _y+1) && tiles.get(_x, _y+1).floor?.priority < tile.floor.priority)
+					        this.draw.drawEdge(tile.floor, 2, drawX, drawY+Vars.tileSize, 0.5)
+						
+					//left
+					if(tiles.valid(_x-1, _y) && tiles.get(_x-1, _y).floor?.priority < tile.floor.priority)
+					        this.draw.drawEdge(tile.floor, 3, drawX-Vars.tileSize, drawY, 0.5)
 				}
 			}
                 }

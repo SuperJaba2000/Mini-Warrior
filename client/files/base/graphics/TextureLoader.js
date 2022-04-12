@@ -29,7 +29,7 @@ class TextureLoader{
 			
 			img.src = `${this.root}/${obj.group}/${obj.name}/0.png`;
 			
-			recolor(img, 0x00, 0x00, 0xFF);
+			//recolor(img, 0x00, 0x00, 0xFF);
 			
 			obj.textures[0] = img;
 	        }else{
@@ -43,8 +43,23 @@ class TextureLoader{
 				img.src = `${this.root}/${obj.group}/${obj.name}/${v}.png`;
 					
 				obj.textures[v] = img;
+				
 		        }
 	        }
+			
+		if(obj.edges){
+			for(var s = 0; s < 4; s++){
+			        var img = new Image(); 					
+					
+				img.onload = function(){
+				        loader.loaded();
+			        };
+					
+				img.src = `${this.root}/${obj.group}/${obj.name}/edge${s}.png`;
+					
+				obj.edges[s] = img;
+		        }
+		}
         }
 		
         loadAll(){

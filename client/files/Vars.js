@@ -9,6 +9,7 @@ class vars{
 	tileBuffer = 2;
 	
 	maxLight = 25;
+	viewDistance = 5;
 	
 	mainCanvas = document.getElementById('scene');
 	minimapCanvas = document.getElementById('minimap');

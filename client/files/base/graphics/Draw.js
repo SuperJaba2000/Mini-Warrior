@@ -57,10 +57,10 @@ class Draw {
 		const ctx = this.canvas.getContext('2d');
 		
 		if(Vars.changeable.activeMap.getActiveWorld().activeDimension == 1){
-			ctx.globalAlpha = 1;
-		        ctx.globalAlpha = this.getLight(x/this.drawSize, y/this.drawSize);
+			//ctx.globalAlpha = 1;
+		        ctx.globalAlpha = light+0.5;//this.getLight(x/this.drawSize, y/this.drawSize);
 		}else{
-		        ctx.globalAlpha = this.getLight(x/this.drawSize, y/this.drawSize);//.get(x / this.drawSize, y / this.drawSize);
+		        ctx.globalAlpha = light+0.5;//this.getLight(x/this.drawSize, y/this.drawSize);//.get(x / this.drawSize, y / this.drawSize);
 		}
 		
 		/*ctx.fillStyle = "#000000";
@@ -92,6 +92,13 @@ class Draw {
                 ctx.stroke();
 				
 		this.useTextures = false;
+	}
+	
+	drawEdge(floor, side, x, y, light){
+		const ctx = this.canvas.getContext('2d');
+		ctx.globalAlpha = light+0.5;
+		
+		ctx.drawImage(floor.edgeRegion(side), x, y, this.drawSize, this.drawSize);
 	}
 	
 	drawEntity( entity, x, y){

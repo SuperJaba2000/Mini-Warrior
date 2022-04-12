@@ -2,7 +2,7 @@ class CaveGenerator extends BasicGenerator{
 	genTile(x, y){
 		let tile = super.genTile(x, y);
 		
-		/*noise.setSeed(this.seed);
+		noise.setSeed(this.seed);
 		let andesite = noise.octaveSimplex2(x, y, 35, [0.3, 0.02, 1]);
 		
 		noise.setSeed(this.seed*this.seed);
@@ -16,12 +16,12 @@ class CaveGenerator extends BasicGenerator{
 		if(andesite > 0.15)
 			tile.floor = Blocks.andesite;
 		
-		/*if(block > -1){
+		if(block > -1){
 			if(cracked > 0  && block2 > 0.4){
 			        //tile.block = Blocks.stoneBlock;
 		                tile.floor = Blocks.stone;
 			}
-		}*/
+		}
 		
 		/*if(dirt > 0.4)
 			tile.floor = Blocks.dirt;*/
