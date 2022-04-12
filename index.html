@@ -2,26 +2,29 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Mini|Warriors</title>
-        <link rel="stylesheet" href="assets/mainStyle.css">
-	<script src="https://kit.fontawesome.com/1d64fea1fc.js"></script>
+        <title>Main</title>
+        <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>
-        <div class="bigMenu-wrapper">
-		    <nav id="bigMenu">
-			    <div class="title">Menu</div>
-				<ul class="list-items">
-				    <li><a href="mini-warriors/gameCopy.html"><i class="fas fa-play"></i>Play</a></li>
-			            <li><a href="mini-warriors/generator.html"><i class="fas fa-cogs"></i>Generator</a></li>
-			            <li><a href="#"><i class="fas fa-cogs"></i>Settings</a></li>
-				    <li><a href="#"><i class="fas fa-info"></i>Info</a></li>
-				</ul>
-			</nav>
+        <div id="main-box">
+		    <div id="font-box"></div>
+			
+			<div id="logo-box">Magicis Mundi</div>
+			
+			<div id="buttons-box">
+			    <div class="menu-button" id="button-play">play</div>
+				<div class="menu-button" id="button-settings">settings</div>
+			</div>
+			
+		    <div id="version-box">v 0.0.3</div>
 		</div>
+		
 		<script>
-		    function play(){
-			    const game = window.open('client/Game.html','Game');
-                window.open(); window.close();
+		        document.getElementById('button-play').onclick = function(){
+				var session = window.open('client/Game.html','Game', "menubar=false,toolbar=false,location=false,status=false");
+				session.focus();
+				
+				window.close();
 			}
 		</script>
     </body>
