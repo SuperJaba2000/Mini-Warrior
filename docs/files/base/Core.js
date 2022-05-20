@@ -1,3 +1,6 @@
+var filterStrength = 20;
+var frameTime = 0, lastLoop = new Date, thisLoop;
+
 const Core = {
 	
 	lastId: 0,
@@ -22,6 +25,10 @@ const Core = {
 		}		  
 	
 	        requestAnimationFrame(Core.update);
+			
+		var thisFrameTime = (thisLoop=new Date) - lastLoop;
+        frameTime+= (thisFrameTime - frameTime) / filterStrength;
+        lastLoop = thisLoop;
 	},
 	
 	getLastId(){

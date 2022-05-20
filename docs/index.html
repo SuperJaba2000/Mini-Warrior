@@ -10,6 +10,8 @@
     </head>
 	
     <body>
+	    <div id="fps-box">0</div>
+	
 	    <div id="menu-box">
 		    <div id="font-box"></div>
 			
@@ -137,17 +139,21 @@
 				document.getElementById('version-box').innerHTML = Vars.version.name;
 			};
 			
-			document.getElementById('button-pause').onclick = function(){
+			/*document.getElementById('button-pause').onclick = function(){
 			        document.getElementById('menu-box').style.visibility = 'visible';
 				document.getElementById('scene').style.filter = 'blur(3px)';
 				
 				Vars.changeable.pause = true;
-		        };
+		        };*/
 			
 			/*function save(){
 			        let blob = new Blob(["Прив!"], {type: "text/plain;charset=utf-8"});
                                 saveAs(blob, "hello world.txt");
 			}*/
+
+            setInterval(function(){
+                document.getElementById('fps-box').innerHTML = (1000/frameTime).toFixed(1) + " fps";
+            },100);
 		</script>
     </body>
 	

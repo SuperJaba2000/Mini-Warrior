@@ -354,3 +354,20 @@ input:checked + .slider:before {
 	right: 0px;
 	bottom: 0px;
 }
+
+#fps-box{
+	background-color: #00000000;
+	
+	z-index: 3;
+	
+	width: 10em;
+	height: 1.2em;
+	
+	text-align: left;
+	padding-right: 0.5em;
+	font-family: Marker Felt, fantasy;
+	
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
