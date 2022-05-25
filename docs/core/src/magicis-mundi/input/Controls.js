@@ -119,7 +119,7 @@ class Controls{
 	
 	
 	init(){
-		Vars.isMobile = true;//Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+		Vars.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		
 		if(Vars.isMobile)
 			this.joystick = new JoyStick('joystick-box',{
