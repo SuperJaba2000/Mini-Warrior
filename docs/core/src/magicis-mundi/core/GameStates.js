@@ -78,9 +78,12 @@ class GameStates{
 		this.playingNow = new GameState('in-game-now', {
 			parent: this.mainMenu
 		  },[
-		    'scene-box', 'scene', 'button-pause',
+		    'scene-box', 'scene', 'button-pause'
 			//later I will attach here a check for a mobile device from Vars or Controls
-			//'joyDiv'
+			
 		]);
+		
+		if(true)
+			this.playingNow.visibleElements.push('joystick-box');
 	}
 }
