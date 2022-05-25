@@ -14,8 +14,8 @@ class Graphics{
 	}
 	
 	updateSizes(){
-		this.canvas.width = (this.drawer.getTilesScreen().width - 2*Vars.tileBuffer) * Vars.tileSize;
-		this.canvas.height = (this.drawer.getTilesScreen().height - 2*Vars.tileBuffer) * Vars.tileSize;
+		this.canvas.width = Math.ceil(window.innerWidth / Vars.tileSize) * Vars.tileSize;
+		this.canvas.height = Math.ceil(window.innerHeight / Vars.tileSize) * Vars.tileSize;
 	}
 	
 	draw(){
