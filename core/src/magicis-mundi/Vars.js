@@ -1,12 +1,12 @@
 const Vars = {
 	
-	version: Object.freeze({
+	version: {
 		name: "pre-alpha 0.0.6",
 		update: 0,
-	}),
+	},
 	
-	tileSize: 32,//32
-	tileBuffer : 2,
+	tileSize: 32,
+	tileBuffer: 1,
 	
 	maxLight: 25,
 	viewDistance: 5,
@@ -14,21 +14,23 @@ const Vars = {
 	mainCanvas: document.getElementById('scene'),
 	minimapCanvas: document.getElementById('minimap'),
 	
-	mspf(){
-		return 1000 / this.changeable.fps;
-	},
-	
 	changeable: {
 	    activeMap: new Map('main'),
 		camera: new Camera(),
 	    player: new Player(),
+		
+		gameState: new GameStates().mainMenu,
+		
+		isOnline: false,
 			 
 	    fps: 60,
-		pause: false
 	},
 	
 	graphics: new Graphics(document.getElementById('scene')),
 	controls: new Controls(),
 	
+	loader: new TextureLoader('../../../assets-raw/sprites'),
+	
+	content: new Set([Blocks]),
 	mods: new Set(),
 };
