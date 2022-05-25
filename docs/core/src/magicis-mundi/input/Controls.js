@@ -119,12 +119,12 @@ class Controls{
 	
 	
 	init(){
-		Vars.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+		Vars.isMobile = true;//Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		
 		if(Vars.isMobile)
 			this.joystick = new JoyStick('joystick-box',{
                 title: 'joystick-canvas',
-                width: 180, height: 180,
+                width: 100, height: 100,
                 internalFillColor: '#0000FF',
                 externalFillColor: '#0000FF',
                 internalLineWidth: 2,
@@ -148,11 +148,6 @@ class Controls{
 	}
 	
     update(){
-        /* no instructions */
-		if(this.lastKey == null)
-			return;
-		
-		
 		if(Vars.isMobile){
 			switch(this.joystick.GetDir()){
 				case 'N':
@@ -168,10 +163,14 @@ class Controls{
 			        break;
 			
 		        case 'E':
-		            this.lastKey = this.findIndex(i => i.key == 'ArrowRight');
+		            this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
 			        break;
 			}
 		}
+		
+		/* no instructions */
+		if(this.lastKey == null)
+			return;
 		
 		var player = Vars.changeable.player;
 		var tiles = Vars.changeable.activeMap.getActiveWorld().getActiveDimension().tiles;
