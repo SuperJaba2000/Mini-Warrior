@@ -84,3 +84,5 @@ window.onbeforeunload = () => {
 window.onload = () => {
 	UI.get('version-box').innerHTML = Vars.version.name;
 };
+
+UI.get('joystick-box').style.visible = Vars.isMobile ? 'visible' : 'hidden';

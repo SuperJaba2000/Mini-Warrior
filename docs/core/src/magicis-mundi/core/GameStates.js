@@ -82,8 +82,5 @@ class GameStates{
 			//later I will attach here a check for a mobile device from Vars or Controls
 			
 		]);
-		
-		if(true)
-			this.playingNow.visibleElements.push('joystick-box');
 	}
 }
