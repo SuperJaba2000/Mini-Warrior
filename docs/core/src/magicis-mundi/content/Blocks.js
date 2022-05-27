@@ -61,6 +61,20 @@ const Blocks = new ContentList(
 	    //endregion
 	    //region special
 			
+		this.mine = new MultiBlock('mine', '#000000', {
+			size: 3,
+			
+			playerEntered: function(player, map){
+	            //map.getActiveWorld().getActiveDimension().entities.array = [];
+	            map.activeWorld = 1;
+			
+		        //let nextDimension = map.getActiveWorld().getActiveDimension();
+		        //nextDimension.entities.add(save.player);
+		
+       	        //nextDimension.tiles.upd(save.x, save.y, {block: Blocks.ladder});
+			}
+		});
+			
 	    this.fire = new Block('fire', '#FF0000', { 
 		    variants: 3, 
 			frames: 3,
@@ -74,7 +88,7 @@ const Blocks = new ContentList(
 		});
 		
 		//endregion
-	}
+	}, true
 );
 
 //Blocks.ladder.alwaysDrawFloor = true;

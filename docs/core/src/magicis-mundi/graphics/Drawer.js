@@ -9,7 +9,7 @@ class Drawer{
 		
 		var size = Vars.tileSize;
 		
-		//this.get().globalAlpha = light;
+		this.get().globalAlpha = light / Vars.maxLight;
 		this.get().drawImage(texture, x, y, size, size);
 	}
 	

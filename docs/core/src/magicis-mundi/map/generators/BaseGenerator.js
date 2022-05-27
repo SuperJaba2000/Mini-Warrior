@@ -11,7 +11,11 @@ class BaseGenerator{
 			
 		for(let y = 0; y < this.height; y++){
 		    for(let x = 0; x < this.width; x++){
-			    this.tiles.upd(x, y, this.genTile(x, y));
+			    this.tiles.get(x, y).floor = this.genTile(x, y).floor;
+				this.tiles.get(x, y).overlay = this.genTile(x, y).overlay;
+				this.tiles.get(x, y).elevation = this.genTile(x, y).elevation;
+				
+				this.tiles.get(x, y).light = this.genTile(x, y).light;
 					
 				/*if(y == 0 || x == 0 || y == (this.height-1) || x == (this.width-1))
 				        tiles.upd(x, y, new Tile(null, Blocks.barrier, null));

@@ -11,6 +11,8 @@ const Core = {
 	},*/
 	
 	update(){
+		Core.time++;
+		
 		let gameState = Vars.changeable.gameState;
 		
 		UI.update(gameState);
@@ -43,7 +45,9 @@ const Core = {
 	load(){
 		for(let contentList of Vars.content){
 			contentList.load();
-			Vars.loader.addObjectives(contentList.list);
+			
+			if(contentList.texturesRequired)
+				Vars.loader.addObjectives(contentList.list);
 		}
 		
 		Vars.changeable.camera.load();

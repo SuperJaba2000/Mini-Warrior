@@ -1,8 +1,8 @@
-class TestWorldGenerator extends BasicGenerator{
+class DarknessWorldGenerator extends BasicGenerator{
 	genTile(x, y){
 		let tile = super.genTile(x, y);
 		
-		let dimension = this.settings.dimension;
+		/*let dimension = this.settings.dimension;
 		let dayCircle = this.settings.dayCircle;
 		let dayDuration = this.settings.dayDuration;
 		
@@ -47,7 +47,7 @@ class TestWorldGenerator extends BasicGenerator{
 			tile.light = () => {
 				let dimensionTime = Core.time - dimension.generateTime;
 				
-				return Math.round(Vars.maxLight * Math.cos(dimensionTime / dayDuration));
+				return Math.round(Vars.maxLight * Math.cos(dimensionTime / dayDuration) + 1);
 			};
 		
 		/*if(river <= 0.2){
@@ -68,8 +68,8 @@ class TestWorldGenerator extends BasicGenerator{
 				leftTile.block = Blocks.spruce.getWithVariant(0);
 				tile.block = Blocks.spruce.getWithVariant(1);
 			}
-		}*/
+		}
 		
-		return tile;
+		return tile;*/
 	}
 }

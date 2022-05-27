@@ -7,11 +7,11 @@ class BasicGenerator extends BaseGenerator{
 	    this.seed = seed;
 	}
 	
-    generate(tiles, entities){
-		this.entities = entities;
+    generate(tiles, settings, entities){
+		this.settings = settings;
 		
 		super.generate(tiles);
-	        entities = this.entities;
+        this.entities = entities;
 	}
 	
 	postGenerate(){

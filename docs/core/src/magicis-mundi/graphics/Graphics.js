@@ -14,8 +14,8 @@ class Graphics{
 	}
 	
 	updateSizes(){
-		this.canvas.width = Math.ceil(window.innerWidth / Vars.tileSize) * Vars.tileSize;
-		this.canvas.height = Math.ceil(window.innerHeight / Vars.tileSize) * Vars.tileSize;
+		Vars.graphics.canvas.width = Math.ceil(window.innerWidth / Vars.tileSize) * Vars.tileSize;
+		Vars.graphics.canvas.height = Math.ceil(window.innerHeight / Vars.tileSize) * Vars.tileSize;
 	}
 	
 	draw(){
@@ -56,7 +56,7 @@ class Graphics{
                 let drawY = (y_now - y_start + camera.position.offsetY - Vars.tileBuffer) * Vars.tileSize;
 					
 				//later there will be tile.light to account for lighting
-				var light = 1.0;
+				var light = tile.light();
 					
 				if((tile.block == null || tile.block.alwaysDrawFloor) && tile.floor != null)
 					this.drawer.draw(tile.floor.textureRegion(), drawX, drawY, light)
@@ -93,7 +93,7 @@ class Graphics{
 			    var tile = tiles.get(x_now, y_now);
 				
 				//later there will be tile.light to account for lighting
-				var light = 1.0;
+				var light = tile.light();
 					
 				let cx = x_now - x_start + camera.position.offsetX - Vars.tileBuffer;
                 let cy = y_now - y_start + camera.position.offsetY - Vars.tileBuffer;

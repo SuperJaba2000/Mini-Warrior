@@ -23,6 +23,7 @@ class TextureLoader{
 		//for functions
 		let loader = this;
 		
+		
 		for(let texture = 0; texture < objective.textures.length; texture++){
 			loader.total++;
 			

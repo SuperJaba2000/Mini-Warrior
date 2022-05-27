@@ -1,7 +1,9 @@
 class ContentList{
-	constructor(load){
+	constructor(load, texturesRequired){
 		this.lastid = 1;
 		this.content = new Set();
+		
+		this.texturesRequired = texturesRequired;
 		
 		this.list = new Set();
 		

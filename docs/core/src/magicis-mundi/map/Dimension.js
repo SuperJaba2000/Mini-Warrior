@@ -1,6 +1,7 @@
 class Dimension{
 	constructor(size, elevation, gen){
-		this.dayCircle = false;
+		this.dayCircle = true;
+		this.dayDuration = (1*60)*2;
 		
 		this.elevation = elevation;
 		this.generator = gen;
@@ -10,7 +11,18 @@ class Dimension{
 	generate(){
 		//this.entities = new EntitiesSet(Number.MAX_SAFE_INTEGER);
 		
-		this.generator.generate(this.tiles, this.entities);
+		let dayCircle = this.dayCircle;
+		let dayDuration = this.dayDuration;
+		
+		let self = this;
+		
+		this.generator.generate(this.tiles, {
+			dayCircle: dayCircle, 
+			dayDuration: dayDuration,
+			
+			dimension: self
+		}, this.entities);
+		
 		this.generateTime = Core.time;
 	}
 	

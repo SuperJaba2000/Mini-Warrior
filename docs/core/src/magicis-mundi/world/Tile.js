@@ -3,7 +3,7 @@ class Tile{
 		this.x = x; this.y = y;
 		this.biome = null;
 		
-		this.light = 0;
+		this.light = () => Vars.maxLight;
         this.elevation = data.elevation||0;
 		
 		this.floor = data.floor||null;
