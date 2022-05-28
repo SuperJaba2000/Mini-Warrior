@@ -39,17 +39,17 @@ class EntitiesSet{
 	}
 	
 	getByCoordinates(x, y){
-		let results = [];
+		//let results = [];
 		
 		for(let entity of this.array){
 			if(entity.position.x == x && entity.position.y == y)
-				results.push(entity);
+                return entity;
 		}
 		
-		if(results.length == 0)
+		/*if(results.length == 0)*/
 			return null;
 		
-		return results[results.length-1];
+		//return results[results.length-1];
 	}
 }
 

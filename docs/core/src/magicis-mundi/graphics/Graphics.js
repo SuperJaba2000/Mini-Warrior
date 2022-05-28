@@ -23,7 +23,7 @@ class Graphics{
 		this.drawer.clear();
 		
 		this.drawTiles();
-		//this.drawEntities();
+		this.drawEntities();
 		
 		//other...
 		
@@ -60,15 +60,50 @@ class Graphics{
 					
 				if((tile.block == null || tile.block.alwaysDrawFloor) && tile.floor != null)
 					this.drawer.draw(tile.floor.textureRegion(), drawX, drawY, light)
-				
-				if(tile.overlay != null)
-					this.drawer.draw(tile.overlay.textureRegion(), drawX, drawY, light);
-					
-			    if(tile.block != null)
-					this.drawer.draw(tile.block.textureRegion(), drawX, drawY, light);
 			}
         }
 		
+	}
+	
+	drawEntities(){
+		var map = Vars.changeable.activeMap;
+		var camera = Vars.changeable.camera;
+		var tiles = map.getActiveWorld().getActiveDimension().tiles;
+		var entities = map.getActiveWorld().getActiveDimension().entities;
+		
+		/* the first and last tiles visible on the screen */
+		let y_start = camera.position.y - Math.floor(this.drawer.getTilesScreen().height / 2);
+	    let y_end = y_start + this.drawer.getTilesScreen().height;
+        let x_start = camera.position.x - Math.floor(this.drawer.getTilesScreen().width / 2);
+	    let x_end = x_start + this.drawer.getTilesScreen().width;
+ 
+		/* sort and display the tiles visible on the screen again... */
+		for (let y_now = y_start; y_now < y_end; y_now++){	
+            for(let x_now = x_start; x_now < x_end; x_now++){
+				//if there is 'something wrong with the tile' it is skipped
+                if(!tiles.valid(x_now, y_now)) continue;
+				
+				let entity = entities.getByCoordinates(x_now, y_now);
+				
+				//has not entities on this tile
+				if(!entity) continue;
+				
+				var tile = tiles.get(x_now, y_now);
+				
+				let drawX = (x_now - x_start + camera.position.offsetX - Vars.tileBuffer) * Vars.tileSize;
+                let drawY = (y_now - y_start + camera.position.offsetY - Vars.tileBuffer) * Vars.tileSize;
+				
+				let sizes = {
+					width: Vars.tileSize,
+					height: 2*Vars.tileSize
+				}
+					
+				//later there will be tile.light to account for lighting
+				var light = Vars.maxLight;
+				
+				this.drawer.draw(entity.textureRegion(), drawX, drawY, light, sizes)
+			}
+		}
 	}
 	
 	postDraw(){
@@ -140,6 +175,15 @@ class Graphics{
 							this.drawer.draw(tile.floor.cliffRegion(3), (cx-1)*Vars.tileSize, cy*Vars.tileSize, light)
 					}
 				}
+				
+				let drawX = cx * Vars.tileSize;
+                let drawY = cy * Vars.tileSize;
+				
+				if(tile.overlay != null)
+					this.drawer.draw(tile.overlay.textureRegion(), drawX, drawY, light);
+					
+			    if(tile.block != null)
+					this.drawer.draw(tile.block.textureRegion(), drawX, drawY, light);
 				
 				//sorting end
 			}

@@ -9,10 +9,14 @@ class Random {
 		return this.basic(0, 100, false) <= Number(percent);
 	}
 	
-	seed(seed, min, max, round = true){
-        let number = '0.' + (seed * 16807 % 2147483647);
-		number = min + number*(max - min);
+	seed(seed, min, max, round = true) {
+        let number = '0.' + Math.round(seed * 16807 % 2147483647);
+		number = min + Number(number)*(max - min);
 		
-        return round ? Math.round(number) : number;
+        return round ? Math.round(number-10) : number;
+	}
+	
+	chanceSeed(seed, percent) {
+		return this.seed(seed, 0, 100, false) <= Number(percent);
 	}
 }

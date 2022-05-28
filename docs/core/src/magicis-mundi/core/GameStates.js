@@ -83,7 +83,7 @@ class GameStates{
 			
 		]);
 		
-		/*if(true)
-			this.playingNow.visibleElements.push('joystick-box');*/
+		if(true)
+			this.playingNow.visibleElements.push('joystick-box');
 	}
 }

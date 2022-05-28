@@ -2,11 +2,21 @@ class DarknessWorldGenerator extends BasicGenerator{
 	genTile(x, y){
 		let tile = super.genTile(x, y);
 		
-		/*let dimension = this.settings.dimension;
-		let dayCircle = this.settings.dayCircle;
-		let dayDuration = this.settings.dayDuration;
+		let dimension = this.settings.dimension;
+		let dayCircle = true;
+		let dayDuration = 15;
 		
-		var simplex = new SimplexNoiseObject(this.seed);
+		tile.floor = Blocks.void;
+		
+		tile.light = () => {
+			let dimensionTime = Core.time - dimension.generateTime;
+				
+			return Math.round(Vars.maxLight * Math.cos(dimensionTime / dayDuration/2) + 1);
+		};
+		
+		return tile;
+		
+		/*var simplex = new SimplexNoiseObject(this.seed);
 		
 		let path = Math.abs(simplex.octaveNoise2(x, y, 150, [0.3, 1]));
 		//simplex.setSeed(this.seed**this.seed);

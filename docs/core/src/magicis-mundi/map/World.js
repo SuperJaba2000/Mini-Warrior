@@ -28,6 +28,10 @@ class World{
 		return this.dimensions[this.activeDimension];
 	}
 	
+	playerAdd(player, dimensionIndex){
+		this.dimensions[dimensionIndex].entities.add(player);
+	}
+	
 	update(){
 		this.dimensions[this.activeDimension].update();
 	}

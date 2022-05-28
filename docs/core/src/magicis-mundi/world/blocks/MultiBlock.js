@@ -1,6 +1,6 @@
 class MultiBlock extends Block{	
 	constructor(name, color, settings) {
-		settings.variants = settings.size**2;
+		settings.variants = settings.width*settings.height;
 		
         super(name, color, settings);
 		

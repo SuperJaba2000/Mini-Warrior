@@ -31,6 +31,6 @@ const Vars = {
 	
 	loader: new TextureLoader('../../../assets-raw/sprites'),
 	
-	content: new Set([Blocks, Structures]),
+	content: new Set([Blocks, Entities, Structures]),
 	mods: new Set(),
 };

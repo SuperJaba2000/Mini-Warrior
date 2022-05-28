@@ -57,12 +57,19 @@ const Blocks = new ContentList(
 			priority: 4,
 			canWalk: false
 		});
+		
+		this.void = new Floor('void', '#000000', {
+			variants: 1, 
+			priority: -1,
+			canWalk: false
+		});
 	
 	    //endregion
 	    //region special
 			
 		this.mine = new MultiBlock('mine', '#000000', {
-			size: 3,
+			width: 3,
+			height: 3,
 			
 			playerEntered: function(player, map){
 	            //map.getActiveWorld().getActiveDimension().entities.array = [];
@@ -73,6 +80,12 @@ const Blocks = new ContentList(
 		
        	        //nextDimension.tiles.upd(save.x, save.y, {block: Blocks.ladder});
 			}
+		});
+		
+		this.tree = new MultiBlock('tree', '#000000', {
+			width: 2,
+			height: 3,
+			alwaysDrawFloor: true
 		});
 			
 	    this.fire = new Block('fire', '#FF0000', { 

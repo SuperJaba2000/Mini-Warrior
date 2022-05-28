@@ -148,22 +148,52 @@ class Controls{
 	}
 	
     update(){
-		if(Vars.isMobile){
+		if(Vars.isMobile && Core.time % 5 == 0){
 			switch(this.joystick.GetDir()){
-				case 'N':
-		            this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');
+				case 'N': this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');
+                    break;
+					
+				case 'NW':
+				    if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');
+					}else{
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+					}
+
+			        break;
+					
+				case 'NE':
+		            if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');
+					}else{
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+					}
+					
 			        break;
 		
-		        case 'S':
-		            this.lastKey = this.keys.findIndex(i => i.key == 'ArrowDown');
+		        case 'S': this.lastKey = this.keys.findIndex(i => i.key == 'ArrowDown');
+			        break;
+					
+				case 'SW':
+		            if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+					}else{
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+					}
+			        break;
+					
+				case 'SE':
+		            if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowDown');
+					}else{
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+					}
 			        break;
 			
-		        case 'W':
-		            this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+		        case 'W': this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
 			        break;
 			
-		        case 'E':
-		            this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+		        case 'E': this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
 			        break;
 			}
 		}

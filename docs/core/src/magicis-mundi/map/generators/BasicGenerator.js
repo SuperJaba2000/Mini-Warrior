@@ -9,13 +9,13 @@ class BasicGenerator extends BaseGenerator{
 	
     generate(tiles, settings, entities){
 		this.settings = settings;
+		this.entities = entities;
 		
 		super.generate(tiles);
-        this.entities = entities;
 	}
 	
 	postGenerate(){
-		this.tiles.upd(60, 60, {block: Blocks.fire})
+		//this.tiles.upd(60, 60, {block: Blocks.fire})
 	}
 }
 

@@ -4,7 +4,7 @@ class Player extends Entity{
 		super("player", 100);
 	}
 			
-        damage(amout){
+    damage(amout){
                 if(this.health <= 0){
 			this.isDead = true;
 		}else{
@@ -14,13 +14,5 @@ class Player extends Entity{
 	        }
 	}
 	
-	draw(ctx, x, y){
-		let drawX = x + this.position.offsetX;
-		let drawY = y + this.position.offsetY;
-		
-		//ctx.fillStyle = "#fac";
-			ctx.strokeStyle = "#fac";
-			
-			ctx.fillRect(drawX, drawY, Vars.tileSize, Vars.tileSize);
-	}
+	
 }

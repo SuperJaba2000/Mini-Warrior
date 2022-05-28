@@ -4,13 +4,17 @@ class Drawer{
 		this.context = canvas.getContext('2d');
 	}
 	
-	draw(texture, x, y, light){
+	draw(texture, x, y, light, sizes){
         if(!texture) return;
 		
-		var size = Vars.tileSize;
+		if(!sizes)
+			sizes = {
+			    width: Vars.tileSize,
+				height: Vars.tileSize
+		    };
 		
 		this.get().globalAlpha = light / Vars.maxLight;
-		this.get().drawImage(texture, x, y, size, size);
+		this.get().drawImage(texture, x, y, sizes.width, sizes.height);
 	}
 	
 	get(){

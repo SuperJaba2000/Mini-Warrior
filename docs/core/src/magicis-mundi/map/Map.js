@@ -20,21 +20,21 @@ class Map{
 				main: new TestWorldGenerator(seed)
 			}), 
 			
-            new World('Darkness', seed, this.SIZE, 1, {
-				//cave: new DarknessCaveGenerator(seed),
+            new World('Darkness', seed, this.SIZE, 2, {
+				cave: new CaveGenerator(seed),
 				main: new DarknessWorldGenerator(seed)
-			}),
+			})
 		];
 		
-		for(let world = 0; world < 1; world++){
-			this.worlds[world].generate();
+		for(let world of this.worlds){
+			world.generate();
 		}
 		
-		Vars.changeable.player.position.x = Math.round(this.SIZE / 2);
-		Vars.changeable.player.position.y = Math.round(this.SIZE / 2);
+		Vars.changeable.player.position.x = Math.round(this.SIZE / 2)+5;
+		Vars.changeable.player.position.y = Math.round(this.SIZE / 2)+4;
 		
-		Vars.changeable.camera.position.x = Math.round(this.SIZE / 2);
-		Vars.changeable.camera.position.y = Math.round(this.SIZE / 2);
+		Vars.changeable.camera.position.x = Math.round(this.SIZE / 2)+5;
+		Vars.changeable.camera.position.y = Math.round(this.SIZE / 2)+4;
 	}
 	
 	update(){

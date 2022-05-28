@@ -40,6 +40,9 @@ const Core = {
 		
 		/* later, the map will not be generated immediately after opening the game*/
 		Vars.changeable.activeMap.generate();
+		
+		Vars.changeable.activeMap.playerAdd(Vars.changeable.player, 0, 1);
+		Vars.changeable.activeMap.playerAdd(Vars.changeable.player, 1, 1);
 	},
 	
 	load(){
@@ -51,6 +54,8 @@ const Core = {
 		}
 		
 		Vars.changeable.camera.load();
+		
+		Vars.loader.addObjectives(Vars.changeable.player);
 		Vars.loader.loadAll(this.update);
 	}
 };

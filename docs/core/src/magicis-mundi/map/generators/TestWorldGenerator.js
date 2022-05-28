@@ -37,17 +37,18 @@ class TestWorldGenerator extends BasicGenerator{
 		}else{
 			tile.elevation = 5;
 			tile.floor = Blocks.stone;
-			
-			if(rand.chance(0.04) && Structures.mine.canSet(this.tiles, x, y)){
-				Structures.mine.set(this.tiles, x, y);
-			}
 		}
 		
 		if(dayCircle)
 			tile.light = () => {
 				let dimensionTime = Core.time - dimension.generateTime;
 				
-				return Math.round(Vars.maxLight * Math.cos(dimensionTime / dayDuration));
+				let playerx = Vars.changeable.player.position.x;
+				let playery = Vars.changeable.player.position.y;
+				
+				let distanceToPlayer = Math.round( Math.sqrt((x-playerx)**2 + (y-playery)**2) );
+				
+				return Math.max((Math.round(Vars.maxLight/2 * Math.cos(dimensionTime / dayDuration/2)) + Vars.maxLight - distanceToPlayer), 0);
 			};
 		
 		/*if(river <= 0.2){
@@ -71,5 +72,29 @@ class TestWorldGenerator extends BasicGenerator{
 		}*/
 		
 		return tile;
+	}
+	
+	postGenerate(){
+		super.postGenerate();
+		
+		let rand = new Random();
+		
+		/* generate structures */
+		for(let y = 0; y < this.height; y++){
+		    for(let x = 0; x < this.width; x++){
+			    var simplex = new SimplexNoiseObject(this.seed);
+		        let path = Math.abs(simplex.octaveNoise2(x, y, 150, [0.3, 1]));
+				
+				if(path >= 0.1 && path <= 0.5){
+			        //path structures zone
+			
+			        if(rand.chanceSeed(this.seed+(x**y), 10+3) && Structures.tree.canSet(this.tiles, x, y))
+				        Structures.tree.set(this.tiles, x, y);
+		        }else{
+					if(rand.chanceSeed(this.seed+(x**y), 10+0.01) && Structures.mine.canSet(this.tiles, x, y))
+				        Structures.mine.set(this.tiles, x, y);
+                }
+	        }
+	    }	
 	}
 }

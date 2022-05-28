@@ -1,26 +1,29 @@
 class Entity{
 	constructor(name, maxHealth){
 		this.health = -1; 
-	        this.isDead = false;
+	    this.isDead = false;
 	
-	        this.orientation = 1;
-	        this.speed = 0;
-		this.position = {
-		        x: 0,  y: 0,
-		        offsetX: 0, offsetY: 0,
-		
-		        set(x, y){
-			        this.x = x;
-			        this.y = y;
-		        }
-	        }
-	
-	        this.group = "entities";
+	    this.orientation = 1;
+	    this.speed = 0;
 			
-		this.textures = [0];
+		this.position = {
+		    x: 0,  y: 0,
+		    offsetX: 0, offsetY: 0,
+		
+		    set(x, y){
+			    this.x = x;
+			    this.y = y;
+		    }
+	    }
+	
+	    this.group = "entities";
+			
+		this.textures = [0 ,0 ,0 ,0];
 		
 		this.name = name;
 		this.maxHealth = maxHealth;
+		
+		Entities.add(this);
 	}
 	
 	textureRegion(){

@@ -1,10 +1,11 @@
 class Structure{
-	constructor(name, size, plan){	
+	constructor(name, sizes, plan){	
 		//array of structure tiles
 		this.plan = plan;
 		
 	    this.name = name;
-		this.size = size;
+		this.width = sizes.width;
+		this.height = sizes.height;
 	}
 	
 	canSet(tiles, x, y){
@@ -13,15 +14,15 @@ class Structure{
 		
 		let mainElevation = tiles.get(x, y).elevation;
 		
-		for(var _x = x; _x < x+this.size; _x++){
-			for(var _y = y; _y < y+this.size; _y++){
+		for(var _x = x; _x < x+this.width; _x++){
+			for(var _y = y; _y < y+this.height; _y++){
 			    if(!tiles.valid(_x, _y))
 					return false;
 				
-				if(tiles.get(_x, _y).block != null)
+				if(tiles.get(_x, _y).elevation != mainElevation)
 					return false;
 				
-				if(tiles.get(_x, _y).elevation != mainElevation)
+				if(tiles.get(_x, _y).block != null)
 					return false;
 		    }
 		}
@@ -30,12 +31,14 @@ class Structure{
 	}
 	
 	set(tiles, x, y){
-		for(var _x = x; _x < x+this.size; _x++){
-			for(var _y = y; _y < y+this.size; _y++){
+		for(var _x = x; _x < x+this.width; _x++){
+			for(var _y = y; _y < y+this.height; _y++){
 				let xonPlan = _x-x;
 				let yonPlan = _y-y;
 				
-				tiles.get(_x, _y).block = this.plan[xonPlan][yonPlan].block;
+				//console.log(xonPlan, yonPlan, this.plan)
+				
+				tiles.get(_x, _y).block = this.plan[yonPlan][xonPlan].block;
 			}
 		}
 	}
