@@ -15,11 +15,15 @@ class Controls{
 					
 					
 					let nextTile = tiles.get(x, y);
+					let nextBottomTile = tiles.get(x, y+1);
 					
-					if(nextTile.block != null)
+					if(nextTile.block)
 						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block !== null)
+					if(nextBottomTile.block)
+						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
+					
+					if(nextTile.block || nextBottomTile.block)
 						return;
 					
 					
@@ -42,15 +46,19 @@ class Controls{
 						return;
 					
 					let nextTile = tiles.get(x, y);
+					let nextBottomTile = tiles.get(x, y+1);
 					
-					if(nextTile.block != null)
+					if(nextTile.block)
 						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block !== null)
+					if(nextBottomTile.block)
+						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
+					
+					if(nextTile.block || nextBottomTile.block)
 						return;
 					
 					
-		                        player.position.y++;
+		            player.position.y++;
 					Vars.changeable.camera.update();
 				}
 			}
@@ -69,15 +77,19 @@ class Controls{
 						return;
 					
 					let nextTile = tiles.get(x, y);
+					let nextBottomTile = tiles.get(x, y+1);
 					
-					if(nextTile.block != null)
+					if(nextTile.block)
 						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block !== null)
+					if(nextBottomTile.block)
+						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
+					
+					if(nextTile.block || nextBottomTile.block)
 						return;
 					
 					
-		                        player.position.x++;
+		            player.position.x++;
 					Vars.changeable.camera.update();
 				}
 			}
@@ -96,11 +108,15 @@ class Controls{
 						return;
 					
 					let nextTile = tiles.get(x, y);
+					let nextBottomTile = tiles.get(x, y+1);
 					
-					if(nextTile.block != null)
+					if(nextTile.block)
 						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block !== null)
+					if(nextBottomTile.block)
+						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
+					
+					if(nextTile.block || nextBottomTile.block)
 						return;
 					
 					
@@ -148,6 +164,11 @@ class Controls{
 	}
 	
     update(){
+		let playerx = Vars.changeable.player.position.x;
+		let playery = Vars.changeable.player.position.y+1;
+		
+	    UI.get('debug-box').innerHTML = `${playerx}; ${playery}`;
+		
 		if(Vars.isMobile && Core.time % 5 == 0){
 			switch(this.joystick.GetDir()){
 				case 'N': this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');

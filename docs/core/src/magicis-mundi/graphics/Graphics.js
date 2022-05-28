@@ -23,11 +23,12 @@ class Graphics{
 		this.drawer.clear();
 		
 		this.drawTiles();
-		this.drawEntities();
 		
 		//other...
 		
 		this.postDraw();
+		
+		this.drawEntities();
 		
 		//this.drawPlayer();
 	}

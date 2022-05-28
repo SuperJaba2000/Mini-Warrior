@@ -283,7 +283,7 @@ input:checked + .slider:before {
 	bottom: 0px;
 }
 
-#fps-box{
+#debug-box{
 	background-color: #00000000;
 	
 	z-index: 3;
@@ -292,6 +292,7 @@ input:checked + .slider:before {
 	height: 1.2em;
 	
 	text-align: left;
+	color: white;
 	padding-right: 0.5em;
 	font-family: Marker Felt, fantasy;
 	

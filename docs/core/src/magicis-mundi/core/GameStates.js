@@ -78,10 +78,13 @@ class GameStates{
 		this.playingNow = new GameState('in-game-now', {
 			parent: this.mainMenu
 		  },[
-		    'scene-box', 'scene', 'button-pause'
+		    'scene-box', 'scene', 'button-pause', 'debug-box'
 			//later I will attach here a check for a mobile device from Vars or Controls
 			
 		]);
+		
+		if(true)
+			this.playingNow.visibleElements.push('debug-box');
 		
 		if(true)
 			this.playingNow.visibleElements.push('joystick-box');
