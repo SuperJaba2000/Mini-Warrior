@@ -1,6 +1,6 @@
 class Dimension{
 	constructor(size, elevation, gen){
-		this.dayCircle = true;
+		this.dayCircle = false;
 		this.dayDuration = 1000;
 		
 		this.elevation = elevation;

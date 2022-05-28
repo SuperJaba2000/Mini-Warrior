@@ -137,7 +137,7 @@ class Controls{
 	init(){
 		Vars.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		
-		if(Vars.isMobile)
+		if(Vars.isMobile){
 			this.joystick = new JoyStick('joystick-box',{
                 title: 'joystick-canvas',
                 width: 100, height: 100,
@@ -149,6 +149,9 @@ class Controls{
                 externalStrokeColor: '#0000FF',
                 autoReturnToCenter: true   
             }, null);
+			
+			UI.get('joystick-box').style.visibility = 'visible';
+		}
 		
 		var context = this;
 		var keys = this.keys;

@@ -1,7 +1,7 @@
 const Vars = {
 	
 	version: {
-		name: "pre-alpha 0.0.6",
+		name: "pre-alpha 0.0.7",
 		update: 0,
 	},
 	

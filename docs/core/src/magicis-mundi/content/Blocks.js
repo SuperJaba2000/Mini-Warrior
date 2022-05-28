@@ -49,12 +49,12 @@ const Blocks = new ContentList(
 	
 	    this.water = new Floor('water', '#0000FF', { 
 		    variants: 1, 
-			priority: 3 
+			priority: 4 
 		});
 		
 	    this.deepWater = new Floor('deep-water', '#0000AA', { 
 		    variants: 1, 
-			priority: 4,
+			priority: 3,
 			canWalk: false
 		});
 		

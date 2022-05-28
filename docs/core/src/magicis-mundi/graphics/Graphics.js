@@ -147,16 +147,16 @@ class Graphics{
 				    if(tile.floor.edges.length > 0){
 						/* draw edges */
 						
-						if(topTile && (topTile.floor.priority < tile.floor.priority))
+						if(topTile && (topTile.elevation <= tile.elevation) && (topTile.floor.priority < tile.floor.priority))
 							this.drawer.draw(tile.floor.edgeRegion(0), cx*Vars.tileSize, (cy-1)*Vars.tileSize, light)
 						
-						if(rightTile && (rightTile.floor.priority < tile.floor.priority))
+						if(rightTile && (rightTile.elevation <= tile.elevation) && (rightTile.floor.priority < tile.floor.priority))
 							this.drawer.draw(tile.floor.edgeRegion(1), (cx+1)*Vars.tileSize, cy*Vars.tileSize, light)
 						
-						if(bottomTile && (bottomTile.floor.priority < tile.floor.priority))
+						if(bottomTile && (bottomTile.elevation <= tile.elevation) && (bottomTile.floor.priority < tile.floor.priority))
 							this.drawer.draw(tile.floor.edgeRegion(2), cx*Vars.tileSize, (cy+1)*Vars.tileSize, light)
 						
-						if(leftTile && (leftTile.floor.priority < tile.floor.priority))
+						if(leftTile && (leftTile.elevation <= tile.elevation) && (leftTile.floor.priority < tile.floor.priority))
 							this.drawer.draw(tile.floor.edgeRegion(3), (cx-1)*Vars.tileSize, cy*Vars.tileSize, light)
 					}
 					

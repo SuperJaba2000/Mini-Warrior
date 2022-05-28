@@ -85,8 +85,5 @@ class GameStates{
 		
 		if(true)
 			this.playingNow.visibleElements.push('debug-box');
-		
-		if(true)
-			this.playingNow.visibleElements.push('joystick-box');
 	}
 }

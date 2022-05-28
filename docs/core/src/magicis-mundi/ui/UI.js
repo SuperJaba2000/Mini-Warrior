@@ -46,7 +46,7 @@ const UI = {
 		'scene-box',
 		    'scene',
 			'button-pause',
-			'joystick-box',
+			//'joystick-box',
 			
 			'debug-box'
     ],
