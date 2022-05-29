@@ -63,6 +63,11 @@ const Blocks = new ContentList(
 			priority: -1,
 			canWalk: false
 		});
+		
+		this.distortedGrass = new Floor('distorted-grass', '#000000', {
+			variants: 2, 
+			priority: 9 
+		});
 	
 	    //endregion
 	    //region special

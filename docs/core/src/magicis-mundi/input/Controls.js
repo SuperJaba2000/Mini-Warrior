@@ -1,7 +1,7 @@
 class Controls{
 	constructor(){
 		this.keys = [
-	        {
+		{
 			key: 'ArrowUp',
 			action: function(player, tiles){
 				if(player.orientation != 1){
@@ -10,9 +10,8 @@ class Controls{
 					let x = player.position.x;
 					let y = player.position.y - 1;
 					
-					if(!tiles.valid(x, y) || !tiles.get(x, y).floor || !tiles.get(x, y).floor.canWalk)
+					if(!tiles.valid(x, y+1) || !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
-					
 					
 					let nextTile = tiles.get(x, y);
 					let nextBottomTile = tiles.get(x, y+1);
@@ -25,7 +24,6 @@ class Controls{
 					
 					if(nextTile.block || nextBottomTile.block)
 						return;
-					
 					
 		            player.position.y--;
 					Vars.changeable.camera.update();
@@ -33,16 +31,16 @@ class Controls{
 			}
 		},
 		
-	        {
-		        key: 'ArrowDown',
+	    {
+		    key: 'ArrowDown',
 			action: function(player, tiles){
 				if(player.orientation != 3){
-                                        player.orientation = 3;		
+                    player.orientation = 3;		
 				}else{
 					let x = player.position.x;
 					let y = player.position.y + 1;
 					
-					if(!tiles.valid(x, y) ||  !tiles.get(x, y).floor || !tiles.get(x, y).floor.canWalk)
+					if(!tiles.valid(x, y+1) ||  !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
 					
 					let nextTile = tiles.get(x, y);
@@ -56,7 +54,6 @@ class Controls{
 					
 					if(nextTile.block || nextBottomTile.block)
 						return;
-					
 					
 		            player.position.y++;
 					Vars.changeable.camera.update();
@@ -65,15 +62,15 @@ class Controls{
 		},
 		
 		{
-		        key: 'ArrowRight',
+		    key: 'ArrowRight',
 			action: function(player, tiles){
 				if(player.orientation != 2){
-                                        player.orientation = 2;		
+                    player.orientation = 2;		
 				}else{
 					let x = player.position.x + 1;
 					let y = player.position.y;
 					
-					if(!tiles.valid(x, y) ||  !tiles.get(x, y).floor || !tiles.get(x, y).floor.canWalk)
+					if(!tiles.valid(x, y+1) ||  !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
 					
 					let nextTile = tiles.get(x, y);
@@ -87,7 +84,6 @@ class Controls{
 					
 					if(nextTile.block || nextBottomTile.block)
 						return;
-					
 					
 		            player.position.x++;
 					Vars.changeable.camera.update();
@@ -96,15 +92,15 @@ class Controls{
 		},
 		
 		{
-		        key: 'ArrowLeft',
+		    key: 'ArrowLeft',
 			action: function(player, tiles){
 				if(player.orientation != 4){
-                                        player.orientation = 4;		
+                    player.orientation = 4;		
 				}else{
 					let x = player.position.x - 1;
 					let y = player.position.y;
 					
-					if(!tiles.valid(x, y) ||  !tiles.get(x, y).floor || !tiles.get(x, y).floor.canWalk)
+					if(!tiles.valid(x, y+1) ||  !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
 					
 					let nextTile = tiles.get(x, y);
@@ -119,15 +115,12 @@ class Controls{
 					if(nextTile.block || nextBottomTile.block)
 						return;
 					
-					
-		                        player.position.x--;
+		            player.position.x--;
 					Vars.changeable.camera.update();
 				}
 			}
-		},
-	    ];
-	
-	
+		}
+		];
 
 	    this.lastKey = null;
 	}
@@ -138,9 +131,12 @@ class Controls{
 		Vars.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		
 		if(Vars.isMobile){
+			let screenSize = Vars.graphics.drawer.getTilesScreen();
+			let joystickSize = Math.min(screenSize.width*Vars.tileSize, screenSize.height*Vars.tileSize)/7;
+			
 			this.joystick = new JoyStick('joystick-box',{
                 title: 'joystick-canvas',
-                width: 100, height: 100,
+                width: joystickSize, height: joystickSize,
                 internalFillColor: '#0000FF',
                 externalFillColor: '#0000FF',
                 internalLineWidth: 2,
@@ -151,6 +147,7 @@ class Controls{
             }, null);
 			
 			UI.get('joystick-box').style.visibility = 'visible';
+		    UI.get('joystick-box').style.width = UI.get('joystick-box').style.height = `${joystickSize}px`;
 		}
 		
 		var context = this;
@@ -169,8 +166,9 @@ class Controls{
     update(){
 		let playerx = Vars.changeable.player.position.x;
 		let playery = Vars.changeable.player.position.y+1;
+		let player_biome = Vars.changeable.activeMap.getActiveWorld().getActiveDimension().tiles.get(playerx, playery).biome;
 		
-	    UI.get('debug-box').innerHTML = `${playerx}; ${playery}`;
+	    UI.get('debug-box').innerHTML = `x: ${playerx}; y: ${playery}; <br>biome: ${player_biome}`;
 		
 		if(Vars.isMobile && Core.time % 5 == 0){
 			switch(this.joystick.GetDir()){
@@ -181,7 +179,12 @@ class Controls{
 				    if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
 						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');
 					}else{
-						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+						if(Math.abs(this.joystick.GetY()) < Math.abs(this.joystick.GetX())){
+							this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+						}else{
+							this.lastKey = (Core.time % 4 == 0 || Core.time % 4 == 1) ? this.keys.findIndex(i => i.key == 'ArrowUp') :
+							    this.keys.findIndex(i => i.key == 'ArrowLeft');
+						}
 					}
 
 			        break;
@@ -190,7 +193,12 @@ class Controls{
 		            if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
 						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowUp');
 					}else{
-						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+						if(Math.abs(this.joystick.GetY()) < Math.abs(this.joystick.GetX())){
+							this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+						}else{
+							this.lastKey = (Core.time % 4 == 0 || Core.time % 4 == 1) ? this.keys.findIndex(i => i.key == 'ArrowUp') :
+							    this.keys.findIndex(i => i.key == 'ArrowRight');
+						}
 					}
 					
 			        break;
@@ -200,9 +208,14 @@ class Controls{
 					
 				case 'SW':
 		            if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
-						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowDown');
 					}else{
-						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+						if(Math.abs(this.joystick.GetY()) < Math.abs(this.joystick.GetX())){
+							this.lastKey = this.keys.findIndex(i => i.key == 'ArrowLeft');
+						}else{
+							this.lastKey = (Core.time % 4 == 0 || Core.time % 4 == 1) ? this.keys.findIndex(i => i.key == 'ArrowDown') :
+							    this.keys.findIndex(i => i.key == 'ArrowLeft');
+						}
 					}
 			        break;
 					
@@ -210,7 +223,12 @@ class Controls{
 		            if(Math.abs(this.joystick.GetY()) > Math.abs(this.joystick.GetX())){
 						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowDown');
 					}else{
-						this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+						if(Math.abs(this.joystick.GetY()) < Math.abs(this.joystick.GetX())){
+							this.lastKey = this.keys.findIndex(i => i.key == 'ArrowRight');
+						}else{
+							this.lastKey = (Core.time % 4 == 0 || Core.time % 4 == 1) ? this.keys.findIndex(i => i.key == 'ArrowDown') :
+							    this.keys.findIndex(i => i.key == 'ArrowRight');
+						}
 					}
 			        break;
 			

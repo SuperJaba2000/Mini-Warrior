@@ -26,6 +26,8 @@ var JoyStick = (function(container, parameters, callback){
 
     var canvas = document.createElement("canvas");
     canvas.id = title;
+	canvas.style['background-color'] = "#00000000"
+	
     if(width === 0) { width = objContainer.clientWidth; }
     if(height === 0) { height = objContainer.clientHeight; }
     canvas.width = width;

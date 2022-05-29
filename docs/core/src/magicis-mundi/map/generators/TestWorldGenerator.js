@@ -97,7 +97,7 @@ class TestWorldGenerator extends BasicGenerator{
 				        Structures.tree.set(this.tiles, x, y);
 				}
 					
-		        if(tile.biome = 'plateau'){
+		        if(tile.biome == 'plateau'){
 					if(rand.chanceSeed(this.seed+(x**y), 10+0.01) && Structures.mine.canSet(this.tiles, x, y))
 				        Structures.mine.set(this.tiles, x, y);
 				}
