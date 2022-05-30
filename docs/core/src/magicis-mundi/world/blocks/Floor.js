@@ -3,8 +3,8 @@ class Floor extends  Block{
 		super(name, color, settings);
 		
 		this.canWalk = settings.canWalk == undefined ? true : settings.canWalk;
+		this.speedMultiplier = settings.speedMultiplier || 1.0;
 		
-		this.speedMultiplier = 1.0;
 	    this.hasShadow = false;
 	    this.priority = this.priority || 1;
 

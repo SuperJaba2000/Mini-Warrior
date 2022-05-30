@@ -2,9 +2,6 @@ class Graphics{
 	constructor(canvas){
 		this.canvas = canvas;
 		this.drawer = new Drawer(canvas);
-		
-		//animations will also be processed later in update()
-		this.update = this.draw;
 	}
 	
 	init(){
@@ -16,6 +13,12 @@ class Graphics{
 	updateSizes(){
 		Vars.graphics.canvas.width = Math.ceil(window.innerWidth / Vars.tileSize) * Vars.tileSize;
 		Vars.graphics.canvas.height = Math.ceil(window.innerHeight / Vars.tileSize) * Vars.tileSize;
+	}
+	
+	update(){
+		Vars.camera.activeAnimation.update();
+		
+		this.draw();
 	}
 	
 	draw(){
@@ -35,7 +38,7 @@ class Graphics{
 	
 	drawTiles() {
 		var map = Vars.changeable.activeMap;
-		var camera = Vars.changeable.camera;
+		var camera = Vars.camera;
 		var tiles = map.getActiveWorld().getActiveDimension().tiles;
 		
 		/* the first and last tiles visible on the screen */
@@ -53,8 +56,8 @@ class Graphics{
 				
 				var tile = tiles.get(x_now, y_now);
 				
-				let drawX = (x_now - x_start + camera.position.offsetX - Vars.tileBuffer) * Vars.tileSize;
-                let drawY = (y_now - y_start + camera.position.offsetY - Vars.tileBuffer) * Vars.tileSize;
+				let drawX = (x_now - x_start - camera.position.offsetX - Vars.tileBuffer) * Vars.tileSize;
+                let drawY = (y_now - y_start - camera.position.offsetY - Vars.tileBuffer) * Vars.tileSize;
 					
 				//later there will be tile.light to account for lighting
 				var light = tile.light();
@@ -68,7 +71,7 @@ class Graphics{
 	
 	drawEntities(){
 		var map = Vars.changeable.activeMap;
-		var camera = Vars.changeable.camera;
+		var camera = Vars.camera;
 		var tiles = map.getActiveWorld().getActiveDimension().tiles;
 		var entities = map.getActiveWorld().getActiveDimension().entities;
 		
@@ -90,9 +93,10 @@ class Graphics{
 				if(!entity) continue;
 				
 				var tile = tiles.get(x_now, y_now);
+				entity.update();
 				
-				let drawX = (x_now - x_start + camera.position.offsetX - Vars.tileBuffer) * Vars.tileSize;
-                let drawY = (y_now - y_start + camera.position.offsetY - Vars.tileBuffer) * Vars.tileSize;
+				let drawX = (x_now - x_start - camera.position.offsetX - Vars.tileBuffer + entity.position.offsetX) * Vars.tileSize;
+                let drawY = (y_now - y_start - camera.position.offsetY - Vars.tileBuffer + entity.position.offsetY) * Vars.tileSize;
 				
 				let sizes = {
 					width: Vars.tileSize,
@@ -109,7 +113,7 @@ class Graphics{
 	
 	postDraw(){
 		var map = Vars.changeable.activeMap;
-		var camera = Vars.changeable.camera;
+		var camera = Vars.camera;
 		var tiles = map.getActiveWorld().getActiveDimension().tiles;
 		
 		/* the first and last tiles visible on the screen */
@@ -131,8 +135,8 @@ class Graphics{
 				//later there will be tile.light to account for lighting
 				var light = tile.light();
 					
-				let cx = x_now - x_start + camera.position.offsetX - Vars.tileBuffer;
-                let cy = y_now - y_start + camera.position.offsetY - Vars.tileBuffer;
+				let cx = x_now - x_start - camera.position.offsetX - Vars.tileBuffer;
+                let cy = y_now - y_start - camera.position.offsetY - Vars.tileBuffer;
 					
 				if((tile.block == null || tile.block.alwaysDrawFloor) && tile.floor != null){
 					/* getting tiles around */
@@ -240,7 +244,7 @@ class Graphics {
 	drawTiles() {
 		
 		let map = Vars.changeable.activeMap;
-		let camera = Vars.changeable.camera;
+		let camera = Vars.camera;
 		let tiles = map.getActiveWorld().getActiveDimension().tiles;
 		
 		let y_start = camera.position.y - Math.floor(this.draw.getTilesScreen().height / 2);
@@ -279,7 +283,7 @@ class Graphics {
 	
 	postDraw() {
 		let map = Vars.changeable.activeMap;
-		let camera = Vars.changeable.camera;
+		let camera = Vars.camera;
 		let tiles = map.getActiveWorld().getActiveDimension().tiles;
 		
 		let y_start = camera.position.y - Math.floor(this.draw.getTilesScreen().height / 2);
@@ -342,7 +346,7 @@ class Graphics {
 	
 	drawEntities() {
 		const dimension = Vars.changeable.activeMap.getActiveWorld().getActiveDimension();
-		const camera = Vars.changeable.camera;
+		const camera = Vars.camera;
 		const entities = dimension.entities;
 		
 		let y_start = camera.position.y - Math.floor(this.draw.getTilesScreen().height / 2);
@@ -370,7 +374,7 @@ class Graphics {
 	
 	drawPlayer() {
 		let player = Vars.changeable.player;
-		let camera = Vars.changeable.camera;
+		let camera = Vars.camera;
 		let ctx = this.canvas.getContext('2d');
 		
 		//let activeRegion = player.textureRegion.get();

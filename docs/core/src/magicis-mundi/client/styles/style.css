@@ -288,7 +288,7 @@ input:checked + .slider:before {
 	
 	z-index: 3;
 	
-	width: 10em;
+	width: 20em;
 	height: 1.2em;
 	
 	text-align: left;

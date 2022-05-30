@@ -33,8 +33,8 @@ class Map{
 		Vars.changeable.player.position.x = Math.round(this.SIZE / 2)+5;
 		Vars.changeable.player.position.y = Math.round(this.SIZE / 2)+4;
 		
-		Vars.changeable.camera.position.x = Math.round(this.SIZE / 2)+5;
-		Vars.changeable.camera.position.y = Math.round(this.SIZE / 2)+4;
+		Vars.camera.position.x = Math.round(this.SIZE / 2)+5;
+		Vars.camera.position.y = Math.round(this.SIZE / 2)+4;
 	}
 	
 	update(){

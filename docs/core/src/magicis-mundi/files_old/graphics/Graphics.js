@@ -43,7 +43,7 @@ class Graphics {
 	drawTiles() {
 		
 		let map = Vars.changeable.activeMap;
-		let camera = Vars.changeable.camera;
+		let camera = Vars.camera;
 		let tiles = map.getActiveWorld().getActiveDimension().tiles;
 		
 		let y1 = camera.position.y - Math.floor(this.draw.getTilesScreen().height / 2);
@@ -82,7 +82,7 @@ class Graphics {
 	
 	postDraw() {
 		let map = Vars.changeable.activeMap;
-		let camera = Vars.changeable.camera;
+		let camera = Vars.camera;
 		let tiles = map.getActiveWorld().getActiveDimension().tiles;
 		
 		let y1 = camera.position.y - Math.floor(this.draw.getTilesScreen().height / 2);
@@ -145,7 +145,7 @@ class Graphics {
 	
 	drawEntities() {
 		const dimension = Vars.changeable.activeMap.getActiveWorld().getActiveDimension();
-		const camera = Vars.changeable.camera;
+		const camera = Vars.camera;
 		const entities = dimension.entities;
 		
 		let y1 = camera.position.y - Math.floor(this.draw.getTilesScreen().height / 2);
@@ -173,7 +173,7 @@ class Graphics {
 	
 	drawPlayer() {
 		let player = Vars.changeable.player;
-		let camera = Vars.changeable.camera;
+		let camera = Vars.camera;
 		let ctx = this.canvas.getContext('2d');
 		
 		//let activeRegion = player.textureRegion.get();

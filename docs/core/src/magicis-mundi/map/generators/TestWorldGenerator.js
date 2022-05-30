@@ -46,7 +46,7 @@ class TestWorldGenerator extends BasicGenerator{
 				tile.elevation = Math.round(river * 5);
 				tile.biome = 'meadow';
 				
-				if(forest >= 0.1)
+				if(forest >= 0.1 && path >= 0.04)
 					tile.biome = 'forest';
 				
 				if(river >= 0.55){

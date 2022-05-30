@@ -19,8 +19,8 @@ class Draw {
 		
 		//x++; y++;
 		
-		const px = Vars.changeable.camera.position.x;
-	        const py = Vars.changeable.camera.position.y;
+		const px = Vars.camera.position.x;
+	        const py = Vars.camera.position.y;
 	        
 	        const rx = px - Math.floor(this.getTilesScreen().width / 2) + x;
 	        const ry = py - Math.floor(this.getTilesScreen().height / 2) + y;
