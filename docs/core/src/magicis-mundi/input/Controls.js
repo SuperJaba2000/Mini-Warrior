@@ -132,7 +132,7 @@ class Controls{
 		
 		if(Vars.isMobile){
 			let screenSize = Vars.graphics.drawer.getTilesScreen();
-			let joystickSize = Math.min(screenSize.width*Vars.tileSize, screenSize.height*Vars.tileSize)/7;
+			let joystickSize = Math.min(screenSize.width*Vars.tileSize, screenSize.height*Vars.tileSize)/5;
 			
 			this.joystick = new JoyStick('joystick-box',{
                 title: 'joystick-canvas',
