@@ -92,6 +92,12 @@ const Blocks = new ContentList(
 			height: 3,
 			alwaysDrawFloor: true
 		});
+		
+		this.distortedTree = new MultiBlock('distorted-tree', '#000000', {
+			width: 2,
+			height: 3,
+			alwaysDrawFloor: true
+		});
 			
 	    this.fire = new Block('fire', '#FF0000', { 
 		    variants: 3, 

@@ -1,17 +1,123 @@
-class CameraAnimation{
-	constructor(name, duration, play){
+class Animation{
+	constructor(name, update){
 		this.name = name;
-		this.duration = duration;
-		
-		this.play = play;
-	}
-	
-	left(){
-		
+		this.update = update;
 	}
 }
 
-let towardLeft = new CameraAnimation()
+const animations = {
+    top: new Animation('top', () => {
+		//in ticks
+		let duration = 18;
+		
+        if(!this.startTime){
+			this.startTime = Core.time;
+		    Vars.controls.controlСooldown(duration);
+		}
+ 		
+        let timeFromStart = Core.time - this.startTime;
+		
+		let player = Vars.changeable.player;
+		let tiles = Vars.changeable.activeMap.getActiveWorld().getActiveDimension().tiles;
+		let tile = tiles.get(player.position.x, player.position.y);
+		let speed = (tile.floor.speedMultiplier * player.speed)/duration;
+				
+		Vars.camera.position.offsetY -= speed;
+		Vars.changeable.player.position.offsetY -= speed;
+		
+		Vars.camera.update();
+	
+		if(timeFromStart >= duration){
+			Vars.camera.activeAnimation = new Animation('empty', () => {});
+			Vars.changeable.canControl = true;
+			this.startTime = null;
+		}
+    }),
+	
+	right: new Animation('right', () => {
+        //in ticks
+		let duration = 18;
+		
+        if(!this.startTime){
+			this.startTime = Core.time;
+		    Vars.controls.controlСooldown(duration);
+		}
+ 		
+        let timeFromStart = Core.time - this.startTime;
+		
+		let player = Vars.changeable.player;
+		let tiles = Vars.changeable.activeMap.getActiveWorld().getActiveDimension().tiles;
+		let tile = tiles.get(player.position.x, player.position.y);
+		let speed = (tile.floor.speedMultiplier * player.speed)/duration;
+				
+		Vars.camera.position.offsetX += speed;
+		Vars.changeable.player.position.offsetX += speed;
+		
+		Vars.camera.update();
+	
+		if(timeFromStart >= duration){
+			Vars.camera.activeAnimation = new Animation('empty', () => {});
+			Vars.changeable.canControl = true;
+			this.startTime = null;
+		}
+    }),
+	
+	bottom: new Animation('right', () => {
+        //in ticks
+		let duration = 18;
+		
+        if(!this.startTime){
+			this.startTime = Core.time;
+		    Vars.controls.controlСooldown(duration);
+		}
+ 		
+        let timeFromStart = Core.time - this.startTime;
+		
+		let player = Vars.changeable.player;
+		let tiles = Vars.changeable.activeMap.getActiveWorld().getActiveDimension().tiles;
+		let tile = tiles.get(player.position.x, player.position.y);
+		let speed = (tile.floor.speedMultiplier * player.speed)/duration;
+				
+		Vars.camera.position.offsetY += speed;
+		Vars.changeable.player.position.offsetY += speed;
+		
+		Vars.camera.update();
+	
+		if(timeFromStart >= duration){
+			Vars.camera.activeAnimation = new Animation('empty', () => {});
+			Vars.changeable.canControl = true;
+			this.startTime = null;
+		}
+    }),
+	
+	left: new Animation('left', () => {
+        //in ticks
+		let duration = 18;
+		
+        if(!this.startTime){
+			this.startTime = Core.time;
+		    Vars.controls.controlСooldown(duration);
+		}
+ 		
+        let timeFromStart = Core.time - this.startTime;
+		
+		let player = Vars.changeable.player;
+		let tiles = Vars.changeable.activeMap.getActiveWorld().getActiveDimension().tiles;
+		let tile = tiles.get(player.position.x, player.position.y);
+		let speed = (tile.floor.speedMultiplier * player.speed)/duration;
+				
+		Vars.camera.position.offsetX -= speed;
+		Vars.changeable.player.position.offsetX -= speed;
+		
+		Vars.camera.update();
+	
+		if(timeFromStart >= duration){
+			Vars.camera.activeAnimation = new Animation('empty', () => {});
+			Vars.changeable.canControl = true;
+			this.startTime = null;
+		}
+    }),
+}
 
 class Camera{	
 	constructor(){
@@ -26,22 +132,14 @@ class Camera{
 		    }
 	    }
 	
-	    this.offSetX = 0; this.offSetY = 0;
 	    this.direction = 1;
 	    this.free = false;
 		
-		this.activeAnimation = new CameraAnimation('empty', Infinity);
-			
-		/*this.time = 0;
-		document.getElementById('scene').addEventListener('tick', (event) => {
-            this.time++
-        });*/
+		this.activeAnimation = new Animation('empty', () => {});
 	};
 	
 	load(){
-		this.animations = [
-            
-        ]
+		
 	};
 	
 	update(){
@@ -77,14 +175,17 @@ class Camera{
 		
 		//this.position.x = Math.maxVars.changeable.player.position;
 		
-		if(Math.abs(this.position.offsetX) >= 0.5){
-			this.position.x += Math.floor(this.position.offsetX / 0.5);
-			this.position.offsetX = this.position.offsetX % 0.5;
+		this.position.offsetX = Math.round(this.position.offsetX*10)/10;
+		this.position.offsetY = Math.round(this.position.offsetY*10)/10;
+		
+		if(Math.abs(this.position.offsetX) > 0.5){
+			this.position.x += Math.round(this.position.offsetX / 1);
+			this.position.offsetX = this.position.offsetX % 0.5 * Math.sign(this.position.offsetY);
 		}
 		
-        if(Math.abs(this.position.offsetY) >= 0.5){
-			this.position.y += Math.floor(this.position.offsetY / 0.5);
-			this.position.offsetY = this.position.offsetY % 0.5;
-		}		
+        if(Math.abs(this.position.offsetY) > 0.5){
+			this.position.y += Math.round(this.position.offsetY / 1);
+			this.position.offsetY = this.position.offsetY % 0.5 * Math.sign(this.position.offsetY);
+		}
 	}
 }

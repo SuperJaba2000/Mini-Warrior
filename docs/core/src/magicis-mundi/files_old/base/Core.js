@@ -43,11 +43,11 @@ const Core = {
 			Vars.loader.addObjectives(contentList.list);
 		}
 		
-		Vars.changeable.camera.load();
+		Vars.camera.load();
 		Vars.loader.loadAll(this.update);
 	}
 };
 
 Core.init();
 
-//Vars.changeable.player.position = Vars.changeable.camera.position;
+//Vars.changeable.player.position = Vars.camera.position;

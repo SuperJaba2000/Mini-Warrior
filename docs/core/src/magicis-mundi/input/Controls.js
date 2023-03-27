@@ -13,20 +13,16 @@ class Controls{
 					if(!tiles.valid(x, y+1) || !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
 					
-					let nextTile = tiles.get(x, y);
+					//let nextTile = tiles.get(x, y);
 					let nextBottomTile = tiles.get(x, y+1);
-					
-					if(nextTile.block)
-						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
 					if(nextBottomTile.block)
 						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block || nextBottomTile.block)
+					if(nextBottomTile.block)
 						return;
 					
-		            player.position.y--;
-					Vars.changeable.camera.update();
+		            Vars.camera.activeAnimation = animations['top'];
 				}
 			}
 		},
@@ -43,20 +39,17 @@ class Controls{
 					if(!tiles.valid(x, y+1) ||  !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
 					
-					let nextTile = tiles.get(x, y);
+					//let nextTile = tiles.get(x, y);
 					let nextBottomTile = tiles.get(x, y+1);
 					
-					if(nextTile.block)
-						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
 					if(nextBottomTile.block)
 						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block || nextBottomTile.block)
+					if(nextBottomTile.block)
 						return;
 					
-		            player.position.y++;
-					Vars.changeable.camera.update();
+		            Vars.camera.activeAnimation = animations['bottom'];
 				}
 			}
 		},
@@ -73,20 +66,16 @@ class Controls{
 					if(!tiles.valid(x, y+1) ||  !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
 					
-					let nextTile = tiles.get(x, y);
+					//let nextTile = tiles.get(x, y);
 					let nextBottomTile = tiles.get(x, y+1);
-					
-					if(nextTile.block)
-						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
 					if(nextBottomTile.block)
 						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block || nextBottomTile.block)
+					if(nextBottomTile.block)
 						return;
 					
-		            player.position.x++;
-					Vars.changeable.camera.update();
+		            Vars.camera.activeAnimation = animations['right'];
 				}
 			}
 		},
@@ -103,20 +92,16 @@ class Controls{
 					if(!tiles.valid(x, y+1) ||  !tiles.get(x, y+1).floor || !tiles.get(x, y+1).floor.canWalk)
 						return;
 					
-					let nextTile = tiles.get(x, y);
+					//let nextTile = tiles.get(x, y);
 					let nextBottomTile = tiles.get(x, y+1);
-					
-					if(nextTile.block)
-						nextTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
 					if(nextBottomTile.block)
 						nextBottomTile.block.playerEntered(player, Vars.changeable.activeMap);
 					
-					if(nextTile.block || nextBottomTile.block)
+					if(nextBottomTile.block)
 						return;
 					
-		            player.position.x--;
-					Vars.changeable.camera.update();
+		            Vars.camera.activeAnimation = animations['left'];
 				}
 			}
 		}
@@ -125,7 +110,13 @@ class Controls{
 	    this.lastKey = null;
 	}
 	
-	
+	controlСooldown(ticks){
+		Vars.changeable.canControl = false;
+		
+		setTimeout( () => {
+			Vars.changeable.canControl = true;
+		}, ticks*Vars.changeable.fps);
+	}
 	
 	init(){
 		Vars.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -166,9 +157,10 @@ class Controls{
     update(){
 		let playerx = Vars.changeable.player.position.x;
 		let playery = Vars.changeable.player.position.y+1;
+		let fps = Math.round(Vars.changeable.fps);
 		let player_biome = Vars.changeable.activeMap.getActiveWorld().getActiveDimension().tiles.get(playerx, playery).biome;
 		
-	    UI.get('debug-box').innerHTML = `x: ${playerx}; y: ${playery}; <br>biome: ${player_biome}`;
+	    UI.get('debug-box').innerHTML = `x: ${playerx}; y: ${playery}; fps: ${fps}; biome: ${player_biome}`;
 		
 		if(Vars.isMobile && Core.time % 5 == 0){
 			switch(this.joystick.GetDir()){
@@ -241,7 +233,7 @@ class Controls{
 		}
 		
 		/* no instructions */
-		if(this.lastKey == null)
+		if(!Vars.changeable.canControl || this.lastKey == null)
 			return;
 		
 		var player = Vars.changeable.player;

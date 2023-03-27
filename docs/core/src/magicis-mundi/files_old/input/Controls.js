@@ -24,7 +24,7 @@ class Controls{
 					
 					
 		            player.position.y--;
-					Vars.changeable.camera.update();
+					Vars.camera.update();
 				}
 			}
 		},
@@ -51,7 +51,7 @@ class Controls{
 					
 					
 		                        player.position.y++;
-					Vars.changeable.camera.update();
+					Vars.camera.update();
 				}
 			}
 		},
@@ -78,7 +78,7 @@ class Controls{
 					
 					
 		                        player.position.x++;
-					Vars.changeable.camera.update();
+					Vars.camera.update();
 				}
 			}
 		},
@@ -105,7 +105,7 @@ class Controls{
 					
 					
 		                        player.position.x--;
-					Vars.changeable.camera.update();
+					Vars.camera.update();
 				}
 			}
 		},

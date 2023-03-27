@@ -2,6 +2,9 @@ const Core = {
 	
 	lastId: 0,
 	
+	//in ms!!
+	lastTime: 0,
+	//in ticks!!
 	time: 0,
 	
 	/*tick() {
@@ -11,6 +14,10 @@ const Core = {
 	},*/
 	
 	update(){
+		if(Core.time % 10 == 0) 
+			Vars.changeable.fps = 1000/(performance.now() - Core.lastTime);
+		
+		Core.lastTime = performance.now();
 		Core.time++;
 		
 		let gameState = Vars.changeable.gameState;
@@ -18,7 +25,7 @@ const Core = {
 		UI.update(gameState);
 		
 		if(gameState.updateGraphics)
-		    Vars.graphics.draw();
+		    Vars.graphics.update();
 		
 		if(!gameState.pause){
 		    Vars.controls.update();
@@ -53,7 +60,7 @@ const Core = {
 				Vars.loader.addObjectives(contentList.list);
 		}
 		
-		Vars.changeable.camera.load();
+		Vars.camera.load();
 		
 		Vars.loader.addObjectives(Vars.changeable.player);
 		Vars.loader.loadAll(this.update);
@@ -62,4 +69,4 @@ const Core = {
 
 Core.init();
 
-//Vars.changeable.player.position = Vars.changeable.camera.position;
+//Vars.changeable.player.position = Vars.camera.position;

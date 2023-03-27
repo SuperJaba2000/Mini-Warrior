@@ -11,5 +11,11 @@ const Structures = new ContentList(
 			[{block: Blocks.tree.getWithVariant(2)}, {block: Blocks.tree.getWithVariant(3)}],
 			[{block: Blocks.tree.getWithVariant(4)}, {block: Blocks.tree.getWithVariant(5)}]
 	    ]);
+		
+		this.distortedTree = new Structure('distorted-tree', {width: 2, height: 3}, [
+		    [{block: Blocks.distortedTree.getWithVariant(0)}, {block: Blocks.distortedTree.getWithVariant(1)}],
+			[{block: Blocks.distortedTree.getWithVariant(2)}, {block: Blocks.distortedTree.getWithVariant(3)}],
+			[{block: Blocks.distortedTree.getWithVariant(4)}, {block: Blocks.distortedTree.getWithVariant(5)}]
+		]);
 	}, false
 );
